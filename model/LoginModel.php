@@ -12,7 +12,7 @@ class LoginModel
 
     public function getUserWith($user, $password)
     {
-        $sql = "SELECT * FROM usuarios WHERE usuario = '$user' AND password = '$password'";
+        $sql = "SELECT * FROM usuarios WHERE nombre_usuario = '$user' AND contrasena = '$password'";
         $result = $this->conexion->query($sql);
         return $result ?? [];
     }

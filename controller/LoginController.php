@@ -23,7 +23,7 @@ class LoginController
 
     public function login()
     {
-        $resultado = $this->model->getUserWith($_POST["usuario"], $_POST["password"]);
+        $resultado = $this->model->getUserWith($_POST["usuario"], $_POST["contrasena"]);
 
         if (sizeof($resultado) > 0) {
             $_SESSION["usuario"] = $_POST["usuario"];
