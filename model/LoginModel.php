@@ -16,4 +16,10 @@ class LoginModel
         $result = $this->conexion->query($sql);
         return $result ?? [];
     }
+
+    public function registerUser($user, $password)
+    {
+        $sql = "INSERT INTO usuarios (nombre_usuario, contrasena) VALUES ('$user', '$password')";
+        $this->conexion->query($sql);
+    }
 }

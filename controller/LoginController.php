@@ -13,7 +13,7 @@ class LoginController
 
     public function base()
     {
-        $this->login();
+        $this->loginForm();
     }
 
     public function loginForm()
@@ -38,10 +38,19 @@ class LoginController
         session_destroy();
         $this->redirectToIndex();
     }
+    public function register()
+    {
+        $this->renderer->render("register");
+    }
+
+    public function registerIn(){
+        $this->model->registerUser($_POST["usuario"], $_POST["contrasena"]);
+        $this->renderer->render("login", ["success" => "Usuario registrado con éxito. Por favor, inicie sesión."]);
+    }
 
     public function redirectToIndex()
     {
-        header("Location: /");
+        header("Location: /TP-Final-PW2/");
         exit;
     }
 
