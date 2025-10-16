@@ -26,9 +26,10 @@ class ConfigFactory
             $this->config["database"]
         );
 
-        $this->renderer = new MustacheRenderer("vista");
+    $this->renderer = new MustacheRenderer("vista");
 
-        $this->objetos["router"] = new NewRouter($this, "PokemonController", "base");
+    // Default to LoginController so visiting '/' shows the login form
+    $this->objetos["router"] = new NewRouter($this, "LoginController", "loginForm");
 
         $this->objetos["LoginController"] = new LoginController(new LoginModel($this->conexion), $this->renderer);
 
