@@ -16,10 +16,10 @@ class UserModel
         $result = $this->conexion->query($sql);
         return $result ?? [];
     }
-
-    public function registerUser($user, $password)
+    // usar los datos del controller para guardarlos en las base de datos
+    public function registerUser( array $data)
     {
-        $sql = "INSERT INTO usuarios (nombre_usuario, contrasena) VALUES ('$user', '$password')";
+        $sql = "INSERT INTO usuarios (nombre_completo, contrasena, nombre_usuario, anio_nacimiento, sexo, correo_electronico, foto_perfil) VALUES ('{$data['usuario']}', '{$data['contrasena']}', '{$data['n-completo']}', '{$data['anio']}', '{$data['sexo']}', '{$data['correo']}', '{$data['foto']}')";
         $this->conexion->query($sql);
     }
 }

@@ -45,8 +45,10 @@ class UserController
     }
 
     public function registerValidation(){
-        $this->model->registerUser($_POST["usuario"], $_POST["contrasena"]);
-        $this->renderer->render("login", ["success" => "Usuario registrado con éxito. Por favor, inicie sesión."]);
+        $this->model->registerUser($_POST["n-completo"], $_POST["anio"],  $_POST["sexo"], "Argentina", "Buenos Aires",  $_POST["correo"], $_POST["contrasena"], $_POST["usuario"],  $_POST["foto"]);
+        
+        
+        // $this->renderer->render("login", ["success" => "Usuario registrado con éxito. Por favor, inicie sesión."]);
     }
 
     public function redirectToIndex()
