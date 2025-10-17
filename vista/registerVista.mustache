@@ -1,19 +1,42 @@
 <form action="/TP-Final-PW2/user/registerIn" method="post">
     <div class="container">
-        <h1>Registrarse</h1>
-        <p>Por favor, complete este formulario para crear una cuenta.</p>
-        <hr>
+        <div class="register-form row justify-content-center">
+            <h1>Registrarse</h1>
+            <p>Por favor, complete este formulario para crear una cuenta.</p>
+            <hr>
+            <label for="n-completo">Nombre Completo</label>
+            <input type="text" placeholder="Ingrese su Nombre Completo" name="n-completo" required>
+            
+            <label for="anio">Año Nacimiento</label>
+            <input type="number" placeholder="Ingrese su Año de Nacimiento" name="anio" required>
+            
+            <label for="sexo">Sexo</label>
+            <select name="sexo" id="sexo">
+                <option value="masculino">Masculino</option>
+                <option value="femenino">Femenino</option>
+                <option value="otro">Prefiero no cargarlo</option>
+            </select>
+            
+            <label for="correo">Correo Electronico</label>
+            <input type="email" placeholder="Ingrese su Correo Electronico" name="correo" required>
+            
+            <label for="usuario">Usuario</label>
+            <input type="text" placeholder="Ingrese su Usuario" name="usuario" required>
+            
+            <label for="contrasena">Contraseña</label>
+            <input type="password" placeholder="Ingrese su contraseña" name="contrasena" required>
+            <div class="p-3">
+                <label for="foto">Foto para perfil</label>
+                <input type="file" id="foto" name="foto" accept="image/*">
+            </div>
 
-        <label for="usuario"><b>Usuario</b></label>
-        <input type="text" placeholder="Ingrese su Usuario" name="usuario" required>
-
-    <label for="contrasena"><b>Contraseña</b></label>
-    <input type="password" placeholder="Ingrese su contraseña" name="contrasena" required>
-
-        <button type="submit" class="registerbtn">Registrarse</button>
-    </div>
-
-    <div class="container signin">
-        <p>¿Ya tienes una cuenta? <a href="/TP-Final-PW2/user/">Inicia Sesión</a>.</p>
+            <div id="map">
+            </div>
+            <button type="submit" class="registerbtn">Registrarse</button>
+        </div>
+        
+        <div class="container signin">
+            <p>¿Ya tienes una cuenta? <a href="/TP-Final-PW2/user/">Inicia Sesión</a>.</p>
+        </div>
     </div>
 </form>
