@@ -1,6 +1,6 @@
 <?php
 
-class LoginController
+class UserController
 {
     private $model;
     private $renderer;
@@ -38,12 +38,13 @@ class LoginController
         session_destroy();
         $this->redirectToIndex();
     }
+    
     public function register()
     {
         $this->renderer->render("register");
     }
 
-    public function registerIn(){
+    public function registerValidation(){
         $this->model->registerUser($_POST["usuario"], $_POST["contrasena"]);
         $this->renderer->render("login", ["success" => "Usuario registrado con éxito. Por favor, inicie sesión."]);
     }

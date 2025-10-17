@@ -2,8 +2,8 @@
 include_once("helper/MyConexion.php");
 include_once("helper/IncludeFileRenderer.php");
 include_once("helper/NewRouter.php");
-include_once("controller/LoginController.php");
-include_once("model/LoginModel.php");
+include_once("controller/UserController.php");
+include_once("model/UserModel.php");
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
 include_once ("helper/MustacheRenderer.php");
 
@@ -26,12 +26,11 @@ class ConfigFactory
             $this->config["database"]
         );
 
-    $this->renderer = new MustacheRenderer("vista");
+        $this->renderer = new MustacheRenderer("vista");
 
-    // Default to LoginController so visiting '/' shows the login form
-    $this->objetos["router"] = new NewRouter($this, "LoginController", "loginForm");
+        $this->objetos["router"] = new NewRouter($this, "UserController", "loginForm");
 
-        $this->objetos["LoginController"] = new LoginController(new LoginModel($this->conexion), $this->renderer);
+        $this->objetos["UserController"] = new UserController(new UserModel($this->conexion), $this->renderer);
 
     }
 
