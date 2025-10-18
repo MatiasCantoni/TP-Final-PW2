@@ -1,4 +1,7 @@
 <form action="/TP-Final-PW2/user/registerValidation" method="post">
+    {{#error}}
+    <div class="alert alert-danger" role="alert">{{error}}</div>
+    {{/error}}
     <div class="container">
         <div class="register-form row justify-content-center">
             <h1>Registrarse</h1>
@@ -14,7 +17,7 @@
             <select name="sexo" id="sexo">
                 <option value="masculino">Masculino</option>
                 <option value="femenino">Femenino</option>
-                <option value="otro">Prefiero no cargarlo</option>
+                <option value="Prefiero no cargarlo">Prefiero no cargarlo</option>
             </select>
             
             <label for="correo">Correo Electronico</label>
@@ -30,8 +33,12 @@
                 <input type="file" id="foto" name="foto" accept="image/*">
             </div>
 
-            <div id="map">
-            </div>
+            <label for="pais">Pais</label>
+            <input type="text" placeholder="Ingrese su Pais" name="pais" required>
+
+            <label for="ciudad">Ciudad</label>
+            <input type="text" placeholder="Ingrese su Ciudad" name="ciudad" required>
+
             <button type="submit" class="registerbtn">Registrarse</button>
         </div>
         

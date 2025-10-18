@@ -45,10 +45,25 @@ class UserController
     }
 
     public function registerValidation(){
-        $this->model->registerUser($_POST["n-completo"], $_POST["anio"],  $_POST["sexo"], "Argentina", "Buenos Aires",  $_POST["correo"], $_POST["contrasena"], $_POST["usuario"],  $_POST["foto"]);
-        
-        
-        // $this->renderer->render("login", ["success" => "Usuario registrado con éxito. Por favor, inicie sesión."]);
+        $result = $this->model->registerUser(
+            $_POST["n-completo"],
+            $_POST["anio"],
+            $_POST["sexo"],
+            $_POST["pais"],
+            $_POST["ciudad"],
+            $_POST["correo"],
+            $_POST["contrasena"],
+            $_POST["usuario"],
+            $_POST["foto"]
+        );
+
+        // Si la función devolvió un string es un mensaje de error (usuario/email ya existe)
+        if (is_string($result) && !empty($result)) {
+            $this->renderer->render("register", ["error" => $result]);
+            return;
+        }
+
+        $this->renderer->render("login", ["success" => "Usuario registrado con éxito. Por favor, inicie sesión."]);
     }
 
     public function redirectToIndex()

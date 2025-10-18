@@ -15,9 +15,20 @@ class MyConexion
     {
         $result = $this->conexion->query($sql);
 
+        // La query puede devolver false (error), true (exito en operaciones no SELECT) o un mysqli_result (SELECT)
+        if ($result === false) {
+            return false; // error en la query
+        }
+
+        if ($result === true) {
+            return true; // exito en operaciones no SELECT
+        }
+
+        // Es un resultado de SELECT
         if ($result->num_rows > 0) {
             return $result->fetch_all(MYSQLI_ASSOC);
         }
-        return null;
+
+        return null; // no hay filas
     }
 }
