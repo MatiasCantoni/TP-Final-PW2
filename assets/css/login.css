@@ -1,3 +1,95 @@
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at top left, #ffb703, #fb8500, #ff006e);
+}
+
+.background .circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: spin 20s linear infinite;
+}
+
+.c1 { width: 250px; height: 250px; background: #48cae4; top: 10%; left: 5%; animation-delay: 0s; }
+.c2 { width: 300px; height: 300px; background: #90e0ef; bottom: 10%; right: 10%; animation-delay: 2s; }
+.c3 { width: 150px; height: 150px; background: #ffafcc; top: 20%; right: 20%; animation-delay: 4s; }
+.c4 { width: 180px; height: 180px; background: #b5179e; bottom: 15%; left: 15%; animation-delay: 6s; }
+
+@keyframes spin {
+    from { transform: rotate(0deg) translateX(30px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(30px) rotate(-360deg); }
+}
+
+/* ===== TARJETA DE LOGIN ===== */
+.login-card {
+    position: relative;
+    z-index: 2;
+    background: white;
+    padding: 2.5rem;
+    border-radius: 25px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.25), 0 0 30px rgba(255,255,255,0.15) inset;
+    width: 90%;
+    max-width: 400px;
+    animation: pop 0.8s ease-out;
+}
+
+@keyframes pop {
+    0% { transform: scale(0.6) rotate(-5deg); opacity: 0; }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+/* ===== TITULO ===== */
+.title h1 {
+    font-weight: 800;
+    background: linear-gradient(90deg, #8338ec, #ff006e, #fb5607);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0;
+}
+
+.title p {
+    color: #555;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
+/* ===== FORMULARIO ===== */
+.form-control {
+    border-radius: 12px;
+    border: 2px solid #ccc;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    border-color: #8338ec;
+    box-shadow: 0 0 8px #ff006e55;
+}
+
+/* ===== BOTON ANIMADO ===== */
+.btn-custom {
+    background: linear-gradient(90deg, #8338ec, #ff006e);
+    border: none;
+    color: white;
+    font-weight: 700;
+    border-radius: 12px;
+    padding: 0.75rem;
+    width: 100%;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 0, 110, 0.4);
+}
+
+.btn-custom:hover {
+    transform: translateY(-4px) scale(1.05);
+    background: linear-gradient(90deg, #ff006e, #fb5607);
+    box-shadow: 0 6px 20px rgba(255, 0, 110, 0.5);
+}
+
 .btnRegistrar{
     background-color: #4CAF50;
     color: white;

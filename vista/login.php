@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Tu hoja de estilos -->
-    <link rel="stylesheet" href="/TP-Final-PW2/assets/css/login.css">
+    <link rel="stylesheet" href="login.css">
 </head>
 
 <body>
@@ -27,9 +27,6 @@
     </div>
 
     <form method="POST" action="index.php?controller=user&method=login">
-        {{#error}}
-            <div class="alert alert-danger" role="alert">{{error}}</div>
-        {{/error}}
         <div class="mb-3 text-start">
             <label for="usuario" class="form-label">Usuario</label>
             <input type="text" class="form-control" id="usuario" name="usuario" required>
