@@ -41,7 +41,7 @@ class UserController
     
     public function register()
     {
-        $this->renderer->render("register");
+        $this->renderer->render("register", ["isRegister" => true]);
     }
 
     public function registerValidation(){
@@ -59,7 +59,7 @@ class UserController
 
         // Si la función devolvió un string es un mensaje de error (usuario/email ya existe)
         if (is_string($result) && !empty($result)) {
-            $this->renderer->render("register", ["error" => $result]);
+            $this->renderer->render("register", ["isRegister" => true, "error" => $result]);
             return;
         }
 
