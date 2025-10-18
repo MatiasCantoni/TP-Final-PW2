@@ -18,7 +18,7 @@ class UserController
 
     public function loginForm()
     {
-        $this->renderer->render("login");
+        $this->renderer->render("login", ["isLogin" => true]);
     }
 
     public function login()
@@ -62,8 +62,7 @@ class UserController
             $this->renderer->render("register", ["isRegister" => true, "error" => $result]);
             return;
         }
-
-        $this->renderer->render("login", ["success" => "Usuario registrado con éxito. Por favor, inicie sesión."]);
+        $this->renderer->render("login", ["isLogin" => true,"success" => "Usuario registrado con éxito. Por favor, inicie sesión."]);
     }
 
     public function redirectToIndex()
