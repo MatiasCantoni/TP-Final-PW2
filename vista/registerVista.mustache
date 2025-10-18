@@ -2,44 +2,46 @@
     {{#error}}
         <div class="alert alert-danger" role="alert">{{error}}</div>
     {{/error}}
-    <div class="container">
+    <div class="container  my-5 bg-color-light">
         <div class="register-form row justify-content-center">
-            <h1>Registrarse</h1>
-            <p>Por favor, complete este formulario para crear una cuenta.</p>
+            <div class="mb-2 w3-light-blue rounded">
+                <h1>Registrarse</h1>
+                <p>Por favor, complete este formulario para crear una cuenta.</p>
+            </div>
             <hr>
-            <label for="n-completo">Nombre Completo</label>
-            <input type="text" placeholder="Ingrese su Nombre Completo" name="n-completo" required>
+            <label for="n-completo" class="p-1 mb-1">Nombre Completo</label>
+            <input type="text" class="p-1 mb-2" placeholder="Ingrese su Nombre Completo" name="n-completo" required>
             
-            <label for="anio">Año Nacimiento</label>
-            <input type="number" placeholder="Ingrese su Año de Nacimiento" name="anio" required>
+            <label for="anio" class="p-1 mb-1">Año Nacimiento</label>
+            <input type="number" class="p-1 mb-2" placeholder="Ingrese su Año de Nacimiento" name="anio" required>
             
-            <label for="sexo">Sexo</label>
-            <select name="sexo" id="sexo">
+            <label for="sexo" class="p-1 mb-1">Sexo</label>
+            <select name="sexo" class="p-1 mb-2" id="sexo">
                 <option value="masculino">Masculino</option>
                 <option value="femenino">Femenino</option>
                 <option value="Prefiero no cargarlo">Prefiero no cargarlo</option>
             </select>
             
-            <label for="correo">Correo Electronico</label>
-            <input type="email" placeholder="Ingrese su Correo Electronico" name="correo" required>
+            <label for="correo" class="p-1 mb-1">Correo Electronico</label>
+            <input type="email" class="p-1 mb-2" placeholder="Ingrese su Correo Electronico" name="correo" required>
             
-            <label for="usuario">Usuario</label>
-            <input type="text" placeholder="Ingrese su Usuario" name="usuario" required>
+            <label for="usuario" class="p-1 mb-1">Usuario</label>
+            <input type="text" class="p-1 mb-2" placeholder="Ingrese su Usuario" name="usuario" required>
             
-            <label for="contrasena">Contraseña</label>
-            <input type="password" placeholder="Ingrese su contraseña" name="contrasena" required>
+            <label for="contrasena" class="p-1 mb-1">Contraseña</label>
+            <input type="password" class="p-1 mb-2" placeholder="Ingrese su contraseña" name="contrasena" required>
             <div class="p-3">
-                <label for="foto">Foto para perfil</label>
+                <label for="foto" class="p-1 mb-1">Foto para perfil</label>
                 <input type="file" id="foto" name="foto" accept="image/*">
             </div>
 
-            <label for="pais">Pais</label>
-            <input type="text" placeholder="Ingrese su Pais" name="pais" required>
+            <label for="pais" class="p-1 mb-1">Pais</label>
+            <input type="text" class="p-1 mb-2" placeholder="Ingrese su Pais" name="pais" required>
 
-            <label for="ciudad">Ciudad</label>
-            <input type="text" placeholder="Ingrese su Ciudad" name="ciudad" required>
+            <label for="ciudad" class="p-1 mb-1">Ciudad</label>
+            <input type="text" class="p-1 mb-2" placeholder="Ingrese su Ciudad" name="ciudad" required>
 
-            <button type="submit" class="registerbtn">Registrarse</button>
+            <button type="submit" class="btn btnRegistrar">Registrarse</button>
         </div>
         
         <div class="container signin">
