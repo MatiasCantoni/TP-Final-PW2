@@ -16,7 +16,7 @@ class UserModel
         $result = $this->conexion->query($sql);
         return $result ?? [];
     }
-    // usar los datos del controller para guardarlos en las base de datos
+
     public function registerUser($nombre_completo, $anio_nacimiento, $sexo, $pais, $ciudad, $email, $contrasena, $nombre_usuario, $foto_perfil)
     {
         $sql = "select * from usuarios where nombre_usuario = '$nombre_usuario'";

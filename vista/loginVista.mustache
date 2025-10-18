@@ -1,4 +1,7 @@
 <form action="/TP-Final-PW2/user/login" method="post">
+    {{#error}}
+        <div class="alert alert-danger" role="alert">{{error}}</div>
+    {{/error}}
     <div class="container">
         <h1>Iniciar Sesión</h1>
         <p>Por favor, complete este formulario para iniciar sesión.</p>

@@ -27,7 +27,7 @@ class UserController
 
         if (sizeof($resultado) > 0) {
             $_SESSION["usuario"] = $_POST["usuario"];
-            include_once("vista/inicioVista.mustache");
+            $this->renderer->render("inicio");
         } else {
             $this->renderer->render("login", ["error" => "Usuario o clave incorrecta"]);
         }
