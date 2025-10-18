@@ -1,1 +1,34 @@
-<h1> entraste </h1>
+<?php
+session_start();
+if (!isset($_SESSION["usuario"])) {
+    header("Location: index.php");
+    exit;
+}
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/TP-Final-PW2/assets/css/vista.css">
+
+</head>
+<body>
+
+<div class="background">
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+    <div class="circle c3"></div>
+    <div class="circle c4"></div>
+</div>
+
+<div class="welcome-card">
+    <img src="/TP-Final-PW2/assets/img/triviaGo.png" alt="Logo" style="width: 40%; margin-bottom: 1rem;">
+    <h1>¡Bienvenido <?php echo htmlspecialchars($_SESSION["usuario"]); ?>!</h1>
+    <p>Nos alegra verte de nuevo 🎉</p>
+    <a href="index.php?controller=user&method=logout" class="btn-custom">Cerrar sesión</a>
+</div>
+
+</body>
+</html>
