@@ -1,5 +1,3 @@
-
-
 <div class="background">
     <div class="circle c1"></div>
     <div class="circle c2"></div>
@@ -22,12 +20,10 @@
             <label for="n-completo" class="form-label">Nombre Completo</label>
             <input type="text" class="form-control" id="n-completo" name="n-completo" placeholder="Ingrese su nombre completo" required>
         </div>
-
         <div class="mb-3 text-start">
             <label for="anio" class="form-label">Año de Nacimiento</label>
             <input type="number" class="form-control" id="anio" name="anio" placeholder="Ingrese su año de nacimiento" required>
         </div>
-
         <div class="mb-3 text-start">
             <label for="sexo" class="form-label">Sexo</label>
             <select class="form-control" id="sexo" name="sexo">
@@ -36,36 +32,41 @@
                 <option value="Prefiero no cargarlo">Prefiero no cargarlo</option>
             </select>
         </div>
-
         <div class="mb-3 text-start">
             <label for="correo" class="form-label">Correo Electrónico</label>
             <input type="email" class="form-control" id="correo" name="correo" placeholder="Ingrese su correo electrónico" required>
         </div>
-
         <div class="mb-3 text-start">
             <label for="usuario" class="form-label">Usuario</label>
             <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Ingrese su usuario" required>
         </div>
-
         <div class="mb-3 text-start">
             <label for="contrasena" class="form-label">Contraseña</label>
             <input type="password" class="form-control" id="contrasena" name="contrasena" placeholder="Ingrese su contraseña" required>
         </div>
-
         <div class="mb-3 text-start">
             <label for="foto" class="form-label">Foto de Perfil</label>
             <input type="file" class="form-control" id="foto" name="foto" accept="image/*">
         </div>
 
         <div class="mb-3 text-start">
-            <label for="pais" class="form-label">País</label>
-            <input type="text" class="form-control" id="pais" name="pais" placeholder="Ingrese su país" required>
+        <label for="pais" class="form-label">País</label>
+        <input type="text" class="form-control" id="pais" name="pais" placeholder="Ingrese su país" required>
         </div>
 
         <div class="mb-3 text-start">
-            <label for="ciudad" class="form-label">Ciudad</label>
-            <input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Ingrese su ciudad" required>
+        <label for="ciudad" class="form-label">Ciudad</label>
+        <input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Ingrese su ciudad" required>
         </div>
+        
+        <div class="mb-3 text-start">
+            <label class="form-label">Ubicación (haz click en el mapa para seleccionar)</label>
+            <div id="mapa" style="height: 250px; width: 100%; margin-top: 5px; border-radius: 5px;"></div>
+            <p id="ubicacion-seleccionada" style="margin-top: 10px; font-weight: bold; color: #333;"></p>
+        </div>
+
+        <input type="hidden" name="pais" id="pais">
+        <input type="hidden" name="ciudad" id="ciudad">
 
         <button type="submit" class="btn btn-custom">Registrarse</button>
     </form>
@@ -75,4 +76,4 @@
     </div>
 </div>
 
-
+<script src="/TP-Final-PW2/assets/js/register.js" defer></script>
