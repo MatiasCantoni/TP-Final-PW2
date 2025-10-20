@@ -35,12 +35,8 @@ class UserModel
         }
 
         $token = bin2hex(random_bytes(16)); // genera un código seguro
-        // Si se pasó un nombre de archivo, guardamos la ruta relativa dentro de assets
-        if ($foto_perfil) {
-            $foto_perfil_db = 'assets/img/uploads/' . $foto_perfil;
-        } else {
-            $foto_perfil_db = '';
-        }
+        
+        $foto_perfil_db = $foto_perfil ? 'assets/img/uploads/' . $foto_perfil : '';
 
         $sql = "INSERT INTO usuarios (nombre_completo, anio_nacimiento, sexo, pais, ciudad, email, contrasena, nombre_usuario, foto_perfil, token_validacion) VALUES (
             '$nombre_completo',
