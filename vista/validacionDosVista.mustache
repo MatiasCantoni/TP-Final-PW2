@@ -1,0 +1,8 @@
+<form action="/TP-Final-PW2/user/segundaValidacionToken" method="POST">
+    {{#error}}
+        <div class="alert alert-danger" role="alert">{{error}}</div>
+    {{/error}}
+    <p>Ingrese a continuación el token que le enviamos a su correo electronico</p>
+    <input type="text" name="token" placeholder="Token de validación" required>
+    <button type="submit">Validar</button>
+</form>

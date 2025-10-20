@@ -2,10 +2,12 @@
 include_once("helper/MyConexion.php");
 include_once("helper/IncludeFileRenderer.php");
 include_once("helper/NewRouter.php");
+include_once("helper/EmailHelper.php");
 include_once("controller/UserController.php");
 include_once("model/UserModel.php");
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
 include_once ("helper/MustacheRenderer.php");
+include_once ("vendor/autoload.php");
 
 class ConfigFactory
 {
@@ -14,6 +16,8 @@ class ConfigFactory
 
     private $conexion;
     private $renderer;
+
+    private $emailHelper;
 
     public function __construct()
     {
@@ -32,6 +36,7 @@ class ConfigFactory
 
         $this->objetos["UserController"] = new UserController(new UserModel($this->conexion), $this->renderer);
 
+        $this->emailHelper = new EmailHelper();
     }
 
     public function get($objectName)

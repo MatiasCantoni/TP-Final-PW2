@@ -14,7 +14,21 @@ class UserModel
     {
         $sql = "SELECT * FROM usuarios WHERE nombre_usuario = '$user'";
         $result = $this->conexion->query($sql);
-        return $result ?? [];
+        // Si la consulta devuelve un array de filas, devolver la primera fila asociativa
+        if (is_array($result) && count($result) > 0) {
+            return $result[0];
+        }
+        return [];
+    }
+
+    public function getUserByEMail($email)
+    {
+        $sql = "SELECT * FROM usuarios WHERE email = '$email'";
+        $resultado = $this->conexion->query($sql);
+        if (is_array($resultado) && count($resultado) > 0) {
+            return $resultado[0];
+        }
+        return [];
     }
 
     public function registerUser($nombre_completo, $anio_nacimiento, $sexo, $pais, $ciudad, $email, $contrasena, $nombre_usuario, $foto_perfil)
@@ -35,7 +49,7 @@ class UserModel
         }
 
         $token = bin2hex(random_bytes(16)); // genera un código seguro
-        
+
         $foto_perfil_db = $foto_perfil ? 'assets/img/uploads/' . $foto_perfil : '';
 
         $sql = "INSERT INTO usuarios (nombre_completo, anio_nacimiento, sexo, pais, ciudad, email, contrasena, nombre_usuario, foto_perfil, token_validacion) VALUES (
@@ -51,5 +65,20 @@ class UserModel
             '$token'
         )";
         $this->conexion->query($sql);
+    }
+
+    public function validarToken($token){
+        $sql = "SELECT * FROM usuarios WHERE token_validacion = '$token'";
+        $resultado = $this->conexion->query($sql);
+
+        if ($resultado == null) {
+            return false;
+        } else {
+            $sqlUpdate = "UPDATE usuarios SET token_validacion = NULL, cuenta_activa = 1
+                          WHERE token_validacion = '$token'";
+            $this->conexion->query($sqlUpdate);
+            return true;
+        }
+
     }
 }
