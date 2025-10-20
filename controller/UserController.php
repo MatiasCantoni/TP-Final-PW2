@@ -23,9 +23,10 @@ class UserController
 
     public function login()
     {
-        $resultado = $this->model->getUserWith($_POST["usuario"], $_POST["contrasena"]);
+        
+        $resultado = $this->model->getUserByUsername($_POST["usuario"]);
 
-        if (sizeof($resultado) > 0) {
+        if (sizeof($resultado) > 0 && password_verify($_POST["contrasena"], $resultado["contrasena"])) {
             $_SESSION["usuario"] = $_POST["usuario"];
             $this->renderer->render("inicio");
         } else {
@@ -45,6 +46,23 @@ class UserController
     }
 
     public function registerValidation(){
+        // Manejar subida de foto (mínimo)
+        $fotoNombre = null;
+        if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+            $uploadsDir = __DIR__ . '/../assets/img/uploads';
+            if (!is_dir($uploadsDir)) {
+                mkdir($uploadsDir, 0755, true);
+            }
+            $tmpName = $_FILES['foto']['tmp_name'];
+            $origName = basename($_FILES['foto']['name']);
+            $ext = pathinfo($origName, PATHINFO_EXTENSION);
+            $fotoNombre = uniqid('user_') . '.' . $ext;
+            $dest = $uploadsDir . '/' . $fotoNombre;
+            if (!move_uploaded_file($tmpName, $dest)) {
+                $fotoNombre = null;
+            }
+        }
+
         $result = $this->model->registerUser(
             $_POST["n-completo"],
             $_POST["anio"],
@@ -54,7 +72,7 @@ class UserController
             $_POST["correo"],
             $_POST["contrasena"],
             $_POST["usuario"],
-            $_POST["foto"]
+            $fotoNombre
         );
 
         // Si la función devolvió un string es un mensaje de error (usuario/email ya existe)
