@@ -46,19 +46,18 @@ class UserController
     }
 
     public function registerValidation(){
-        // Manejar subida de foto (mínimo)
         $fotoNombre = null;
         if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
-            $uploadsDir = __DIR__ . '/../assets/img/uploads';
-            if (!is_dir($uploadsDir)) {
-                mkdir($uploadsDir, 0755, true);
+            $dirSubida = __DIR__ . '/../assets/img/uploads';
+            if (!is_dir($dirSubida)) {
+                mkdir($dirSubida, 0755, true);
             }
-            $tmpName = $_FILES['foto']['tmp_name'];
-            $origName = basename($_FILES['foto']['name']);
-            $ext = pathinfo($origName, PATHINFO_EXTENSION);
+            $nombreTemporal = $_FILES['foto']['tmp_name'];
+            $nombreOrig = basename($_FILES['foto']['name']);
+            $ext = pathinfo($nombreOrig, PATHINFO_EXTENSION);
             $fotoNombre = uniqid('user_') . '.' . $ext;
-            $dest = $uploadsDir . '/' . $fotoNombre;
-            if (!move_uploaded_file($tmpName, $dest)) {
+            $dest = $dirSubida . '/' . $fotoNombre;
+            if (!move_uploaded_file($nombreTemporal, $dest)) {
                 $fotoNombre = null;
             }
         }
