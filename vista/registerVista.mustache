@@ -50,13 +50,13 @@
         </div>
 
         <div class="mb-3 text-start">
-        <label for="pais" class="form-label">País</label>
-        <input type="text" class="form-control" id="pais" name="pais" placeholder="Ingrese su país" required>
+            <label for="pais" class="form-label">País</label>
+            <input type="text" class="form-control" id="pais" name="pais" value="Argentina" required>
         </div>
-
+        
         <div class="mb-3 text-start">
-        <label for="ciudad" class="form-label">Ciudad</label>
-        <input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Ingrese su ciudad" required>
+            <label for="ciudad" class="form-label">Ciudad</label>
+            <input type="text" class="form-control" id="ciudad" name="ciudad" value="Buenos Aires" required>
         </div>
         
         <div class="mb-3 text-start">
@@ -64,7 +64,9 @@
             <div id="mapa" style="height: 250px; width: 100%; margin-top: 5px; border-radius: 5px;"></div>
             <p id="ubicacion-seleccionada" style="margin-top: 10px; font-weight: bold; color: #333;"></p>
         </div>
-        
+
+    <!-- Eliminados inputs hidden duplicados que sobrescribían los valores visibles -->
+
         <button type="submit" class="btn btn-custom">Registrarse</button>
     </form>
 
