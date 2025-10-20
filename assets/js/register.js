@@ -1,14 +1,18 @@
 document.addEventListener('DOMContentLoaded', function () {
     if (document.getElementById('mapa')) {
         
+        const geoapifyApiKey = '73914997462340adb40353110672d1e2';
+
         const latitudInicial = -34.6037;
         const longitudInicial = -58.3816;
         const zoomInicial = 10;
 
         const map = L.map('mapa').setView([latitudInicial, longitudInicial], zoomInicial);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        L.tileLayer('https://maps.geoapify.com/v1/tile/osm-bright/{z}/{x}/{y}.png?apiKey={apiKey}', {
+            attribution: 'Powered by <a href="https://www.geoapify.com/" target="_blank">Geoapify</a> | © <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors',
+            maxZoom: 20,
+            apiKey: geoapifyApiKey
         }).addTo(map);
 
         let marker = L.marker([latitudInicial, longitudInicial], { draggable: true }).addTo(map)
@@ -16,12 +20,18 @@ document.addEventListener('DOMContentLoaded', function () {
             .openPopup();
 
         function actualizarUbicacion(lat, lon) {
-            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+            fetch(`https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=${geoapifyApiKey}`)
                 .then(response => response.json())
-                .then(data => {
-                    const address = data.address;
-                    const pais = address.country || '';
-                    const ciudad = address.city || address.town || address.village || '';
+                .then(result => {
+                    let pais = '';
+                    let ciudad = '';
+                    
+                    if (result.features && result.features.length) {
+                        const properties = result.features[0].properties;
+                        pais = properties.country || '';
+                        ciudad = properties.city || '';
+                    }
+
                     document.getElementById('pais').value = pais;
                     document.getElementById('ciudad').value = ciudad;
 
