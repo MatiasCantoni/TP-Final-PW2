@@ -1,24 +1,20 @@
 document.addEventListener('DOMContentLoaded', function () {
     if (document.getElementById('mapa')) {
         
-        // 1. Coordenadas de Buenos Aires y un nivel de zoom más cercano
         const latitudInicial = -34.6037;
         const longitudInicial = -58.3816;
         const zoomInicial = 10;
 
-        // INICIALIZA EL MAPA CON LA VISTA EN BUENOS AIRES
         const map = L.map('mapa').setView([latitudInicial, longitudInicial], zoomInicial);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        // COLOCA EL MARCADOR INICIAL EN BUENOS AIRES
         let marker = L.marker([latitudInicial, longitudInicial], { draggable: true }).addTo(map)
             .bindPopup('Arrastrame o haz click en el mapa')
             .openPopup();
-        
-        // El resto del código para actualizar la ubicación sigue igual
+
         function actualizarUbicacion(lat, lon) {
             fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
                 .then(response => response.json())
