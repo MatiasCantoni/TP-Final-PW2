@@ -1,15 +1,17 @@
 <form action="/TP-Final-PW2/user/primeraValidacionToken" method="post">
-    {{#error}}
-        <div class="alert alert-danger" role="alert">{{error}}</div>
-    {{/error}}
-    {{#success}}
-        <div class="alert alert-success" role="alert">{{success}}</div>
-    {{/success}}
     <div class="form container text-center">
-        <h2>Valide su cuenta</h2>
-        <p>Ingrese su Correo electrónico a continuación</p>
-        <input type="email" name="email" placeholder="Correo electrónico" required>
-        <button type="submit">Enviar</button>
+        {{#error}}
+            <div class="alert alert-danger" role="alert">{{error}}</div>
+        {{/error}}
+        {{#success}}
+            <div class="alert alert-success" role="alert">{{success}}</div>
+        {{/success}}
+        <div class="form container text-center">
+            <h2>Valide su cuenta</h2>
+            <p>Ingrese su Correo electrónico a continuación</p>
+            <input type="email" name="email" placeholder="Correo electrónico" required>
+            <button type="submit">Enviar</button>
+        </div>
     </div>
+    <a href="/TP-Final-PW2/user/">Volver al inicio de sesión</a>
 </form>
-<a href="/TP-Final-PW2/user/">Volver al inicio de sesión</a>

@@ -81,4 +81,18 @@ class UserModel
         }
 
     }
+
+    public function cambiarContrasena($correo, $usuario, $contraseniaNueva){
+        $sql = "SELECT * FROM usuarios WHERE email = '$correo' AND nombre_usuario = '$usuario'";
+        $resultado = $this->conexion->query($sql);
+        if ($resultado == null) {
+            return false;
+        } else {
+            $contraseniaHash = password_hash($contraseniaNueva, PASSWORD_DEFAULT);
+            $sqlUpdate = "UPDATE usuarios SET contrasena = '$contraseniaHash'
+                          WHERE email = '$correo' AND nombre_usuario = '$usuario'";
+            $this->conexion->query($sqlUpdate);
+            return true;
+        }
+    }
 }

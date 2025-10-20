@@ -30,7 +30,7 @@ class UserController
             $_SESSION["usuario"] = $_POST["usuario"];
             $this->renderer->render("inicio");
         } else {
-            $this->renderer->render("login", ["error" => "Usuario o clave incorrecta"]);
+            $this->renderer->render("login", ["isLogin" => true,"error" => "Usuario o clave incorrecta"]);
         }
     }
 
@@ -107,6 +107,23 @@ class UserController
 
     }
 
+    public function olvidarContraseña(){
+        $this->renderer->render("olvidarContraseña", ["isLogin" => true]);
+    }
+
+    public function recuperarContrasena(){
+        $resultado = $this->model->cambiarContrasena(
+            $_POST["email"],
+            $_POST["usuario"],
+            $_POST["nueva-contrasena"]
+        );
+
+        if ($resultado == false) {
+            $this->renderer->render("olvidarContraseña", ["isLogin" => true,"error" => "Correo o usuario incorrecto."]);
+            return;
+        }
+        $this->renderer->render("login", ["isLogin" => true,"success" => "Contraseña actualizada con éxito. Por favor, inicie sesión."]);
+    }
     public function redirectToIndex()
     {
         header("Location: /TP-Final-PW2/");
