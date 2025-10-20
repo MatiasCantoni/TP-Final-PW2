@@ -1,10 +1,18 @@
-<form action="/TP-Final-PW2/user/recuperarContrasena" method="post">
-    {{#error}}
-        <div class="alert alert-danger" role="alert">{{error}}</div>
-    {{/error}}
-    <div class="container">
+<div class="background">
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+    <div class="circle c3"></div>
+    <div class="circle c4"></div>
+</div>
+
+<div class="recover-card">
+    <form action="/TP-Final-PW2/user/recuperarContrasena" method="post">
+        {{#error}}
+            <div class="alert alert-danger" role="alert">{{error}}</div>
+        {{/error}}
         <h2>Recuperar Contraseña</h2>
-        <p>Ingrese su correo, usuario y la nueva contraseña a continuacion</p>
+        <p>Ingrese su correo, usuario y la nueva contraseña a continuación</p>
+
         <label for="email"><b>Correo Electrónico</b></label>
         <input type="text" placeholder="Ingrese su correo" name="email" required>
 
@@ -13,7 +21,8 @@
 
         <label for="nueva-contrasena"><b>Nueva Contraseña</b></label>
         <input type="password" placeholder="Ingrese su nueva contraseña" name="nueva-contrasena" required>
-    </div>
-    <button type="submit" class="btn btn-custom">Recuperar Contraseña</button>
-    <a href="/TP-Final-PW2/user/">Volver al inicio de sesión</a>
-</form>
+
+        <button type="submit" class="btn btn-custom">Recuperar Contraseña</button>
+        <a href="/TP-Final-PW2/user/">Volver al inicio de sesión</a>
+    </form>
+</div>

@@ -64,23 +64,23 @@ class UserController
             $this->renderer->render("register", ["isRegister" => true, "error" => $result]);
             return;
         }
-        $this->renderer->render("validacionUno", ["isLogin" => true,"success" => "Usuario registrado con éxito. Por favor, inicie sesión."]);
+        $this->renderer->render("validacionUno", ["isValidation" => true,"success" => "Usuario registrado con éxito. Por favor, inicie sesión."]);
     }
 
     public function validacionUno(){
-        $this->renderer->render("validacionUno", ["isLogin" => true]);
+        $this->renderer->render("validacionUno", ["isValidation" => true]);
     }
 
     public function primeraValidacionToken(){
         if (!isset($_POST["email"]) || empty(trim($_POST["email"]))) {
-            $this->renderer->render("validacionUno", ["error" => "Por favor ingrese un correo."]);
+            $this->renderer->render("validacionUno", ["isValidation" => true, "error"  => "Por favor ingrese un correo."]);
             return;
         }
 
         $email = trim($_POST["email"]);
         $resultado = $this->model->getUserByEMail($email);
         if (empty($resultado)) {
-            $this->renderer->render("validacionUno", ["error" => "Correo no registrado."]);
+            $this->renderer->render("validacionUno", ["isValidation" => true, "error"=> "Correo no registrado."]);
             return;
         }
 
@@ -89,18 +89,18 @@ class UserController
         $token = $resultado["token_validacion"] ?? null;
 
         if (empty($to) || empty($token)) {
-            $this->renderer->render("validacionUno", ["error" => "No se pudo generar el token."]);
+            $this->renderer->render("validacionUno", ["isValidation" => true, "error" => "No se pudo generar el token."]);
             return;
         }
 
         EmailHelper::enviarToken($to, $nombre, $token);
-        $this->renderer->render("validacionDos");
+        $this->renderer->render("validacionDos", ["isValidation" => true]);
         
     }
     public function segundaValidacionToken(){
         $resultado = $this->model->validarToken($_POST["token"]);
         if ($resultado == false) {
-            $this->renderer->render("validacionDos", ["error" => "Token inválido."]);
+            $this->renderer->render("validacionDos", ["isValidation" => true, "error" => "Token inválido."]);
             return;
         }
         $this->renderer->render("login", ["isLogin" => true,"success" => "Cuenta validada con éxito. Por favor, inicie sesión."]);
@@ -108,7 +108,7 @@ class UserController
     }
 
     public function olvidarContraseña(){
-        $this->renderer->render("olvidarContraseña", ["isLogin" => true]);
+        $this->renderer->render("olvidarContraseña", ["isRecupero" => true]);
     }
 
     public function recuperarContrasena(){
@@ -119,7 +119,7 @@ class UserController
         );
 
         if ($resultado == false) {
-            $this->renderer->render("olvidarContraseña", ["isLogin" => true,"error" => "Correo o usuario incorrecto."]);
+            $this->renderer->render("olvidarContraseña", ["isRecupero" => true,"error" => "Correo o usuario incorrecto."]);
             return;
         }
         $this->renderer->render("login", ["isLogin" => true,"success" => "Contraseña actualizada con éxito. Por favor, inicie sesión."]);
