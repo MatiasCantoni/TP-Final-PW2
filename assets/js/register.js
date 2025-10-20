@@ -1,27 +1,24 @@
-function iniciarMap(){
-    var coord = {lat:-34.5956145 ,lng: -58.4431949};
-    var map = new google.maps.Map(document.getElementById('map'),{
-      zoom: 10,
-      center: coord
-    });
-    var marker = new google.maps.Marker({
-      position: coord,
-      map: map
-    });
-}
-
 document.addEventListener('DOMContentLoaded', function () {
     if (document.getElementById('mapa')) {
-        const map = L.map('mapa').setView([20, 0], 2);
+        
+        // 1. Coordenadas de Buenos Aires y un nivel de zoom más cercano
+        const latitudInicial = -34.6037;
+        const longitudInicial = -58.3816;
+        const zoomInicial = 10;
+
+        // INICIALIZA EL MAPA CON LA VISTA EN BUENOS AIRES
+        const map = L.map('mapa').setView([latitudInicial, longitudInicial], zoomInicial);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        let marker = L.marker([20, 0], { draggable: true }).addTo(map)
+        // COLOCA EL MARCADOR INICIAL EN BUENOS AIRES
+        let marker = L.marker([latitudInicial, longitudInicial], { draggable: true }).addTo(map)
             .bindPopup('Arrastrame o haz click en el mapa')
             .openPopup();
-
+        
+        // El resto del código para actualizar la ubicación sigue igual
         function actualizarUbicacion(lat, lon) {
             fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
                 .then(response => response.json())
