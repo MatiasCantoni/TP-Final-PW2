@@ -28,7 +28,8 @@ class UserController
 
         if (sizeof($resultado) > 0 && password_verify($_POST["contrasena"], $resultado["contrasena"])) {
             $_SESSION["usuario"] = $_POST["usuario"];
-            $this->renderer->render("inicio");
+            header("Location: /TP-Final-PW2/inicio/index");
+            exit();
         } else {
             $this->renderer->render("login", ["isLogin" => true,"error" => "Usuario o clave incorrecta"]);
         }

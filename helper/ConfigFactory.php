@@ -5,6 +5,8 @@ include_once("helper/NewRouter.php");
 include_once("helper/EmailHelper.php");
 include_once("controller/UserController.php");
 include_once("model/UserModel.php");
+include_once("controller/InicioController.php");
+include_once("model/InicioModel.php");
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
 include_once ("helper/MustacheRenderer.php");
 include_once ("vendor/autoload.php");
@@ -32,9 +34,12 @@ class ConfigFactory
 
         $this->renderer = new MustacheRenderer("vista");
 
-        $this->objetos["router"] = new NewRouter($this, "UserController", "loginForm");
+        $this->objetos["router"] = new NewRouter($this, "UserController", "base");
 
         $this->objetos["UserController"] = new UserController(new UserModel($this->conexion), $this->renderer);
+
+        $this->objetos["InicioController"] = new InicioController(new InicioModel($this->conexion), $this->renderer);
+
 
         $this->emailHelper = new EmailHelper();
     }

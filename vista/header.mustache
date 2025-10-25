@@ -12,6 +12,8 @@
     
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/TP-Final-PW2/assets/css/vista.css">
     
     {{#isRegister}}
         <link rel="stylesheet" href="/TP-Final-PW2/assets/css/register.css">
@@ -30,14 +32,39 @@
     {{/isRecupero}}
 
 
+<header class="display-flex">
+<nav class="navbar bg-primary fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="" style="width: 7%;"><img src="/TP-Final-PW2/assets/img/triviaGo.png" alt="Logo" style="width: 100%;" /></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">TriviaGO</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="">Perfil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="">Ranking</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
 
-<!--<header class="bg-primary text-center">
-    <a href=""> <img src="/TP-Final-PW2/assets/img/triviaGo.png" alt="Logo" style="width:10%" /> </a>
 </header>
--->
 
 </head>
-<body class="w3-light-grey">
+{{! <body class="w3-light-grey"> }}
 
 
 
