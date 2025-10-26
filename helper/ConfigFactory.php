@@ -4,6 +4,8 @@ include_once("helper/IncludeFileRenderer.php");
 include_once("helper/NewRouter.php");
 include_once("helper/EmailHelper.php");
 include_once("controller/UserController.php");
+include_once("model/GameModel.php");
+include_once("controller/GameController.php");
 include_once("model/UserModel.php");
 include_once("controller/InicioController.php");
 include_once("model/InicioModel.php");
@@ -40,6 +42,7 @@ class ConfigFactory
 
         $this->objetos["InicioController"] = new InicioController(new InicioModel($this->conexion), $this->renderer);
 
+        $this->objetos["GameController"] = new GameController(new GameModel($this->conexion), $this->renderer);        
 
         $this->emailHelper = new EmailHelper();
     }

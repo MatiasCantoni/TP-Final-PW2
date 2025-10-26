@@ -86,6 +86,7 @@ CREATE TABLE partidas (
     FOREIGN KEY (ganador) REFERENCES usuarios(id_usuario)
 );
 
+-- Registra las preguntas respondidas durante una partida
 CREATE TABLE respuestas_partida (
     id_respuesta INT AUTO_INCREMENT PRIMARY KEY,
     id_partida INT NOT NULL,
@@ -98,6 +99,7 @@ CREATE TABLE respuestas_partida (
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
 );
 
+-- Para guardar los reportes de usuarios
 CREATE TABLE reportes_pregunta (
     id_reporte INT AUTO_INCREMENT PRIMARY KEY,
     id_pregunta INT NOT NULL,

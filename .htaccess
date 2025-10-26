@@ -7,7 +7,7 @@ Options -Indexes
 <IfModule mod_rewrite.c>
     RewriteEngine On
     ReWriteBase /TP-Final-PW2/
-    RewriteRule ^(imagenes)($|/) - [L,NC]
+    RewriteRule ^(assets)($|/) - [L,NC]
     RewriteRule ^assets/ - [L,NC]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
