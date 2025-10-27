@@ -9,8 +9,6 @@ class GameController{
         $this->model = $model;
         $this->renderer = $renderer;
     }
-
-    // Muestra la ruleta
     public function singleplayer(){
         if (!isset($_SESSION["usuario"])) {
             header("Location: index.php?controller=User&method=loginForm");
@@ -18,7 +16,7 @@ class GameController{
         }
 
         $categorias = $this->model->getCategorias();
-        $this->renderer->render("singleplayer", ["categorias" => $categorias]);
+        $this->renderer->render("singleplayer", ["isSingleplayer" => true, "categorias" => $categorias]);
         
     }
 
@@ -51,11 +49,25 @@ class GameController{
         }
 
         $this->renderer->render("respuesta", [
+            "isRespuesta" => true,
             "opcion" => $opcionSeleccionada,
             "respuestaCorrecta" => $respuestaCorrecta,
             "respuestaCorrectaTexto" => $textoRespuestaCorrecta,
             "gano" => $gano,
             "puntaje" => $puntajePartida,
+            "id_pregunta"=> $idPregunta
         ]);
+    }
+
+    public function reportarPregunta(){
+        $idPregunta = $_POST["id_pregunta"];
+        $motivo = $_POST["motivo"];
+        $comentario = $_POST["comentario"];
+        $idUsuario = $_SESSION["usuario"]["id_usuario"];
+        // verificar que lo que se pasa por comentario no sea un script
+        $comentario = htmlspecialchars($comentario, ENT_QUOTES, 'UTF-8');
+        
+        $this->model->reportarPregunta($idPregunta, $idUsuario, $motivo, $comentario);
+
     }
 }

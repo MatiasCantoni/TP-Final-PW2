@@ -13,7 +13,7 @@ class GameModel{
     }
 
     public function getPreguntaRandom($categoria){
-        $sql = "SELECT * FROM preguntas WHERE categoria = '$categoria' ORDER BY RAND() LIMIT 1";
+        $sql = "SELECT * FROM preguntas WHERE categoria = '$categoria' AND estado = 'aprobada' ORDER BY RAND() LIMIT 1";
         $result = $this->conexion->query($sql);
         if (is_array($result) && count($result) > 0) {
             return $result[0];
@@ -102,5 +102,13 @@ class GameModel{
             return $result[0];
         }
         return null;
+    }
+
+    public function reportarPregunta($idPregunta, $idUsuario, $motivo, $comentario){
+        $sql = "INSERT INTO reportes_pregunta (id_pregunta, id_usuario, motivo, comentario) VALUES ($idPregunta, $idUsuario, '$motivo', '$comentario')";
+        $this->conexion->query($sql);
+
+        $sql = "UPDATE preguntas SET estado = 'pendiente' WHERE id_pregunta = $idPregunta";
+        $this->conexion->query($sql);
     }
 }

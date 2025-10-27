@@ -8,4 +8,20 @@
     <p> Tu puntaje final es: {{puntaje}}</p>
     <a href="/TP-Final-PW2/inicio/"><button id="">Salir</button></a>
 {{/gano}}
-
+<button id="reportar-btn">Reportar Pregunta</button>
+<form id="reportar-form" action="/TP-Final-PW2/game/reportarPregunta" method="POST" style="display: none;">
+    <input type="hidden" name="id_pregunta" value="{{id_pregunta}}">
+    <label for="motivo">Motivo:</label>
+    <select name="motivo" id="motivo" required>
+        <option value="error">Error en la pregunta</option>
+        <option value="ofensiva">Contenido ofensivo</option>
+        <option value="otra">Otra</option>
+    </select>
+    <br>
+    <label for="comentario">Comentario adicional (opcional):</label>
+    <br>
+    <textarea name="comentario" id="comentario" rows="4" cols="50"></textarea>
+    <br>
+    <button type="submit" id="enviar-reporte-btn">Enviar Reporte</button>
+</form>
+<p id="mensaje-reporte" style="display: none;">Reporte enviado con éxito.</p>
