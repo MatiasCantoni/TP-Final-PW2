@@ -1,0 +1,286 @@
+.perfil-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 30px;
+    position: relative;
+    z-index: 10;
+}
+
+.profile-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    color: white;
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.profile-avatar {
+    flex-shrink: 0;
+}
+
+.profile-avatar img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid white;
+    object-fit: cover;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.profile-info {
+    flex: 1;
+    min-width: 250px;
+}
+
+.profile-info h1 {
+    font-size: 2.5em;
+    margin: 0;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.profile-info .username {
+    font-size: 1.3em;
+    opacity: 0.9;
+    margin: 5px 0 15px 0;
+}
+
+.profile-meta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.profile-meta .badge {
+    font-size: 0.95em;
+    padding: 8px 15px;
+}
+
+.profile-qr {
+    text-align: center;
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.profile-qr #qrcode {
+    margin-bottom: 10px;
+}
+
+.qr-label {
+    margin: 0;
+    color: #666;
+    font-size: 0.85em;
+}
+
+.stats-section {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.stats-section h2 {
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.stat-icon {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+.stat-value {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #2c3e50;
+    margin: 10px 0;
+}
+
+.stat-label {
+    color: #7f8c8d;
+    font-size: 0.95em;
+    font-weight: 500;
+}
+
+.puntaje-card {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+}
+
+.puntaje-card .stat-value {
+    color: white;
+}
+
+.puntaje-card .stat-label {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.history-section {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.history-section h2 {
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+.partida-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-left: 4px solid #3498db;
+    transition: all 0.3s ease;
+}
+
+.partida-card:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 20px rgba(52, 152, 219, 0.2);
+}
+
+.partida-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.partida-modo {
+    font-weight: bold;
+    color: #2c3e50;
+    font-size: 1.1em;
+}
+
+.partida-fecha {
+    color: #7f8c8d;
+    font-size: 0.9em;
+}
+
+.partida-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.partida-stats {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    color: #555;
+}
+
+.stat-item strong {
+    color: #2c3e50;
+    font-size: 1.1em;
+}
+
+.partida-oponente {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.no-partidas {
+    text-align: center;
+    padding: 40px;
+    color: #7f8c8d;
+}
+
+.no-partidas p {
+    font-size: 1.1em;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.action-buttons .btn {
+    padding: 12px 30px;
+    font-size: 1.1em;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.action-buttons .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+    .perfil-container {
+        padding: 15px;
+        margin: 20px auto;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 25px;
+    }
+
+    .profile-info h1 {
+        font-size: 1.8em;
+    }
+
+    .profile-avatar img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .stat-card {
+        margin-bottom: 15px;
+    }
+
+    .partida-body {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .action-buttons .btn {
+        width: 100%;
+    }
+}
