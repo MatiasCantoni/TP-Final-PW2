@@ -57,6 +57,8 @@ class GameModel{
                     $sql = "UPDATE usuarios SET puntaje_total = $puntaje_partida WHERE id_usuario = $idUsuario";
                     $this->conexion->query($sql);
                 }
+                $sql = "UPDATE preguntas SET correcta_count = correcta_count + 1 WHERE id_pregunta = $idPregunta";
+                $this->conexion->query($sql);
             } else {
                 // VAMOS A TENER QUE REFACTORIZAR ESTO POR REPETIDO
                 $sql = "SELECT puntaje_partida FROM usuarios WHERE id_usuario = $idUsuario";
@@ -67,6 +69,8 @@ class GameModel{
                     $datos['puntajePartida'] = $puntaje_partida;
                 }
                 $sql = "UPDATE usuarios SET puntaje_partida = 0 WHERE id_usuario = $idUsuario";
+                $this->conexion->query($sql);
+                $sql = "UPDATE preguntas SET incorrecta_count = incorrecta_count + 1 WHERE id_pregunta = $idPregunta";
                 $this->conexion->query($sql);
             }
             return $datos;

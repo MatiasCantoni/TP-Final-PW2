@@ -37,6 +37,7 @@ class GameController{
         $gano = $datos['correcta'];
         $puntajePartida = $datos['puntajePartida'];
         $respuestaCorrecta = $this->model->getRespuestaCorrecta($idPregunta);
+        
         // Obtener la pregunta completa para mapear la letra a su texto
         $pregunta = $this->model->getPreguntaById($idPregunta);
         $textoRespuestaCorrecta = null;
