@@ -115,16 +115,53 @@ CREATE TABLE reportes_pregunta (
 );
 
 
-INSERT INTO preguntas (texto_pregunta, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, categoria, dificultad)
-VALUES
-    ('¿En qué año llegó el hombre a la luna?', '1965', '1969', '1971', '1975', 'B', 'Historia', 'facil'),
-    ('¿Cuál es el país con más Copas del Mundo de fútbol?', 'Argentina', 'Alemania', 'Brasil', 'Italia', 'C', 'Deportes', 'facil'),
-    ('¿Cuál es el océano más grande?', 'Atlántico', 'Índico', 'Ártico', 'Pacífico', 'D', 'Geografía', 'media'),
-    ('¿Quién pintó la Mona Lisa?', 'Van Gogh', 'Leonardo Da Vinci', 'Picasso', 'Rembrandt', 'B', 'Arte', 'facil');
-
 INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, categoria, dificultad, estado)
 VALUES
     ('¿En qué año llegó el hombre a la luna?', '1965', '1969', '1971', '1975', 'B', 'Historia', 'facil', 'aprobada'),
     ('¿Cuál es el país con más Copas del Mundo de fútbol?', 'Argentina', 'Alemania', 'Brasil', 'Italia', 'C', 'Deportes', 'facil', 'aprobada'),
     ('¿Cuál es el océano más grande?', 'Atlántico', 'Índico', 'Ártico', 'Pacífico', 'D', 'Geografia', 'media', 'aprobada'),
     ('¿Quién pintó la Mona Lisa?', 'Van Gogh', 'Leonardo Da Vinci', 'Picasso', 'Rembrandt', 'B', 'Arte', 'facil', 'aprobada');
+
+INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, categoria, dificultad, estado)
+VALUES
+-- HISTORIA
+('¿En qué año comenzó la Primera Guerra Mundial?', '1914', '1918', '1939', '1945', 'A', 'Historia', 'media', 'aprobada'),
+('¿Quién fue el primer presidente de los Estados Unidos?', 'George Washington', 'Thomas Jefferson', 'Abraham Lincoln', 'John Adams', 'A', 'Historia', 'facil', 'aprobada'),
+('¿En qué país se construyó el Muro de Berlín?', 'Francia', 'Alemania', 'Polonia', 'Rusia', 'B', 'Historia', 'facil', 'aprobada'),
+('¿Qué civilización construyó Machu Picchu?', 'Azteca', 'Inca', 'Maya', 'Olmeca', 'B', 'Historia', 'facil', 'aprobada'),
+('¿En qué año terminó la Segunda Guerra Mundial?', '1945', '1942', '1939', '1950', 'A', 'Historia', 'facil', 'aprobada'),
+
+-- CIENCIA
+('¿Cuál es el planeta más grande del sistema solar?', 'Saturno', 'Júpiter', 'Urano', 'Neptuno', 'B', 'Ciencia', 'facil', 'aprobada'),
+('¿Cuál es la fórmula química del agua?', 'CO2', 'H2O', 'O2', 'NaCl', 'B', 'Ciencia', 'facil', 'aprobada'),
+('¿Qué científico propuso la teoría de la relatividad?', 'Isaac Newton', 'Albert Einstein', 'Galileo Galilei', 'Niels Bohr', 'B', 'Ciencia', 'media', 'aprobada'),
+('¿Cuál es el órgano más grande del cuerpo humano?', 'Corazón', 'Hígado', 'Piel', 'Cerebro', 'C', 'Ciencia', 'media', 'aprobada'),
+('¿Qué gas necesitan las plantas para hacer la fotosíntesis?', 'Oxígeno', 'Dióxido de carbono', 'Hidrógeno', 'Nitrógeno', 'B', 'Ciencia', 'facil', 'aprobada'),
+
+-- DEPORTES
+('¿Cuántos jugadores hay en un equipo de fútbol en el campo?', '9', '10', '11', '12', 'C', 'Deportes', 'facil', 'aprobada'),
+('¿En qué deporte se utiliza un disco?', 'Béisbol', 'Hockey sobre hielo', 'Balonmano', 'Tenis', 'B', 'Deportes', 'facil', 'aprobada'),
+('¿Quién tiene más títulos de Grand Slam en tenis masculino?', 'Roger Federer', 'Novak Djokovic', 'Rafael Nadal', 'Andy Murray', 'B', 'Deportes', 'media', 'aprobada'),
+('¿En qué país se originó el sumo?', 'China', 'Corea del Sur', 'Japón', 'Tailandia', 'C', 'Deportes', 'facil', 'aprobada'),
+('¿Cuántos puntos vale un triple en baloncesto?', '2', '3', '4', '1', 'B', 'Deportes', 'facil', 'aprobada'),
+
+-- ARTE
+('¿Quién pintó “La noche estrellada”?', 'Vincent Van Gogh', 'Claude Monet', 'Salvador Dalí', 'Leonardo Da Vinci', 'A', 'Arte', 'facil', 'aprobada'),
+('¿A qué movimiento pertenece Picasso?', 'Cubismo', 'Surrealismo', 'Impresionismo', 'Realismo', 'A', 'Arte', 'media', 'aprobada'),
+('¿Cuál de las siguientes es una obra de Miguel Ángel?', 'La última cena', 'La creación de Adán', 'El grito', 'Guernica', 'B', 'Arte', 'media', 'aprobada'),
+('¿En qué país nació el artista Salvador Dalí?', 'Francia', 'Italia', 'España', 'Portugal', 'C', 'Arte', 'facil', 'aprobada'),
+('¿Qué instrumento musical tiene teclas negras y blancas?', 'Violín', 'Piano', 'Guitarra', 'Arpa', 'B', 'Arte', 'facil', 'aprobada'),
+
+-- GEOGRAFÍA
+('¿Cuál es el río más largo del mundo?', 'Amazonas', 'Nilo', 'Yangtsé', 'Misisipi', 'A', 'Geografia', 'media', 'aprobada'),
+('¿En qué continente se encuentra Egipto?', 'África', 'Asia', 'Europa', 'Oceanía', 'A', 'Geografia', 'facil', 'aprobada'),
+('¿Cuál es el país más grande del mundo?', 'Canadá', 'China', 'Rusia', 'Estados Unidos', 'C', 'Geografia', 'facil', 'aprobada'),
+('¿Cuál es la capital de Australia?', 'Sídney', 'Melbourne', 'Canberra', 'Perth', 'C', 'Geografia', 'media', 'aprobada'),
+('¿En qué país se encuentra la Torre Eiffel?', 'Italia', 'Francia', 'Inglaterra', 'España', 'B', 'Geografia', 'facil', 'aprobada'),
+
+-- ENTRETENIMIENTO
+('¿Cuál es el nombre del mago protagonista en “Harry Potter”?', 'Ron Weasley', 'Harry Potter', 'Hermione Granger', 'Draco Malfoy', 'B', 'Entretenimiento', 'facil', 'aprobada'),
+('¿Qué empresa creó el videojuego “Super Mario”?', 'Sega', 'Sony', 'Nintendo', 'Microsoft', 'C', 'Entretenimiento', 'facil', 'aprobada'),
+('¿Quién interpretó a Iron Man en el Universo Marvel?', 'Chris Evans', 'Chris Hemsworth', 'Robert Downey Jr.', 'Mark Ruffalo', 'C', 'Entretenimiento', 'facil', 'aprobada'),
+('¿Qué serie tiene como protagonistas a Ross, Rachel, Monica, Chandler, Joey y Phoebe?', 'Friends', 'How I Met Your Mother', 'The Office', 'Seinfeld', 'A', 'Entretenimiento', 'facil', 'aprobada'),
+('¿Cuál de estos es un personaje de Star Wars?', 'Harry Potter', 'Frodo Bolsón', 'Luke Skywalker', 'Gandalf', 'C', 'Entretenimiento', 'facil', 'aprobada');
