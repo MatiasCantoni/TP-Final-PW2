@@ -1,27 +1,50 @@
-{{#gano}}
-    <p>¡Correcto!</p>
-    <p> Tus puntos: {{puntaje}}</p>
-    <a href="/TP-Final-PW2/game/singleplayer"><button id="">Siguiente Pregunta</button></a>
-{{/gano}}
-{{^gano}}
-    <p>Incorrecto. La respuesta correcta era: {{#respuestaCorrectaTexto}}{{respuestaCorrectaTexto}}{{/respuestaCorrectaTexto}}{{^respuestaCorrectaTexto}}{{respuestaCorrecta}}{{/respuestaCorrectaTexto}}</p>
-    <p> Tu puntaje final es: {{puntaje}}</p>
-    <a href="/TP-Final-PW2/inicio/"><button id="">Salir</button></a>
-{{/gano}}
-<button id="reportar-btn">Reportar Pregunta</button>
-<form id="reportar-form" action="/TP-Final-PW2/game/reportarPregunta" method="POST" style="display: none;">
-    <input type="hidden" name="id_pregunta" value="{{id_pregunta}}">
-    <label for="motivo">Motivo:</label>
-    <select name="motivo" id="motivo" required>
-        <option value="error">Error en la pregunta</option>
-        <option value="ofensiva">Contenido ofensivo</option>
-        <option value="otra">Otra</option>
-    </select>
-    <br>
-    <label for="comentario">Comentario adicional (opcional):</label>
-    <br>
-    <textarea name="comentario" id="comentario" rows="4" cols="50"></textarea>
-    <br>
-    <button type="submit" id="enviar-reporte-btn">Enviar Reporte</button>
-</form>
-<p id="mensaje-reporte" style="display: none;">Reporte enviado con éxito.</p>
+<link rel="stylesheet" href="/TP-Final-PW2/assets/css/preguntarespuesta.css">
+
+<div class="background">
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+    <div class="circle c3"></div>
+    <div class="circle c4"></div>
+</div>
+
+<div class="contenedor">
+    {{#gano}}
+        <div class="tarjeta correcto">
+            <h1>¡Correcto!</h1>
+            <p>Tus puntos: {{puntaje}}</p>
+            <a href="/TP-Final-PW2/game/singleplayer"><button>Siguiente Pregunta</button></a>
+        </div>
+    {{/gano}}
+
+    {{^gano}}
+        <div class="tarjeta incorrecto">
+            <h1>Incorrecto</h1>
+            <p>La respuesta correcta era:
+                {{#respuestaCorrectaTexto}}{{respuestaCorrectaTexto}}{{/respuestaCorrectaTexto}}
+                {{^respuestaCorrectaTexto}}{{respuestaCorrecta}}{{/respuestaCorrectaTexto}}
+            </p>
+            <p>Tu puntaje final es: {{puntaje}}</p>
+            <a href="/TP-Final-PW2/inicio/"><button>Salir</button></a>
+        </div>
+    {{/gano}}
+
+    <button id="reportar-btn">Reportar Pregunta</button>
+
+    <form id="reportar-form" action="/TP-Final-PW2/game/reportarPregunta" method="POST" style="display: none;">
+        <input type="hidden" name="id_pregunta" value="{{id_pregunta}}">
+        <label for="motivo">Motivo:</label>
+        <select name="motivo" id="motivo" required>
+            <option value="error">Error en la pregunta</option>
+            <option value="ofensiva">Contenido ofensivo</option>
+            <option value="otra">Otra</option>
+        </select>
+        <br>
+        <label for="comentario">Comentario adicional (opcional):</label>
+        <br>
+        <textarea name="comentario" id="comentario" rows="4" cols="50"></textarea>
+        <br>
+        <button type="submit" id="enviar-reporte-btn">Enviar Reporte</button>
+    </form>
+
+    <p id="mensaje-reporte" style="display: none;">Reporte enviado con éxito.</p>
+</div>
