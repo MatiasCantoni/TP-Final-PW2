@@ -25,12 +25,17 @@ class UserController
     {
         $usuario = $_POST["usuario"];
         $contrasena = $_POST["contrasena"];
-        $resultado = $this->model->getUserByUsername($usuario);
+        $resultado = $this->model->validarLogin($usuario, $contrasena);
+        // $resultado = $this->model->getUserByUsername($usuario);
 
-        if (sizeof($resultado) > 0 && password_verify($contrasena, $resultado["contrasena"])) {
-            $_SESSION["usuario"] = $resultado;
-            header("Location: /TP-Final-PW2/inicio/index");
-            exit();
+        if ($resultado && sizeof($resultado) > 0) {
+            if ($resultado["cuenta_activa"] == 1) {
+                $_SESSION["usuario"] = $resultado;
+                header("Location: /TP-Final-PW2/inicio/index");
+                exit();    
+            }
+            $this->renderer->render("login", ["isLogin" => true,"error" => "Cuenta no validada. Por favor, revise su correo."]);
+            return;
         } else {
             $this->renderer->render("login", ["isLogin" => true,"error" => "Usuario o clave incorrecta"]);
         }

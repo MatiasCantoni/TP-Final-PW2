@@ -1,5 +1,5 @@
 <!-- LOGIN/REGISTRO... -->
-añadir condicion de que se necesita tener la cuenta validada para poder loguearse.
+✓ -- añadir condicion de que se necesita tener la cuenta validada para poder loguearse.
 
 validar que se ponga un año REAL y no cualquier cosa.
 

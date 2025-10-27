@@ -82,6 +82,17 @@ class UserModel
 
     }
 
+    public function validarLogin($usuario, $contrasena){
+        $sql = "SELECT * FROM usuarios WHERE nombre_usuario = '$usuario'";
+        $resultado = $this->conexion->query($sql);
+        if (is_array($resultado) && count($resultado) > 0) {
+            $user = $resultado[0];
+            if (password_verify($contrasena, $user['contrasena'])) {
+                return $user;
+            }
+        }
+        return null;
+    }
     public function cambiarContrasena($correo, $usuario, $contraseniaNueva){
         $sql = "SELECT * FROM usuarios WHERE email = '$correo' AND nombre_usuario = '$usuario'";
         $resultado = $this->conexion->query($sql);

@@ -26,32 +26,32 @@ CREATE TABLE usuarios (
 INSERT INTO usuarios (nombre_completo, anio_nacimiento, sexo, pais, ciudad, email, contrasena, nombre_usuario, tipo_usuario) VALUES ('Admin User', 1990, 'Masculino', 'Argentina', 'Buenos Aires', 'admin@example.com', 'admin', 'admin', 'admin');
 
 
-CREATE TABLE preguntas (
-                           id_pregunta INT AUTO_INCREMENT PRIMARY KEY,
-                           texto_pregunta VARCHAR(255) NOT NULL,
-                           opcion_a VARCHAR(255) NOT NULL,
-                           opcion_b VARCHAR(255) NOT NULL,
-                           opcion_c VARCHAR(255) NOT NULL,
-                           opcion_d VARCHAR(255) NOT NULL,
-                           respuesta_correcta CHAR(1) NOT NULL CHECK (respuesta_correcta IN ('A','B','C','D')),
-                           categoria VARCHAR(50) NOT NULL,
-                           dificultad ENUM('facil', 'media', 'dificil') DEFAULT 'media',
-                           id_creador INT,
-                           reportada BOOLEAN DEFAULT FALSE,
-                           aprobada BOOLEAN DEFAULT TRUE,
-                           FOREIGN KEY (id_creador) REFERENCES usuarios(id_usuario)
-);
+-- CREATE TABLE preguntas (
+--                            id_pregunta INT AUTO_INCREMENT PRIMARY KEY,
+--                            texto_pregunta VARCHAR(255) NOT NULL,
+--                            opcion_a VARCHAR(255) NOT NULL,
+--                            opcion_b VARCHAR(255) NOT NULL,
+--                            opcion_c VARCHAR(255) NOT NULL,
+--                            opcion_d VARCHAR(255) NOT NULL,
+--                            respuesta_correcta CHAR(1) NOT NULL CHECK (respuesta_correcta IN ('A','B','C','D')),
+--                            categoria VARCHAR(50) NOT NULL,
+--                            dificultad ENUM('facil', 'media', 'dificil') DEFAULT 'media',
+--                            id_creador INT,
+--                            reportada BOOLEAN DEFAULT FALSE,
+--                            aprobada BOOLEAN DEFAULT TRUE,
+--                            FOREIGN KEY (id_creador) REFERENCES usuarios(id_usuario)
+-- );
 
 
-CREATE TABLE partidas (
-                          id_partida INT AUTO_INCREMENT PRIMARY KEY,
-                          id_jugador INT NOT NULL,
-                          fecha_inicio DATETIME DEFAULT CURRENT_TIMESTAMP,
-                          fecha_fin DATETIME,
-                          puntaje_obtenido INT DEFAULT 0,
-                          estado ENUM('en_curso', 'finalizada') DEFAULT 'en_curso',
-                          FOREIGN KEY (id_jugador) REFERENCES usuarios(id_usuario)
-);
+-- CREATE TABLE partidas (
+--                           id_partida INT AUTO_INCREMENT PRIMARY KEY,
+--                           id_jugador INT NOT NULL,
+--                           fecha_inicio DATETIME DEFAULT CURRENT_TIMESTAMP,
+--                           fecha_fin DATETIME,
+--                           puntaje_obtenido INT DEFAULT 0,
+--                           estado ENUM('en_curso', 'finalizada') DEFAULT 'en_curso',
+--                           FOREIGN KEY (id_jugador) REFERENCES usuarios(id_usuario)
+-- );
 
 
 -- segunda opcion
