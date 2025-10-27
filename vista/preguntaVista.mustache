@@ -1,0 +1,11 @@
+<h1>Pregunta</h1>
+<p>{{pregunta.texto}}</p>
+
+<form action="/TP-Final-PW2/game/responder" method="POST">
+  <input type="hidden" name="id_pregunta" value="{{pregunta.id_pregunta}}">
+  
+  <button name="opcion" value="A">{{pregunta.opcion_a}}</button>
+  <button name="opcion" value="B">{{pregunta.opcion_b}}</button>
+  <button name="opcion" value="C">{{pregunta.opcion_c}}</button>
+  <button name="opcion" value="D">{{pregunta.opcion_d}}</button>
+</form>

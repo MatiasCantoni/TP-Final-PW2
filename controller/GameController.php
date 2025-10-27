@@ -23,12 +23,38 @@ class GameController{
     }
 
     public function pregunta(){
-        $categorias = $_GET["categorias"];
-        $pregunta = $this->model->getPregunta($categorias);
+        $categoria = $_GET["categoria"];
+        $pregunta = $this->model->getPreguntaRandom($categoria);
         $this->renderer->render("pregunta", ["pregunta" => $pregunta]);
     }
 
     public function responder(){
+        $opcionSeleccionada = $_POST["opcion"];
+        $idPregunta = $_POST["id_pregunta"];
+        $idUsuario = $_SESSION["usuario"]["id_usuario"];
 
+        $datos = $this->model->verificarRespuesta($idPregunta, $idUsuario, $opcionSeleccionada);
+        $gano = $datos['correcta'];
+        $puntajePartida = $datos['puntajePartida'];
+        $respuestaCorrecta = $this->model->getRespuestaCorrecta($idPregunta);
+        // Obtener la pregunta completa para mapear la letra a su texto
+        $pregunta = $this->model->getPreguntaById($idPregunta);
+        $textoRespuestaCorrecta = null;
+        if ($pregunta) {
+            switch ($respuestaCorrecta) {
+                case 'A': $textoRespuestaCorrecta = $pregunta['opcion_a']; break;
+                case 'B': $textoRespuestaCorrecta = $pregunta['opcion_b']; break;
+                case 'C': $textoRespuestaCorrecta = $pregunta['opcion_c']; break;
+                case 'D': $textoRespuestaCorrecta = $pregunta['opcion_d']; break;
+            }
+        }
+
+        $this->renderer->render("respuesta", [
+            "opcion" => $opcionSeleccionada,
+            "respuestaCorrecta" => $respuestaCorrecta,
+            "respuestaCorrectaTexto" => $textoRespuestaCorrecta,
+            "gano" => $gano,
+            "puntaje" => $puntajePartida,
+        ]);
     }
 }

@@ -17,7 +17,7 @@ class InicioController{
     }
     public function index()
     {
-        $usuario = $_SESSION["usuario"];
+        $usuario = $_SESSION["usuario"]["nombre_usuario"];
         if (!isset($usuario)) {
             header("Location: /tp-final-pw2/user/");
             exit();

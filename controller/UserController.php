@@ -27,7 +27,7 @@ class UserController
         $resultado = $this->model->getUserByUsername($_POST["usuario"]);
 
         if (sizeof($resultado) > 0 && password_verify($_POST["contrasena"], $resultado["contrasena"])) {
-            $_SESSION["usuario"] = $_POST["usuario"];
+            $_SESSION["usuario"] = $resultado;
             header("Location: /TP-Final-PW2/inicio/index");
             exit();
         } else {

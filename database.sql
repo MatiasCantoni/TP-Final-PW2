@@ -17,6 +17,7 @@ CREATE TABLE usuarios (
     tipo_usuario ENUM('jugador', 'editor', 'admin') DEFAULT 'jugador',
     nivel ENUM('bajo', 'medio', 'alto') DEFAULT 'bajo',
     puntaje_total INT DEFAULT 0,
+    puntaje_partida INT DEFAULT 0,
     cuenta_activa BOOLEAN DEFAULT FALSE,
     token_validacion VARCHAR(100),
     fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP

@@ -1,0 +1,11 @@
+{{#gano}}
+    <p>¡Correcto!</p>
+    <p> Tus puntos: {{puntaje}}</p>
+    <a href="/TP-Final-PW2/game/singleplayer"><button id="">Siguiente Pregunta</button></a>
+{{/gano}}
+{{^gano}}
+    <p>Incorrecto. La respuesta correcta era: {{#respuestaCorrectaTexto}}{{respuestaCorrectaTexto}}{{/respuestaCorrectaTexto}}{{^respuestaCorrectaTexto}}{{respuestaCorrecta}}{{/respuestaCorrectaTexto}}</p>
+    <p> Tu puntaje final es: {{puntaje}}</p>
+    <a href="/TP-Final-PW2/inicio/"><button id="">Salir</button></a>
+{{/gano}}
+
