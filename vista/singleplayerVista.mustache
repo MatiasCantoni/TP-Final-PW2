@@ -1,0 +1,17 @@
+<div class="d-flex justify-content-center align-items-center flex-column">
+<h2>Modo Singleplayer</h2>
+<p>Girá la ruleta para elegir la categoría</p>
+    <div id="ruleta-container">
+        <canvas id="ruleta" width="400" height="400"></canvas>
+        <button id="girar">Girar</button>
+    </div>
+    <div class="mt-3 text-center">
+        <h3 id="categoria-seleccionada"></h3>
+        <button id="aceptar-categoria" style="display:none;">Aceptar Categoría</button>
+    </div>
+</div>
+
+<script>
+  const categorias = {{#categorias}}["{{nombre}}", {{/categorias}}];
+</script>
+<script src="/TP-Final-PW2/assets/js/ruleta.js"></script>

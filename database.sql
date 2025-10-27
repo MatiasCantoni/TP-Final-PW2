@@ -64,6 +64,7 @@ CREATE TABLE preguntas (
     opcion_d VARCHAR(255),
     respuesta_correcta CHAR(1) CHECK (respuesta_correcta IN ('A','B','C','D')),
     dificultad ENUM('facil', 'media', 'dificil') DEFAULT 'facil',
+    categoria ENUM('Historia', 'Ciencia', 'Deportes', 'Arte', 'Geografia', 'Entretenimiento') NOT NULL,
     correcta_count INT DEFAULT 0,
     incorrecta_count INT DEFAULT 0,
     estado ENUM('pendiente', 'aprobada', 'rechazada') DEFAULT 'pendiente',
@@ -122,6 +123,6 @@ VALUES
 INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, categoria, dificultad, estado)
 VALUES
     ('¿En qué año llegó el hombre a la luna?', '1965', '1969', '1971', '1975', 'B', 'Historia', 'facil', 'aprobada'),
-    ('¿Cuál es el país con más Copas del Mundo de fútbol?', 'Argentina', 'Alemania', 'Brasil', 'Italia', 'C', 'Deporte', 'facil', 'aprobada'),
+    ('¿Cuál es el país con más Copas del Mundo de fútbol?', 'Argentina', 'Alemania', 'Brasil', 'Italia', 'C', 'Deportes', 'facil', 'aprobada'),
     ('¿Cuál es el océano más grande?', 'Atlántico', 'Índico', 'Ártico', 'Pacífico', 'D', 'Geografia', 'media', 'aprobada'),
     ('¿Quién pintó la Mona Lisa?', 'Van Gogh', 'Leonardo Da Vinci', 'Picasso', 'Rembrandt', 'B', 'Arte', 'facil', 'aprobada');

@@ -1,0 +1,41 @@
+#ruleta {
+  border: 5px solid #333;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+#girar {
+  margin-top: 15px;
+  padding: 10px 25px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#girar:hover {
+  background-color: #0056b3;
+}
+#categoria-seleccionada {
+  margin-top: 20px;
+  font-size: 36px;
+  font-weight: bold;
+}
+#aceptar-categoria {
+  margin-top: 10px;
+  padding: 8px 20px;
+  background-color: #999998;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#ruleta-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
