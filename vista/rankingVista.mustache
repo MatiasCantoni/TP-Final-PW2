@@ -1,0 +1,117 @@
+<link rel="stylesheet" href="/TP-Final-PW2/assets/css/ranking.css">
+
+<div class="background">
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+    <div class="circle c3"></div>
+    <div class="circle c4"></div>
+</div>
+
+<div class="container ranking-container">
+    <div class="ranking-header">
+        <h1>🏆 Ranking Global</h1>
+        <p class="subtitle">Los mejores jugadores de TriviaGO</p>
+        {{#posicionUsuario}}
+            <div class="user-position">
+                Tu posición actual: <strong>#{{posicionUsuario}}</strong>
+            </div>
+        {{/posicionUsuario}}
+    </div>
+
+    <div class="ranking-table">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th style="width: 80px;">Posición</th>
+                    <th style="width: 80px;">Avatar</th>
+                    <th>Usuario</th>
+                    <th>País</th>
+                    <th>Partidas</th>
+                    <th>Puntaje</th>
+                    <th style="width: 100px;">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#jugadores}}
+                <tr class="{{#esUsuarioActual}}current-user{{/esUsuarioActual}}">
+                    <td class="position-cell">
+                        {{#esPrimero}}
+                            <span class="medal gold">🥇</span>
+                        {{/esPrimero}}
+                        {{#esSegundo}}
+                            <span class="medal silver">🥈</span>
+                        {{/esSegundo}}
+                        {{#esTercero}}
+                            <span class="medal bronze">🥉</span>
+                        {{/esTercero}}
+                        {{^esTopTres}}
+                            <span class="position-number">{{posicion}}</span>
+                        {{/esTopTres}}
+                    </td>
+                    <td>
+                        <img src="/TP-Final-PW2/{{foto_perfil}}" alt="Avatar" class="avatar-small" onerror="this.src='/TP-Final-PW2/assets/img/default-avatar.png'">
+                    </td>
+                    <td class="username-cell">
+                        <strong>{{nombre_usuario}}</strong>
+                        <br>
+                        <small class="text-muted">{{nombre_completo}}</small>
+                    </td>
+                    <td>
+                        <span class="country-badge">{{pais}}</span>
+                    </td>
+                    <td class="text-center">
+                        <span class="badge bg-info">{{partidas_jugadas}}</span>
+                    </td>
+                    <td class="score-cell">
+                        <span class="score-badge">{{puntaje_total}}</span>
+                    </td>
+                    <td>
+                        <a href="/TP-Final-PW2/ranking/perfil?id={{id_usuario}}" class="btn btn-sm btn-primary">
+                            Ver Perfil
+                        </a>
+                    </td>
+                </tr>
+                {{/jugadores}}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="/TP-Final-PW2/inicio/" class="btn btn-secondary">Volver al Inicio</a>
+    </div>
+</div>
+
+<script>
+
+    // Agregar posición y destacar top 3
+    document.addEventListener('DOMContentLoaded', function() {
+        const rows = document.querySelectorAll('.ranking-table tbody tr');
+        rows.forEach((row, index) => {
+            const position = index + 1;
+            
+            // Agregar atributo de posición para CSS
+            row.setAttribute('data-position', position);
+            
+            // Marcar top 3
+            if (position === 1) {
+                row.querySelector('.position-cell span').classList.add('esPrimero');
+            } else if (position === 2) {
+                row.querySelector('.position-cell span').classList.add('esSegundo');
+            } else if (position === 3) {
+                row.querySelector('.position-cell span').classList.add('esTercero');
+            }
+        });
+
+        const idUsuarioActual = {{idUsuarioActual}};
+        rows.forEach(row => {
+            const verPerfilBtn = row.querySelector('a[href*="perfil?id="]');
+            if (verPerfilBtn) {
+                const url = new URL(verPerfilBtn.href);
+                const idUsuario = parseInt(url.searchParams.get('id'));
+                if (idUsuario === idUsuarioActual) {
+                    row.classList.add('current-user');
+                }
+            }
+        });
+    });
+</script>
