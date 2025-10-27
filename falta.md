@@ -13,6 +13,8 @@ validar que se ponga un año REAL y no cualquier cosa.
 
 sacar promedio de respuestas correctas de cada pregunta para saber su dificultad.
 
+modificar los niveles de los jugadores segun las respuestas que aciertan.
+
 Cuando recargan la pagina que no se pueda volver a girar la ruleta/contar la respuesta como valida.
 
 que no puedan volver para atras cuando erran la respuesta.
@@ -26,7 +28,7 @@ hay que pasar el control de sesiones al index.
 
 refactorizar codigo repetido.
 
-dejar de pasar los $_POST() directamente al model, primero tenemos que guardarlos.
+✓ -- dejar de pasar los $_POST() directamente al model, primero tenemos que guardarlos.
 
 crear helper para la redireccion.
 

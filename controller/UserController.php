@@ -23,10 +23,11 @@ class UserController
 
     public function login()
     {
-        
-        $resultado = $this->model->getUserByUsername($_POST["usuario"]);
+        $usuario = $_POST["usuario"];
+        $contrasena = $_POST["contrasena"];
+        $resultado = $this->model->getUserByUsername($usuario);
 
-        if (sizeof($resultado) > 0 && password_verify($_POST["contrasena"], $resultado["contrasena"])) {
+        if (sizeof($resultado) > 0 && password_verify($contrasena, $resultado["contrasena"])) {
             $_SESSION["usuario"] = $resultado;
             header("Location: /TP-Final-PW2/inicio/index");
             exit();
@@ -47,16 +48,24 @@ class UserController
     }
 
     public function registerValidation(){
+        $nombreCompleto = $_POST["n-completo"];
+        $anio = $_POST["anio"];
+        $sexo = $_POST["sexo"];
+        $pais = $_POST["pais"];
+        $ciudad = $_POST["ciudad"];
+        $correo = $_POST["correo"];
+        $contrasena = $_POST["contrasena"];
+        $usuario = $_POST["usuario"];
 
         $result = $this->model->registerUser(
-            $_POST["n-completo"],
-            $_POST["anio"],
-            $_POST["sexo"],
-            $_POST["pais"],
-            $_POST["ciudad"],
-            $_POST["correo"],
-            $_POST["contrasena"],
-            $_POST["usuario"],
+            $nombreCompleto,
+            $anio,
+            $sexo,
+            $pais,
+            $ciudad,
+            $correo,
+            $contrasena,
+            $usuario,
             $this->validacionImagen()
         );
 
@@ -113,10 +122,13 @@ class UserController
     }
 
     public function recuperarContrasena(){
+        $email = $_POST["email"];
+        $usuario = $_POST["usuario"];
+        $nuevaContrasena = $_POST["nueva-contrasena"];
         $resultado = $this->model->cambiarContrasena(
-            $_POST["email"],
-            $_POST["usuario"],
-            $_POST["nueva-contrasena"]
+            $email,
+            $usuario,
+            $nuevaContrasena
         );
 
         if ($resultado == false) {
