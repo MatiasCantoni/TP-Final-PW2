@@ -9,7 +9,7 @@ class GameModel{
     }
 
     public function getCategorias(){
-        return ['Historia', 'Ciencia', 'Deportes', 'Arte', 'Geografía', 'Entretenimiento'];
+        return ['Historia', 'Ciencia', 'Deportes', 'Arte', 'Geografia', 'Entretenimiento'];
     }
 
     public function getPreguntaRandom($categoria){
@@ -20,6 +20,7 @@ class GameModel{
         }
         return [];
     }
+
     public function getRespuestaCorrecta($idPregunta){
         $sql = "SELECT respuesta_correcta FROM preguntas WHERE id_pregunta = $idPregunta";
         $result = $this->conexion->query($sql);
@@ -32,12 +33,22 @@ class GameModel{
     public function verificarRespuesta($idPregunta, $idUsuario, $opcionSeleccionada){
         $datos = [];
         $correcta = $this->getRespuestaCorrecta($idPregunta);
+        
         if ($correcta !== null) {
             $esCorrecta = $correcta === $opcionSeleccionada;
             $datos['correcta'] = $esCorrecta;
+            
+            // Obtener o crear partida activa
+            $idPartida = $this->getOrCreatePartidaActiva($idUsuario);
+            
+            // Registrar respuesta en la partida
+            $this->registrarRespuestaPartida($idPartida, $idPregunta, $idUsuario, $opcionSeleccionada, $esCorrecta);
+            
             if($esCorrecta){
+                // Sumar puntos a la partida actual
                 $sql = "UPDATE usuarios SET puntaje_partida = puntaje_partida + 10 WHERE id_usuario = $idUsuario";
                 $this->conexion->query($sql);
+                
                 $sql = "SELECT puntaje_partida FROM usuarios WHERE id_usuario = $idUsuario";
                 $result_partida = $this->conexion->query($sql);
                 $puntaje_partida = 0;
@@ -46,6 +57,7 @@ class GameModel{
                     $datos['puntajePartida'] = $puntaje_partida;
                 }
                 
+                // Actualizar puntaje total si supera el récord
                 $sql = "SELECT puntaje_total FROM usuarios WHERE id_usuario = $idUsuario";
                 $result_total = $this->conexion->query($sql);
                 $puntaje_total = 0;
@@ -57,10 +69,16 @@ class GameModel{
                     $sql = "UPDATE usuarios SET puntaje_total = $puntaje_partida WHERE id_usuario = $idUsuario";
                     $this->conexion->query($sql);
                 }
+                
+                // Actualizar estadísticas de la pregunta
                 $sql = "UPDATE preguntas SET correcta_count = correcta_count + 1 WHERE id_pregunta = $idPregunta";
                 $this->conexion->query($sql);
+                
+                // Actualizar puntaje de la partida
+                $sql = "UPDATE partidas SET puntaje_obtenido = $puntaje_partida WHERE id_partida = $idPartida";
+                $this->conexion->query($sql);
             } else {
-                // VAMOS A TENER QUE REFACTORIZAR ESTO POR REPETIDO
+                // Respuesta incorrecta - finalizar partida
                 $sql = "SELECT puntaje_partida FROM usuarios WHERE id_usuario = $idUsuario";
                 $result_partida = $this->conexion->query($sql);
                 $puntaje_partida = 0;
@@ -68,8 +86,20 @@ class GameModel{
                     $puntaje_partida = (int) $result_partida[0]['puntaje_partida'];
                     $datos['puntajePartida'] = $puntaje_partida;
                 }
+                
+                // Finalizar partida
+                $sql = "UPDATE partidas 
+                        SET fecha_fin = NOW(), 
+                            puntaje_obtenido = $puntaje_partida,
+                            ganador = $idUsuario
+                        WHERE id_partida = $idPartida";
+                $this->conexion->query($sql);
+                
+                // Resetear puntaje de partida del usuario
                 $sql = "UPDATE usuarios SET puntaje_partida = 0 WHERE id_usuario = $idUsuario";
                 $this->conexion->query($sql);
+                
+                // Actualizar estadísticas de la pregunta
                 $sql = "UPDATE preguntas SET incorrecta_count = incorrecta_count + 1 WHERE id_pregunta = $idPregunta";
                 $this->conexion->query($sql);
             }
@@ -77,6 +107,44 @@ class GameModel{
         }
         return null;
     }
+
+    // Obtener o crear una partida activa para el usuario
+    private function getOrCreatePartidaActiva($idUsuario) {
+        // Buscar partida activa (sin fecha_fin)
+        $sql = "SELECT id_partida FROM partidas 
+                WHERE id_jugador1 = $idUsuario 
+                AND fecha_fin IS NULL 
+                ORDER BY fecha_inicio DESC 
+                LIMIT 1";
+        $result = $this->conexion->query($sql);
+        
+        if (is_array($result) && count($result) > 0) {
+            return (int)$result[0]['id_partida'];
+        }
+        
+        // Crear nueva partida
+        $sql = "INSERT INTO partidas (modo, id_jugador1, fecha_inicio) 
+                VALUES ('solitario', $idUsuario, NOW())";
+        $this->conexion->query($sql);
+        
+        // Obtener el ID de la partida recién creada
+        $sql = "SELECT LAST_INSERT_ID() as id";
+        $result = $this->conexion->query($sql);
+        if (is_array($result) && count($result) > 0) {
+            return (int)$result[0]['id'];
+        }
+        
+        return null;
+    }
+
+    // Registrar una respuesta en una partida
+    private function registrarRespuestaPartida($idPartida, $idPregunta, $idUsuario, $respuesta, $correcta) {
+        $correctaInt = $correcta ? 1 : 0;
+        $sql = "INSERT INTO respuestas_partida (id_partida, id_pregunta, id_usuario, respuesta, correcta) 
+                VALUES ($idPartida, $idPregunta, $idUsuario, '$respuesta', $correctaInt)";
+        $this->conexion->query($sql);
+    }
+
     public function getPuntajePartida($id) {
         $sql = "SELECT puntaje_partida FROM usuarios WHERE id_usuario = $id";
         $result = $this->conexion->query($sql);
