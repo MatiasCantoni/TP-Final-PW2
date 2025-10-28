@@ -12,6 +12,8 @@ include_once("model/InicioModel.php");
 include_once('vendor/mustache/src/Mustache/Autoloader.php');
 include_once ("helper/MustacheRenderer.php");
 include_once ("vendor/autoload.php");
+include_once("controller/RankingController.php");
+include_once("model/RankingModel.php");
 
 class ConfigFactory
 {
@@ -44,6 +46,8 @@ class ConfigFactory
 
         $this->objetos["GameController"] = new GameController(new GameModel($this->conexion), $this->renderer);        
 
+        $this->objetos["RankingController"] = new RankingController(new RankingModel($this->conexion), $this->renderer);
+        
         $this->emailHelper = new EmailHelper();
     }
 
