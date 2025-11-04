@@ -43,6 +43,7 @@ header {
     background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
     color: white;
     border-left: 2px solid rgba(255,255,255,0.2);
+    z-index: 9999;
 }
 
 .offcanvas-header {
