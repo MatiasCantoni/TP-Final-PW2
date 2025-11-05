@@ -28,7 +28,7 @@ class NewRouter
         $controller = $this->configFactory->get($controllerName);
 
         if ($controller == null) {
-            header("location: /TP-Final-PW2/");
+            header("location: /");
             exit;
         }
 

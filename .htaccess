@@ -6,7 +6,7 @@ Options -Indexes
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    ReWriteBase /TP-Final-PW2/
+    ReWriteBase /
     RewriteRule ^(assets)($|/) - [L,NC]
     RewriteRule ^assets/ - [L,NC]
     RewriteCond %{REQUEST_FILENAME} !-f

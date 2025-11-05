@@ -11,7 +11,7 @@ class GameController{
     }
     public function singleplayer(){
         if (!isset($_SESSION["usuario"])) {
-            header("Location: index.php?controller=User&method=loginForm");
+            header("Location: /user/loginForm");
             exit();
         }
 

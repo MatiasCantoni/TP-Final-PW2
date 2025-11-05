@@ -6,7 +6,7 @@
 </div>
 
 <div class="recover-card">
-    <form action="/TP-Final-PW2/user/recuperarContrasena" method="post">
+    <form action="/user/recuperarContrasena" method="post">
         {{#error}}
             <div class="alert alert-danger" role="alert">{{error}}</div>
         {{/error}}
@@ -23,6 +23,6 @@
         <input type="password" placeholder="Ingrese su nueva contraseña" name="nueva-contrasena" required>
 
         <button type="submit" class="btn btn-custom">Recuperar Contraseña</button>
-        <a href="/TP-Final-PW2/user/">Volver al inicio de sesión</a>
+        <a href="/user/">Volver al inicio de sesión</a>
     </form>
 </div>

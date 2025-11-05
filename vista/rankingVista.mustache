@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/TP-Final-PW2/assets/css/ranking.css">
+<link rel="stylesheet" href="/assets/css/ranking.css">
 
 <div class="background">
     <div class="circle c1"></div>
@@ -49,7 +49,7 @@
                         {{/esTopTres}}
                     </td>
                     <td>
-                        <img src="/TP-Final-PW2/{{foto_perfil}}" alt="Avatar" class="avatar-small" onerror="this.src='/TP-Final-PW2/assets/img/default-avatar.png'">
+                        <img src="/{{foto_perfil}}" alt="Avatar" class="avatar-small" onerror="this.src='/assets/img/default-avatar.png'">
                     </td>
                     <td class="username-cell">
                         <strong>{{nombre_usuario}}</strong>
@@ -66,7 +66,7 @@
                         <span class="score-badge">{{puntaje_total}}</span>
                     </td>
                     <td>
-                        <a href="/TP-Final-PW2/ranking/perfil?id={{id_usuario}}" class="btn btn-sm btn-primary">
+                        <a href="/ranking/perfil?id={{id_usuario}}" class="btn btn-sm btn-primary">
                             Ver Perfil
                         </a>
                     </td>
@@ -77,11 +77,11 @@
     </div>
 
     <div class="text-center mt-4">
-        <a href="/TP-Final-PW2/inicio/" class="btn btn-secondary btn-custom mb-3">Volver al Inicio</a>
+        <a href="/inicio/" class="btn btn-secondary btn-custom mb-3">Volver al Inicio</a>
     </div>
 </div>
 
 <script>
    const idUsuarioActual = {{idUsuarioActual}};
 </script>
-<script src="/TP-Final-PW2/assets/js/ranking.js"></script>
+<script src="/assets/js/ranking.js"></script>

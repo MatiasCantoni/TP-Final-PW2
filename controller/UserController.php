@@ -31,7 +31,7 @@ class UserController
         if ($resultado && sizeof($resultado) > 0) {
             if ($resultado["cuenta_activa"] == 1) {
                 $_SESSION["usuario"] = $resultado;
-                header("Location: /TP-Final-PW2/inicio/index");
+                header("Location: /inicio/index");
                 exit();    
             }
             $this->renderer->render("login", ["isLogin" => true,"error" => "Cuenta no validada. Por favor, revise su correo."]);
@@ -144,7 +144,7 @@ class UserController
     }
     public function redirectToIndex()
     {
-        header("Location: /TP-Final-PW2/");
+        header("Location: /");
         exit;
     }
 

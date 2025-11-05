@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/TP-Final-PW2/assets/css/perfil.css">
+<link rel="stylesheet" href="/assets/css/perfil.css">
 
 <div class="background">
     <div class="circle c1"></div>
@@ -11,7 +11,7 @@
     <!-- Cabecera del Perfil -->
     <div class="profile-header">
         <div class="profile-avatar">
-            <img src="/TP-Final-PW2/{{usuario.foto_perfil}}" alt="Avatar" onerror="this.src='/TP-Final-PW2/assets/img/default-avatar.png'">
+            <img src="/{{usuario.foto_perfil}}" alt="Avatar" onerror="this.src='/assets/img/default-avatar.png'">
         </div>
         <div class="profile-info">
             <h1>{{usuario.nombre_completo}}</h1>
@@ -115,15 +115,15 @@
 
     <div class="action-buttons">
         {{#esPerfilPropio}}
-            <a href="/TP-Final-PW2/game/singleplayer" class="btn-custom mb-3">Jugar Ahora</a>
+            <a href="/game/singleplayer" class="btn-custom mb-3">Jugar Ahora</a>
         {{/esPerfilPropio}}
         {{^esPerfilPropio}}
             <button class="btn btn-warning btn-lg" onclick="alert('Funcion para proxima entrega de TP')">
                 ⚔️ Desafiar
             </button>
         {{/esPerfilPropio}}
-        <a href="/TP-Final-PW2/ranking/" class="btn-ranking mb-3">Ver Ranking</a>
-        <a href="/TP-Final-PW2/inicio/" class="btn-inicio mb-3">Volver al Inicio</a>
+        <a href="/ranking/" class="btn-ranking mb-3">Ver Ranking</a>
+        <a href="/inicio/" class="btn-inicio mb-3">Volver al Inicio</a>
     </div>
 </div>
 

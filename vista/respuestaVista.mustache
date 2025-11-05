@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/TP-Final-PW2/assets/css/preguntarespuesta.css">
+<link rel="stylesheet" href="/assets/css/preguntarespuesta.css">
 
 <div class="background">
     <div class="circle c1"></div>
@@ -12,7 +12,7 @@
         <div class="tarjeta correcto">
             <h1>¡Correcto!</h1>
             <p>Tus puntos: {{puntaje}}</p>
-            <a href="/TP-Final-PW2/game/singleplayer"><button>Siguiente Pregunta</button></a>
+            <a href="/game/singleplayer"><button>Siguiente Pregunta</button></a>
         </div>
     {{/gano}}
 
@@ -24,13 +24,13 @@
                 {{^respuestaCorrectaTexto}}{{respuestaCorrecta}}{{/respuestaCorrectaTexto}}
             </p>
             <p>Tu puntaje final es: {{puntaje}}</p>
-            <a href="/TP-Final-PW2/inicio/"><button>Salir</button></a>
+            <a href="/inicio/"><button>Salir</button></a>
         </div>
     {{/gano}}
 
     <button id="reportar-btn">Reportar Pregunta</button>
 
-    <form id="reportar-form" action="/TP-Final-PW2/game/reportarPregunta" method="POST" style="display: none;">
+    <form id="reportar-form" action="/game/reportarPregunta" method="POST" style="display: none;">
         <input type="hidden" name="id_pregunta" value="{{id_pregunta}}">
         <label for="motivo">Motivo:</label>
         <select name="motivo" id="motivo" required>

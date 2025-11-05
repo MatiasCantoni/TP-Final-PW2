@@ -19,7 +19,7 @@ class InicioController{
     {
         $usuario = $_SESSION["usuario"]["nombre_usuario"];
         if (!isset($usuario)) {
-            header("Location: /tp-final-pw2/user/");
+            header("Location: /user/");
             exit();
         }
         $data = $this->model->getUserInfo($usuario);

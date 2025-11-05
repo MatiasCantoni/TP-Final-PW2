@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/TP-Final-PW2/assets/css/preguntarespuesta.css">
+<link rel="stylesheet" href="/assets/css/preguntarespuesta.css">
 <div class="background">
     <div class="circle c1"></div>
     <div class="circle c2"></div>
@@ -11,7 +11,7 @@
         <h1>Pregunta</h1>
         <p>{{pregunta.texto}}</p>
 
-        <form action="/TP-Final-PW2/game/responder" method="POST">
+        <form action="/game/responder" method="POST">
             <input type="hidden" name="id_pregunta" value="{{pregunta.id_pregunta}}">
             <button name="opcion" value="A">{{pregunta.opcion_a}}</button>
             <button name="opcion" value="B">{{pregunta.opcion_b}}</button>

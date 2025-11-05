@@ -7,11 +7,11 @@
 
 <div class="login-card text-center" style="max-width: 800px">
     <div class="title">
-        <img src="/TP-Final-PW2/assets/img/triviaGo.png" alt="Logo" style="width:50%" />
+        <img src="/assets/img/triviaGo.png" alt="Logo" style="width:50%" />
         <p>¡Completá tus datos para unirte!</p>
     </div>
 
-    <form action="/TP-Final-PW2/user/registerValidation" method="post" enctype="multipart/form-data">
+    <form action="/user/registerValidation" method="post" enctype="multipart/form-data">
         {{#error}}
             <div class="alert alert-danger" role="alert">{{error}}</div>
         {{/error}}
@@ -71,8 +71,8 @@
     </form>
 
     <div class="container signin mt-3">
-        <p>¿Ya tienes una cuenta? <a href="/TP-Final-PW2/user/">Inicia sesión</a>.</p>
+        <p>¿Ya tienes una cuenta? <a href="/user/">Inicia sesión</a>.</p>
     </div>
 </div>
 
-<script src="/TP-Final-PW2/assets/js/register.js" defer></script>
+<script src="/assets/js/register.js" defer></script>

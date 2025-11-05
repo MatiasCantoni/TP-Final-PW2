@@ -15,7 +15,7 @@ class RankingController {
 
     public function index() {
         if (!isset($_SESSION["usuario"])) {
-            header("Location: /TP-Final-PW2/user/loginForm");
+            header("Location: /user/loginForm");
             exit();
         }
 
@@ -37,7 +37,7 @@ class RankingController {
 
     public function perfil() {
         if (!isset($_SESSION["usuario"])) {
-            header("Location: /TP-Final-PW2/user/loginForm");
+            header("Location: /user/loginForm");
             exit();
         }
 
@@ -46,7 +46,7 @@ class RankingController {
         $usuario = $this->model->getUsuarioById($idUsuario);
         
         if (!$usuario) {
-            header("Location: /TP-Final-PW2/ranking/index");
+            header("Location: /ranking/index");
             exit();
         }
 
@@ -56,7 +56,7 @@ class RankingController {
         
         $posicion = $this->model->getPosicionUsuario($idUsuario);
 
-        $urlPerfil = "http://" . $_SERVER['HTTP_HOST'] . "/TP-Final-PW2/ranking/perfil?id=" . $idUsuario;
+        $urlPerfil = "http://" . $_SERVER['HTTP_HOST'] . "/ranking/perfil?id=" . $idUsuario;
 
         $data = [
             "isPerfil" => true,

@@ -88,7 +88,7 @@ function determinarCategoria() {
 
   // Redirigir a la pregunta correspondiente
   botonAceptar.addEventListener("click", () => {
-    window.location.href = `/TP-Final-PW2/game/pregunta?categoria=${encodeURIComponent(categoriaSeleccionada)}`;
+    window.location.href = `pregunta?categoria=${encodeURIComponent(categoriaSeleccionada)}`;
   });
 }
 
