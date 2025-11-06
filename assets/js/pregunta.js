@@ -13,12 +13,14 @@ function iniciarCronometro() {
         inputOpcionE.name = 'opcion';
         inputOpcionE.value = 'A';
         form.appendChild(inputOpcionE);
-        // darle valor 1 al id_pregunta
+        // darle valor 1 al id_pregunta si no se está enviando desde otro lado
+        if (!form.id_pregunta) {
         let inputIdPregunta = document.createElement('input');
         inputIdPregunta.type = 'hidden';
         inputIdPregunta.name = 'id_pregunta';
         inputIdPregunta.value = '1';
         form.appendChild(inputIdPregunta);
+        }
         let inputTiempoTerminado = document.createElement('input');
         inputTiempoTerminado.type = 'hidden';
         inputTiempoTerminado.name = 'tiempo_terminado';

@@ -13,8 +13,15 @@ let girando = false;
 let velocidad = 0;
 let categoriaSeleccionada = null;
 
-// Colores alternados
-const colores = ["#ffcc00", "#ff6666", "#66ccff", "#66ff99", "#cc99ff", "#ff9966"];
+// Colores como pares (inicio, fin) para usar en degradados de canvas
+const colores = [
+  ["#eef485ff", "#ffcc00"],
+  ["#99f399ff", "#20f928ff"],
+  ["#eed694ff", "#ffa938ff"],
+  ["#ff9898ff", "#ff2121ff"],
+  ["#9999ffff", "#2643ffff"],
+  ["#fc95e4ff", "#ff1ccaff"]
+];
 
 // Dibujar la ruleta
 function dibujarRuleta() {
@@ -25,13 +32,19 @@ function dibujarRuleta() {
     const inicio = anguloActual + i * anguloPorSector;
     const fin = inicio + anguloPorSector;
 
-    // Dibujar sector
-    ctx.beginPath();
-    ctx.moveTo(radio, radio);
-    ctx.arc(radio, radio, radio, inicio, fin);
-    ctx.fillStyle = colores[i % colores.length];
-    ctx.fill();
-    ctx.stroke();
+  // Dibujar sector
+  ctx.beginPath();
+  ctx.moveTo(radio, radio);
+  ctx.arc(radio, radio, radio, inicio, fin);
+
+  // Crear un degradado radial para el sector (desde el centro hacia el borde)
+  const pareja = colores[i % colores.length];
+  const grad = ctx.createRadialGradient(radio, radio, radio * 0.1, radio, radio, radio);
+  grad.addColorStop(0, pareja[0]);
+  grad.addColorStop(1, pareja[1]);
+  ctx.fillStyle = grad;
+  ctx.fill();
+  ctx.stroke();
 
     // Escribir texto
     ctx.save();
@@ -39,7 +52,7 @@ function dibujarRuleta() {
     ctx.rotate(inicio + anguloPorSector / 2);
     ctx.textAlign = "right";
     ctx.fillStyle = "#000";
-    ctx.font = "16px Arial";
+    ctx.font = "1.4rem Arial";
     ctx.fillText(categorias[i], radio - 10, 10);
     ctx.restore();
   }
