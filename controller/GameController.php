@@ -22,7 +22,8 @@ class GameController{
 
     public function pregunta(){
         $categoria = $_GET["categoria"];
-        $pregunta = $this->model->getPreguntaRandom($categoria);
+        $usuario = $_SESSION["usuario"]["id_usuario"];
+        $pregunta = $this->model->getPreguntaRandom($categoria, $usuario);
         $this->renderer->render("pregunta", ["pregunta" => $pregunta]);
     }
 

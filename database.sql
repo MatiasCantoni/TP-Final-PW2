@@ -31,7 +31,7 @@ CREATE TABLE usuarios (
 
 -- Usuario administrador (contrasenia: admin)
 INSERT INTO usuarios (nombre_completo, anio_nacimiento, sexo, pais, ciudad, email, contrasena, nombre_usuario, tipo_usuario, cuenta_activa) 
-VALUES ('Admin User', 1990, 'Masculino', 'Argentina', 'Buenos Aires', 'admin@example.com', 'admin', 'admin', 'admin', TRUE);
+VALUES ('Admin User', 1990, 'Masculino', 'Argentina', 'Buenos Aires', 'admin@example.com', 'admin', 'admin', 'admin', 1);
 
 
 CREATE TABLE preguntas (
@@ -83,6 +83,15 @@ CREATE TABLE respuestas_partida (
     FOREIGN KEY (id_pregunta) REFERENCES preguntas(id_pregunta) ON DELETE CASCADE,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE,
     INDEX idx_respuestas_partida (id_partida, id_usuario)
+);
+
+CREATE TABLE preguntas_respondidas (
+    id_pregunta_respondida INT AUTO_INCREMENT PRIMARY KEY,
+    id_pregunta INT NOT NULL,
+    id_usuario INT NOT NULL,
+    FOREIGN KEY (id_pregunta) REFERENCES preguntas(id_pregunta) ON DELETE CASCADE,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE,
+    INDEX idx_preguntas_respondidas_usuario (id_usuario, id_pregunta)
 );
 
 CREATE TABLE reportes_pregunta (

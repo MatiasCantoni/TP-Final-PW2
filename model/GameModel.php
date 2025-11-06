@@ -12,9 +12,14 @@ class GameModel{
         return ['Historia', 'Ciencia', 'Deportes', 'Arte', 'Geografia', 'Entretenimiento'];
     }
 
-    public function getPreguntaRandom($categoria){
-        $sql = "SELECT * FROM preguntas WHERE categoria = '$categoria' AND estado = 'aprobada' ORDER BY RAND() LIMIT 1";
+    public function getPreguntaRandom($categoria, $usuario){
+
+        $sql = "SELECT * FROM preguntas WHERE categoria = '$categoria' AND estado = 'aprobada' AND 
+                id_pregunta NOT IN (SELECT id_pregunta FROM preguntas_respondidas WHERE id_usuario = $usuario) ORDER BY RAND() LIMIT 1";
         $result = $this->conexion->query($sql);
+
+        $this->agregarPreguntaRespondida($result[0]["id_pregunta"], $usuario);
+
         if (is_array($result) && count($result) > 0) {
             return $result[0];
         }
@@ -102,6 +107,8 @@ class GameModel{
                 // Actualizar estadísticas de la pregunta
                 $sql = "UPDATE preguntas SET incorrecta_count = incorrecta_count + 1 WHERE id_pregunta = $idPregunta";
                 $this->conexion->query($sql);
+
+                $sql = "DELETE FROM preguntas_respondidas WHERE id_usuario = $idUsuario";
             }
             return $datos;
         }
@@ -177,6 +184,11 @@ class GameModel{
         $this->conexion->query($sql);
 
         $sql = "UPDATE preguntas SET estado = 'pendiente' WHERE id_pregunta = $idPregunta";
+        $this->conexion->query($sql);
+    }
+
+    public function agregarPreguntaRespondida($idPregunta, $idUsuario){
+        $sql = "INSERT INTO preguntas_respondidas (id_pregunta, id_usuario) VALUES ($idPregunta, $idUsuario)";
         $this->conexion->query($sql);
     }
 }
