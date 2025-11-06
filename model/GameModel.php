@@ -42,12 +42,24 @@ class GameModel{
         return null;
     }
 
-    public function verificarRespuesta($idPregunta, $idUsuario, $opcionSeleccionada){
+    public function verificarRespuesta($idPregunta, $idUsuario, $opcionSeleccionada, $tiempo_terminado = ''){
         $datos = [];
+        
+        // Validar que tengamos un id_pregunta válido
+        if (empty($idPregunta) || !is_numeric($idPregunta)) {
+            error_log("Error: id_pregunta inválido o vacío: " . var_export($idPregunta, true));
+            return null;
+        }
+        
         $correcta = $this->getRespuestaCorrecta($idPregunta);
         
         if ($correcta !== null) {
-            $esCorrecta = $correcta === $opcionSeleccionada;
+            // Si el tiempo se acabó, la respuesta es incorrecta automáticamente
+            if ($tiempo_terminado === '1') {
+                $esCorrecta = false;
+            } else {
+                $esCorrecta = $correcta === $opcionSeleccionada;
+            }
             $datos['correcta'] = $esCorrecta;
             
             // Obtener o crear partida activa

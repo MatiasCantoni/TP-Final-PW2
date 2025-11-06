@@ -40,10 +40,11 @@ class GameController{
 
     public function responder(){
         $opcionSeleccionada = $_POST["opcion"];
+        $tiempo_terminado = $_POST["tiempo_terminado"] ?? '';
         $idPregunta = $_POST["id_pregunta"];
         $idUsuario = $_SESSION["usuario"]["id_usuario"];
 
-        $datos = $this->model->verificarRespuesta($idPregunta, $idUsuario, $opcionSeleccionada);
+        $datos = $this->model->verificarRespuesta($idPregunta, $idUsuario, $opcionSeleccionada, $tiempo_terminado);
         $gano = $datos['correcta'];
         $puntajePartida = $datos['puntajePartida'];
         $respuestaCorrecta = $this->model->getRespuestaCorrecta($idPregunta);

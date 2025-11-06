@@ -23,6 +23,30 @@
 .c3 { width: 100px; height: 100px; background: #3a86ff; bottom: 10%; left: 20%; }
 .c4 { width: 220px; height: 220px; background: #fb5607; top: 25%; right: 25%; }
 
+.tiempo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+    border-radius: 100px;
+    padding: 10px 20px;
+    background: linear-gradient(90deg, #e0faf8, #f6f5c2);
+    display: inline-block;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+}
+
+.tiempo-acabando {
+    color: red;
+    background: linear-gradient(90deg, #f8d3d1, #f09590);
+    animation: parpadeo 1s infinite;
+}
+
+@keyframes parpadeo {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
 @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-20px); }
@@ -62,7 +86,10 @@
     text-align: center;
     position: relative;
     z-index: 2;
+    margin-top: 2rem;
 }
+
+
 
 .tarjeta {
     border-radius: 20px;
@@ -182,18 +209,15 @@ a button:hover {
     .tarjeta {
         width: 90%;
         padding: 1.5rem;
-        background-color: yellow !important; /* Cambio muy visible para prueba */
     }
 
     form button, a button {
         width: 100%;
         margin: 0.4rem 0;
-        border: 3px solid red !important; /* Cambio muy visible para prueba */
     }
 
     h1 {
         font-size: 1.6rem;
-        color: purple !important; /* Cambio muy visible para prueba */
     }
 
     p {
