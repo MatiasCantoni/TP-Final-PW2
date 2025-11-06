@@ -28,9 +28,31 @@
     50% { transform: translateY(-20px); }
 }
 
+.bg-historia {
+    background-color: #d6e66f;
+}
+
+.bg-ciencia {
+    background-color: #2bed05;
+}
+
+.bg-deportes {
+    background-color: #ffb433;
+}
+
+.bg-arte {
+    background-color: #FF33A8;
+}
+
+.bg-geografia {
+    background-color: #6f8eff;
+}
+
+.bg-entretenimiento {
+    background-color: #f36de1;
+}
 
 .contenedor {
-    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -43,7 +65,6 @@
 }
 
 .tarjeta {
-    background: white;
     border-radius: 20px;
     padding: 2.5rem;
     width: 80%;
@@ -161,15 +182,18 @@ a button:hover {
     .tarjeta {
         width: 90%;
         padding: 1.5rem;
+        background-color: yellow !important; /* Cambio muy visible para prueba */
     }
 
     form button, a button {
         width: 100%;
         margin: 0.4rem 0;
+        border: 3px solid red !important; /* Cambio muy visible para prueba */
     }
 
     h1 {
         font-size: 1.6rem;
+        color: purple !important; /* Cambio muy visible para prueba */
     }
 
     p {

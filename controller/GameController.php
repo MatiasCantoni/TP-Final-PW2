@@ -24,6 +24,17 @@ class GameController{
         $categoria = $_GET["categoria"];
         $usuario = $_SESSION["usuario"]["id_usuario"];
         $pregunta = $this->model->getPreguntaRandom($categoria, $usuario);
+
+        $colorCategorias = [
+            'Historia' => 'bg-historia',
+            'Ciencia' => 'bg-ciencia',
+            'deportes' => 'bg-deportes',
+            'Arte' => 'bg-arte',
+            'Geografia' => 'bg-geografia',
+            'Entretenimiento' => 'bg-entretenimiento'
+        ];
+        $pregunta['color_categoria'] = $colorCategorias[$categoria] ?? 'bg-default';
+
         $this->renderer->render("pregunta", ["pregunta" => $pregunta]);
     }
 

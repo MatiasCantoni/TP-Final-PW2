@@ -22,11 +22,11 @@ class GameModel{
             $this->agregarPreguntaRespondida($result[0]["id_pregunta"], $usuario);
             
             // Sanitizar los campos de texto para asegurar codificación correcta
-            $result[0]['texto'] = htmlspecialchars($result[0]['texto'], ENT_QUOTES, 'UTF-8');
-            $result[0]['opcion_a'] = htmlspecialchars($result[0]['opcion_a'], ENT_QUOTES, 'UTF-8');
-            $result[0]['opcion_b'] = htmlspecialchars($result[0]['opcion_b'], ENT_QUOTES, 'UTF-8');
-            $result[0]['opcion_c'] = htmlspecialchars($result[0]['opcion_c'], ENT_QUOTES, 'UTF-8');
-            $result[0]['opcion_d'] = htmlspecialchars($result[0]['opcion_d'], ENT_QUOTES, 'UTF-8');
+            // $result[0]['texto'] = htmlspecialchars($result[0]['texto'], ENT_QUOTES, 'UTF-8');
+            // $result[0]['opcion_a'] = htmlspecialchars($result[0]['opcion_a'], ENT_QUOTES, 'UTF-8');
+            // $result[0]['opcion_b'] = htmlspecialchars($result[0]['opcion_b'], ENT_QUOTES, 'UTF-8');
+            // $result[0]['opcion_c'] = htmlspecialchars($result[0]['opcion_c'], ENT_QUOTES, 'UTF-8');
+            // $result[0]['opcion_d'] = htmlspecialchars($result[0]['opcion_d'], ENT_QUOTES, 'UTF-8');
             
             return $result[0];
         }
@@ -116,6 +116,7 @@ class GameModel{
                 $this->conexion->query($sql);
 
                 $sql = "DELETE FROM preguntas_respondidas WHERE id_usuario = $idUsuario";
+                $this->conexion->query($sql);
             }
             return $datos;
         }
