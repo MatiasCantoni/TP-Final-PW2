@@ -28,6 +28,29 @@
     50% { transform: translateY(-20px); }
 }
 
+.bg-historia {
+    background-color: #d6e66f;
+}
+
+.bg-ciencia {
+    background-color: #2bed05;
+}
+
+.bg-deportes {
+    background-color: #ffb433;
+}
+
+.bg-arte {
+    background-color: #FF33A8;
+}
+
+.bg-geografia {
+    background-color: #6f8eff;
+}
+
+.bg-entretenimiento {
+    background-color: #f36de1;
+}
 
 .d-flex.flex-column {
     min-height: 100vh;
