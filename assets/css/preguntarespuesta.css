@@ -133,6 +133,16 @@ a button {
     box-shadow: 0 4px 12px rgba(255, 0, 110, 0.4);
     cursor: pointer;
 }
+.boton-siguiente {
+    background: linear-gradient(90deg, #80b1ed, #2bf05f);
+    box-shadow: 0 4px 12px rgba(7, 146, 2, 0.4);
+}
+
+
+.boton-salir {
+    background: linear-gradient(90deg, #fb905f, #ef0101);
+    box-shadow: 0 4px 12px rgba(255, 0, 110, 0.4);
+}
 
 form button:hover,
 a button:hover {
@@ -195,11 +205,13 @@ a button:hover {
 
 
 .correcto {
-    border: 3px solid #3a86ff;
-    box-shadow: 0 0 20px rgba(58, 134, 255, 0.3);
+    background-color: #b1e9b2;
+    border: 3px solid #3aff3d;
+    box-shadow: 0 0 20px rgba(58, 255, 58, 0.3);
 }
 
 .incorrecto {
+    background-color: #fcb2b2;
     border: 3px solid #ff006e;
     box-shadow: 0 0 20px rgba(255, 0, 110, 0.3);
 }
