@@ -82,14 +82,20 @@ function determinarCategoria() {
   if (relative < 0) relative += twoPi;
   const sector = Math.floor(relative / anguloPorSector) % numCategorias;
   categoriaSeleccionada = categorias[sector];
-  let botonAceptar = document.getElementById("aceptar-categoria");
-  document.getElementById("categoria-seleccionada").innerText = `${categoriaSeleccionada}`;     
-  botonAceptar.style.display = "inline-block";
-
-  // Redirigir a la pregunta correspondiente
-  botonAceptar.addEventListener("click", () => {
-    window.location.href = `pregunta?categoria=${encodeURIComponent(categoriaSeleccionada)}`;
+  // Mostrar la categoría en el texto y en el modal
+  document.getElementById("modal-categoria-texto").innerHTML = `<strong>${categoriaSeleccionada}</strong>`;
+  
+  // Mostrar el modal usando Bootstrap y evitar que se cierre al hacer click fuera o presionar Esc
+  const categoriaModal = new bootstrap.Modal(document.getElementById('categoriaModal'), {
+    backdrop: 'static', // evita cierre al clickear fuera
+    keyboard: false     // evita cierre con la tecla Esc
   });
+  categoriaModal.show();
+
+  // Redirigir a la pregunta correspondiente cuando se acepta
+  document.getElementById("aceptar-categoria").onclick = () => {
+    window.location.href = `pregunta?categoria=${encodeURIComponent(categoriaSeleccionada)}`;
+  };
 }
 
 // Evento del botón "Girar"

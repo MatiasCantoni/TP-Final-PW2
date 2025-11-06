@@ -15,8 +15,23 @@
         <button id="girar">Girar</button>
     </div>
     <div class="mt-3 text-center">
-        <h3 id="categoria-seleccionada"></h3>
-        <button id="aceptar-categoria" style="display:none;">Aceptar Categoría</button>
+    </div>
+</div>
+
+<!-- Modal de categoría -->
+<div class="modal fade" id="categoriaModal" tabindex="-1" aria-labelledby="categoriaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="categoriaModalLabel">Categoría Seleccionada</h5>
+            </div>
+            <div class="modal-body text-center">
+                <h4 id="modal-categoria-texto"></h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="aceptar-categoria">Aceptar Categoría</button>
+            </div>
+        </div>
     </div>
 </div>
 

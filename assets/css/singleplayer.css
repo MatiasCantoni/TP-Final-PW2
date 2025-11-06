@@ -114,7 +114,14 @@ p {
     text-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
+.modal-title{
+    color: #4b0082;
+    font-weight: 700;
+}
 
+.modal-content{
+    align-items: center;
+}
 @media (max-width: 768px) {
     #ruleta-container {
         max-width: 90%;
