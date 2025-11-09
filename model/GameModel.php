@@ -101,6 +101,10 @@ class GameModel{
                 // Actualizar puntaje de la partida
                 $sql = "UPDATE partidas SET puntaje_obtenido = $puntaje_partida WHERE id_partida = $idPartida";
                 $this->conexion->query($sql);
+
+                // Añadir respuestas correctas al usuario
+                $sql = "UPDATE usuarios SET respuestas_correctas = respuestas_correctas + 1 WHERE id_usuario = $idUsuario";
+                $this->conexion->query($sql);
             } else {
                 // Respuesta incorrecta - finalizar partida
                 $sql = "SELECT puntaje_partida FROM usuarios WHERE id_usuario = $idUsuario";
@@ -126,10 +130,18 @@ class GameModel{
                 // Actualizar estadísticas de la pregunta
                 $sql = "UPDATE preguntas SET incorrecta_count = incorrecta_count + 1 WHERE id_pregunta = $idPregunta";
                 $this->conexion->query($sql);
-
+                
+                // Limpiar preguntas respondidas para reiniciar el ciclo
                 $sql = "DELETE FROM preguntas_respondidas WHERE id_usuario = $idUsuario";
                 $this->conexion->query($sql);
+
+                // Añadir respuestas incorrectas al usuario
+                $sql = "UPDATE usuarios SET respuestas_incorrectas = respuestas_incorrectas + 1 WHERE id_usuario = $idUsuario";
+                $this->conexion->query($sql);
             }
+            // preguntar al profe si se puede dejar esto aca
+            $this->setDificultadPregunta($idPregunta);
+            $this->setNivelUsuario($idUsuario);
             return $datos;
         }
         return null;
@@ -210,5 +222,53 @@ class GameModel{
     public function agregarPreguntaRespondida($idPregunta, $idUsuario){
         $sql = "INSERT INTO preguntas_respondidas (id_pregunta, id_usuario) VALUES ($idPregunta, $idUsuario)";
         $this->conexion->query($sql);
+    }
+
+    public function setDificultadPregunta($idPregunta){
+        $sql = "SELECT correcta_count, incorrecta_count FROM preguntas WHERE id_pregunta = $idPregunta";
+        $result = $this->conexion->query($sql);
+        if (is_array($result) && count($result) > 0) {
+            $correcta_count = (int)$result[0]['correcta_count'];
+            $incorrecta_count = (int)$result[0]['incorrecta_count'];
+            $total = $correcta_count + $incorrecta_count;
+
+            if ($total >= 10) { // Solo ajustar dificultad si hay al menos 10 respuestas
+                $ratio = $correcta_count / $total;
+                $nueva_dificultad = 'media';
+
+                if ($ratio >= 0.8) {
+                    $nueva_dificultad = 'facil';
+                } elseif ($ratio < 0.5) {
+                    $nueva_dificultad = 'dificil';
+                }
+
+                $sql_update = "UPDATE preguntas SET dificultad = '$nueva_dificultad' WHERE id_pregunta = $idPregunta";
+                $this->conexion->query($sql_update);
+            }
+        }
+    }
+
+    public function setNivelUsuario($idUsuario){
+        $sql = "SELECT respuestas_correctas, respuestas_incorrectas FROM usuarios WHERE id_usuario = $idUsuario";
+        $result = $this->conexion->query($sql);
+        if (is_array($result) && count($result) > 0) {
+            $correctas = (int)$result[0]['respuestas_correctas'];
+            $incorrectas = (int)$result[0]['respuestas_incorrectas'];
+            $total = $correctas + $incorrectas;
+
+            if ($total > 0) {
+                $ratio = $correctas / $total;
+                $nivel = 'medio';
+
+                if ($ratio >= 0.7) {
+                    $nivel = 'alto';
+                } elseif ($ratio < 0.4) {
+                    $nivel = 'bajo';
+                }
+
+                $sql_update = "UPDATE usuarios SET nivel = '$nivel' WHERE id_usuario = $idUsuario";
+                $this->conexion->query($sql_update);
+            }
+        }
     }
 }

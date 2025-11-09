@@ -20,6 +20,8 @@ CREATE TABLE usuarios (
     foto_perfil VARCHAR(255) DEFAULT 'assets/img/default-avatar.png',
     tipo_usuario ENUM('jugador', 'editor', 'admin') DEFAULT 'jugador',
     nivel ENUM('bajo', 'medio', 'alto') DEFAULT 'bajo',
+    respuestas_correctas INT DEFAULT 0,
+    respuestas_incorrectas INT DEFAULT 0,
     puntaje_total INT DEFAULT 0,
     puntaje_partida INT DEFAULT 0,
     cuenta_activa BOOLEAN DEFAULT FALSE,
