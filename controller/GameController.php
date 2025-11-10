@@ -23,7 +23,8 @@ class GameController{
     public function pregunta(){
         $categoria = $_GET["categoria"];
         $usuario = $_SESSION["usuario"]["id_usuario"];
-        $pregunta = $this->model->getPreguntaRandom($categoria, $usuario);
+        $nivelUsuario = $_SESSION["usuario"]["nivel"];
+        $pregunta = $this->model->getPreguntaRandom($categoria, $usuario, $nivelUsuario);
 
         $colorCategorias = [
             'Historia' => 'bg-historia',
