@@ -19,6 +19,8 @@ Cuando recargan la pagina que no se pueda volver a girar la ruleta/contar la res
 
 que no puedan volver para atras cuando erran la respuesta.
 
+podriamos mejorar las partidas haciendo que las preguntas den diferentes puntos segun la dificultad que tengan.
+
 <!-------------->
 
 <!-- GENERAL -->

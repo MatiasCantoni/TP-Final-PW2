@@ -14,6 +14,12 @@ class GameController{
             header("Location: /user/loginForm");
             exit();
         }
+        $tipoDeUsuario = $_SESSION["usuario"]["tipo_usuario"];
+        $resultado = $this->model->esUsuarioAptoParaJugar($tipoDeUsuario);
+        if ($resultado == false){
+            $this->renderer->render("inicio", ["mensajeError" => "Este usuario no es apto para jugar."]);
+            return;
+        }
 
         $categorias = $this->model->getCategorias();
         $this->renderer->render("singleplayer", ["isSingleplayer" => true, "categorias" => $categorias]);

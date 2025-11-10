@@ -7,7 +7,14 @@ class GameModel{
     {
         $this->conexion = $conexion;
     }
-
+    public function esUsuarioAptoParaJugar($tipoDeUsuario){
+        $sql = "SELECT tipo_usuario FROM usuarios WHERE tipo_usuario = '$tipoDeUsuario'";
+        $result = $this->conexion->query($sql);
+        if($result == 'jugador'){
+            return true;
+        }
+        return false;
+    }
     public function getCategorias(){
         return ['Historia', 'Ciencia', 'Deportes', 'Arte', 'Geografia', 'Entretenimiento'];
     }
