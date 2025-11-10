@@ -19,7 +19,6 @@ class RankingController {
             exit();
         }
 
-        // Obtener top 50 jugadores
         $topJugadores = $this->model->getTopJugadores(50);
         
         $idUsuarioActual = $_SESSION["usuario"]["id_usuario"];
@@ -35,6 +34,7 @@ class RankingController {
         $this->renderer->render("ranking", $data);
     }
 
+    
     public function perfil() {
         if (!isset($_SESSION["usuario"])) {
             header("Location: /user/loginForm");
@@ -58,6 +58,12 @@ class RankingController {
 
         $urlPerfil = "http://" . $_SERVER['HTTP_HOST'] . "/ranking/perfil?id=" . $idUsuario;
 
+        $esPerfilPropio = $idUsuario == $_SESSION["usuario"]["id_usuario"];
+        
+        if ($esPerfilPropio) {
+            $usuario['contrasena_oculta'] = str_repeat('*', 10);
+        }
+
         $data = [
             "isPerfil" => true,
             "usuario" => $usuario,
@@ -65,7 +71,7 @@ class RankingController {
             "estadisticas" => $estadisticas,
             "posicion" => $posicion,
             "urlPerfil" => $urlPerfil,
-            "esPerfilPropio" => $idUsuario == $_SESSION["usuario"]["id_usuario"]
+            "esPerfilPropio" => $esPerfilPropio
         ];
 
         $this->renderer->render("perfil", $data);
