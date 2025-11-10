@@ -7,6 +7,7 @@
     <div class="circle c4"></div>
 </div>
 
+
 <div class="container perfil-container">
     <!-- Cabecera del Perfil -->
     <div class="profile-header">
@@ -21,6 +22,28 @@
                 <span class="badge bg-success">{{usuario.pais}}, {{usuario.ciudad}}</span>
                 <span class="badge bg-warning">Nivel: {{usuario.nivel}}</span>
             </div>
+            
+            {{#esPerfilPropio}}
+            <!-- Datos adicionales solo para perfil propio -->
+            <div class="profile-details mt-3">
+                <div class="detail-item">
+                    <span class="detail-label">📧 Email:</span>
+                    <span class="detail-value">{{usuario.email}}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">🎂 Año de Nacimiento:</span>
+                    <span class="detail-value">{{usuario.anio_nacimiento}}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">👤 Sexo:</span>
+                    <span class="detail-value">{{usuario.sexo}}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">🔒 Contraseña:</span>
+                    <span class="detail-value password-hidden">{{usuario.contrasena_oculta}}</span>
+                </div>
+            </div>
+            {{/esPerfilPropio}}
         </div>
         <div class="profile-qr">
             <div id="qrcode"></div>
