@@ -21,7 +21,7 @@ class EditorController {
         if (
             !isset($_SESSION["usuario"]) ||
             !isset($_SESSION["usuario"]["tipo_usuario"]) ||
-            $_SESSION["usuario"]["tipo_usuario"] != "editor"
+            $_SESSION["usuario"]["tipo_usuario"] == "jugador"
         ) {
             header("Location: /user/loginForm");
             exit;
@@ -55,7 +55,7 @@ class EditorController {
             );
         }
 
-        header("Location: /TP-Final-PW2/editor");
+        header("Location: /editor");
         exit;
     }
 
@@ -71,7 +71,7 @@ class EditorController {
             );
         }
 
-        header("Location: /TP-Final-PW2/editor");
+        header("Location: /editor");
         exit;
     }
 
@@ -82,13 +82,13 @@ class EditorController {
         }
 
         if (!isset($_SESSION["usuario"]["id_usuario"])) {
-            header("Location: /TP-Final-PW2/user/loginForm");
+            header("Location: /user/loginForm");
             exit;
         }
 
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $this->editorModel->crearPregunta($_POST, $_SESSION["usuario"]["id_usuario"]);
-            header("Location: /TP-Final-PW2/editor");
+            header("Location: /editor");
             exit;
         } else {
             $this->renderer->render("nuevaPreguntaVista");
@@ -104,7 +104,7 @@ class EditorController {
         }
 
         if (!isset($_GET["id"])) {
-            header("Location: /TP-Final-PW2/editor");
+            header("Location: /editor");
             exit;
         }
 
@@ -117,7 +117,7 @@ class EditorController {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $this->editorModel->modificarPregunta($_POST);
         }
-        header("Location: /TP-Final-PW2/editor");
+        header("Location: /editor");
         exit;
     }
 
@@ -126,14 +126,14 @@ class EditorController {
         if (isset($_POST["id_pregunta"])) {
             $this->editorModel->borrarPregunta($_POST["id_pregunta"]);
         }
-        header("Location: /TP-Final-PW2/editor");
+        header("Location: /editor");
         exit;
     }
     public function desestimarReporte() {
         if (isset($_POST["id_reporte"])) {
             $this->editorModel->desestimarReporte($_POST["id_reporte"]);
         }
-        header("Location: /TP-Final-PW2/editor");
+        header("Location: /editor");
         exit;
     }
 
@@ -142,7 +142,7 @@ class EditorController {
         if (isset($_POST["id_reporte"], $_POST["id_pregunta"])) {
             $this->editorModel->eliminarPreguntaReportada($_POST["id_reporte"], $_POST["id_pregunta"]);
         }
-        header("Location: /TP-Final-PW2/editor");
+        header("Location: /editor");
         exit;
     }
 
