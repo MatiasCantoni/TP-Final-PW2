@@ -275,9 +275,6 @@
     background: linear-gradient(90deg, #6a11cb, #2575fc);
 }
 
-
-
-
 .btn-inicio {
     background: linear-gradient(90deg, #ff512f, #dd2476);
 }
@@ -289,6 +286,83 @@
     background-image: linear-gradient(90deg, #ff6a00, #ee0979);
 }
 
+.profile-details {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: none !important;
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-item:hover {
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding: 12px 0 !important; 
+}
+
+
+.detail-label {
+    font-weight: 600;
+    color: #495057;
+    min-width: 180px;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.detail-value {
+    color: #212529;
+    font-size: 0.95rem;
+    flex: 1;
+}
+
+.password-hidden {
+    font-family: 'Courier New', monospace;
+    letter-spacing: 3px;
+    color: #6c757d;
+    font-size: 1.2rem;
+}
+
+.profile-details {
+        padding: 15px;
+    }
+    
+    .detail-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .detail-label {
+        min-width: auto;
+        font-size: 0.9rem;
+    }
+    
+    .detail-value {
+        font-size: 0.9rem;
+        padding-left: 25px;
+    }
+
+
+.profile-details {
+    animation: fadeInUp 0.5s ease-out;
+}
 
 @media (max-width: 768px) {
     .perfil-container {
@@ -327,85 +401,6 @@
     .action-buttons .btn {
         width: 100%;
     }
-}
-
-
-
-.profile-details {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 12px;
-    padding: 20px;
-    margin-top: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-}
-
-.detail-item {
-    display: flex;
-    align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    transition: background-color 0.2s ease;
-}
-
-.detail-item:last-child {
-    border-bottom: none;
-}
-
-.detail-item:hover {
-    background-color: rgba(0, 0, 0, 0.02);
-    border-radius: 8px;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-.detail-label {
-    font-weight: 600;
-    color: #495057;
-    min-width: 180px;
-    font-size: 0.95rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.detail-value {
-    color: #212529;
-    font-size: 0.95rem;
-    flex: 1;
-}
-
-.password-hidden {
-    font-family: 'Courier New', monospace;
-    letter-spacing: 3px;
-    color: #6c757d;
-    font-size: 1.2rem;
-}
-
-@media (max-width: 768px) {
-    .profile-details {
-        padding: 15px;
-    }
-    
-    .detail-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
-    }
-    
-    .detail-label {
-        min-width: auto;
-        font-size: 0.9rem;
-    }
-    
-    .detail-value {
-        font-size: 0.9rem;
-        padding-left: 25px;
-    }
-}
-
-.profile-details {
-    animation: fadeInUp 0.5s ease-out;
 }
 
 @keyframes fadeInUp {
