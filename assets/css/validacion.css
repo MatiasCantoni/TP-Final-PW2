@@ -109,3 +109,54 @@ a:hover {
         max-width: 100%;
     }
 }
+
+/* Spinner styles */
+.lds-dual-ring {
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+}
+.lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 46px;
+    height: 46px;
+    margin: 1px;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Ensure spinner overlay content centers properly */
+/* Spinner overlay (moved from inline styles) */
+#validacionSpinner {
+    display: none; /* default hidden */
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Inner content */
+.validacion-spinner--content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .75rem;
+}
+
+.validacion-spinner--message {
+    color: #fff;
+    font-weight: 600;
+}

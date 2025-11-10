@@ -18,10 +18,18 @@
 
     <form action="/user/primeraValidacionToken" method="post">
         <input type="email" name="email" placeholder="Correo electrónico" required>
-        <button type="submit">Enviar</button>
+        <button type="submit" id="validarBtn">Enviar</button>
     </form>
 
     <p class="mt-3">
         <a href="/user/">Volver al inicio de sesión</a>
     </p>
 </div>
+
+<!-- Spinner oculto -->
+    <div id="validacionSpinner" class="validacion-spinner--overlay">
+        <div class="validacion-spinner--content">
+            <div class="lds-dual-ring"></div>
+            <div class="validacion-spinner--message">Enviando correo... por favor espera</div>
+        </div>
+    </div>

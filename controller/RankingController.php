@@ -19,11 +19,11 @@ class RankingController {
             exit();
         }
 
-        $topJugadores = $this->model->getTopJugadores(50);
+        $topJugadores = $this->model->getTopJugadores(10);
         
         $idUsuarioActual = $_SESSION["usuario"]["id_usuario"];
         $posicionUsuario = $this->model->getPosicionUsuario($idUsuarioActual);
-
+        
         $data = [
             "isRanking" => true,
             "jugadores" => $topJugadores,

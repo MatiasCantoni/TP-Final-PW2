@@ -47,7 +47,10 @@ class UserModel
             $resultado = "El correo ya existe.";
             return $resultado;
         }
-
+        if ($anio_nacimiento < 1900 || $anio_nacimiento > intval(date("Y") - 5)) {
+            $resultado = "El año de nacimiento no es válido.";
+            return $resultado;
+        }
         $token = bin2hex(random_bytes(16)); // genera un código seguro
 
         $foto_perfil_db = $foto_perfil ? 'assets/img/uploads/' . $foto_perfil : '';

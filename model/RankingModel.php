@@ -8,7 +8,7 @@ class RankingModel {
     }
 
     // Obtener top N jugadores por puntaje total
-    public function getTopJugadores($limite = 10) {
+    public function getTopJugadores($limite = 50) {
         $sql = "SELECT 
                     id_usuario,
                     nombre_usuario,
