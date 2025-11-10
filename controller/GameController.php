@@ -9,21 +9,21 @@ class GameController{
         $this->model = $model;
         $this->renderer = $renderer;
     }
+
+    
     public function singleplayer(){
         if (!isset($_SESSION["usuario"])) {
             header("Location: /user/loginForm");
             exit();
         }
-        $tipoDeUsuario = $_SESSION["usuario"]["tipo_usuario"];
-        $resultado = $this->model->esUsuarioAptoParaJugar($tipoDeUsuario);
+        $idUsuario = $_SESSION["usuario"]["id_usuario"];
+        $resultado = $this->model->esUsuarioAptoParaJugar($idUsuario);
         if ($resultado == false){
-            $this->renderer->render("inicio", ["mensajeError" => "Este usuario no es apto para jugar."]);
+            $this->renderer->render("inicio", ["isInicio" => true, "mensajeError" => "Este usuario no es apto para jugar."]);
             return;
         }
-
         $categorias = $this->model->getCategorias();
         $this->renderer->render("singleplayer", ["isSingleplayer" => true, "categorias" => $categorias]);
-        
     }
 
     public function pregunta(){
