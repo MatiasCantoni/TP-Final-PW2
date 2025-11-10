@@ -41,7 +41,8 @@ class RankingController {
             "isRanking" => true,
             "jugadores" => $jugadoresProcesados,
             "posicionUsuario" => $posicionUsuario,
-            "idUsuarioActual" => $idUsuarioActual
+            "idUsuarioActual" => $idUsuarioActual,
+                "showNavbar" => true
         ];
 
         $this->renderer->render("ranking", $data);

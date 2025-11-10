@@ -23,6 +23,9 @@ class UserController
 
     public function login()
     {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         $usuario = $_POST["usuario"];
         $contrasena = $_POST["contrasena"];
         $resultado = $this->model->validarLogin($usuario, $contrasena);
@@ -31,13 +34,26 @@ class UserController
         if ($resultado && sizeof($resultado) > 0) {
             if ($resultado["cuenta_activa"] == 1) {
                 $_SESSION["usuario"] = $resultado;
-                header("Location: /inicio/index");
-                exit();    
+
+                if ($resultado["tipo_usuario"] == "editor") {
+                    header("Location: /TP-Final-PW2/editor/index");
+                    exit;
+                }
+
+                header("Location: /TP-Final-PW2/inicio/index");
+                exit;
+            } else {
+                $this->renderer->render("login", [
+                    "isLogin" => true,
+                    "error" => "Cuenta no validada. Por favor, revise su correo."
+                ]);
+                return;
             }
-            $this->renderer->render("login", ["isLogin" => true,"error" => "Cuenta no validada. Por favor, revise su correo."]);
-            return;
         } else {
-            $this->renderer->render("login", ["isLogin" => true,"error" => "Usuario o clave incorrecta"]);
+            $this->renderer->render("login", [
+                "isLogin" => true,
+                "error" => "Usuario o clave incorrecta"
+            ]);
         }
     }
 

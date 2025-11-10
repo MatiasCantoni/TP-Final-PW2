@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Pregunta</title>
+    <link rel="stylesheet" href="/TP-Final-PW2/assets/css/inicio.css">
+</head>
+<body>
+<div class="background">
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+    <div class="circle c3"></div>
+    <div class="circle c4"></div>
+</div>
+
+<div class="home-card">
+    <h1>Editar Pregunta ✏️</h1>
+
+    <form method="POST" action="/TP-Final-PW2/editor/guardarEdicion" style="text-align:left; width:100%; max-width:600px;">
+        <input type="hidden" name="id_pregunta" value="{{pregunta.id_pregunta}}">
+
+        <label>Texto:</label>
+        <input type="text" name="texto" class="form-control" value="{{pregunta.texto}}" required><br>
+
+        <label>Opción A:</label>
+        <input type="text" name="opcion_a" class="form-control" value="{{pregunta.opcion_a}}" required><br>
+
+        <label>Opción B:</label>
+        <input type="text" name="opcion_b" class="form-control" value="{{pregunta.opcion_b}}" required><br>
+
+        <label>Opción C:</label>
+        <input type="text" name="opcion_c" class="form-control" value="{{pregunta.opcion_c}}" required><br>
+
+        <label>Opción D:</label>
+        <input type="text" name="opcion_d" class="form-control" value="{{pregunta.opcion_d}}" required><br>
+
+        <label>Respuesta Correcta:</label>
+        <input type="text" name="respuesta_correcta" class="form-control" value="{{pregunta.respuesta_correcta}}" required><br>
+
+        <label>Categoría:</label>
+        <input type="text" name="categoria" class="form-control" value="{{pregunta.categoria}}" required><br>
+
+        <label>Dificultad:</label>
+        <input type="text" name="dificultad" class="form-control" value="{{pregunta.dificultad}}" required><br>
+
+        <button class="btn-custom" type="submit">Guardar Cambios</button>
+    </form>
+
+    <br>
+    <a class="btn-custom" href="/TP-Final-PW2/editor">Volver al panel</a>
+</div>
+</body>
+</html>

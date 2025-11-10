@@ -14,7 +14,16 @@ class MustacheRenderer{
     }
 
     public function render($contentFile , $data = array() ){
-        echo  $this->generateHtml(  $this->viewsFolder . '/' . $contentFile . "Vista.mustache" , $data);
+        $rutaConVista = $this->viewsFolder . '/' . $contentFile . "Vista.mustache";
+        $rutaSinVista = $this->viewsFolder . '/' . $contentFile . ".mustache";
+
+        // Verificamos cuál existe
+        if (file_exists($rutaConVista)) {
+            $rutaFinal = $rutaConVista;
+        } elseif (file_exists($rutaSinVista)) {
+            $rutaFinal = $rutaSinVista;
+        }
+        echo $this->generateHtml($rutaFinal, $data);
     }
 
     public function generateHtml($contentFile, $data = array()) {

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel del Editor</title>
+    <link rel="stylesheet" href="/TP-Final-PW2/assets/css/inicio.css">
+</head>
+<body>
+<div class="background">
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+    <div class="circle c3"></div>
+    <div class="circle c4"></div>
+</div>
+
+<div class="home-card">
+    <h1>Bienvenido, Editor 👋</h1>
+    <p class="card-text">Panel de revisión de preguntas y reportes pendientes</p>
+
+    <h2>📝 Preguntas Pendientes de Aprobación</h2>
+    {{#preguntasPendientes}}
+        <div class="card-text" style="margin-bottom: 1.5rem;">
+            <p><strong>Pregunta:</strong> {{texto}}</p>
+
+            <form method="GET" action="/TP-Final-PW2/editor/editarPregunta" style="display:inline;">
+                <input type="hidden" name="id" value="{{id_pregunta}}">
+                <button class="btn-custom" type="submit">Editar</button>
+            </form>
+
+            <form method="POST" action="/TP-Final-PW2/editor/borrarPregunta" style="display:inline;">
+                <input type="hidden" name="id_pregunta" value="{{id_pregunta}}">
+                <button class="btn-custom" type="submit">Eliminar</button>
+            </form>
+
+            <form method="POST" action="/TP-Final-PW2/editor/aprobarPregunta" style="display:inline;">
+                <input type="hidden" name="id_pregunta" value="{{id_pregunta}}">
+                <button class="btn-custom" type="submit">Aprobar</button>
+            </form>
+
+            <form method="POST" action="/TP-Final-PW2/editor/rechazarPregunta" style="display:inline;">
+                <input type="hidden" name="id_pregunta" value="{{id_pregunta}}">
+                <button class="btn-custom" type="submit">Rechazar</button>
+            </form>
+        </div>
+    {{/preguntasPendientes}}
+    {{^preguntasPendientes}}
+        <p class="card-text">No hay preguntas pendientes.</p>
+    {{/preguntasPendientes}}
+
+    <h2>🚨 Reportes Pendientes</h2>
+    {{#reportesPendientes}}
+        <div class="card-text" style="margin-bottom: 1.5rem;">
+            <p><strong>Pregunta:</strong> {{texto}}</p>
+            <p><strong>Motivo:</strong> {{motivo}}</p>
+            <p><strong>Comentario:</strong> {{comentario}}</p>
+
+            <form method="POST" action="/TP-Final-PW2/editor/desestimarReporte" style="display:inline;">
+                <input type="hidden" name="id_reporte" value="{{id_reporte}}">
+                <button class="btn-custom" type="submit">Desestimar Reporte</button>
+            </form>
+
+            <form method="POST" action="/TP-Final-PW2/editor/eliminarPreguntaReportada" style="display:inline;">
+                <input type="hidden" name="id_reporte" value="{{id_reporte}}">
+                <input type="hidden" name="id_pregunta" value="{{id_pregunta}}">
+                <button class="btn-custom" type="submit">Eliminar Pregunta</button>
+            </form>
+        </div>
+    {{/reportesPendientes}}
+    {{^reportesPendientes}}
+        <p class="card-text">No hay reportes pendientes.</p>
+    {{/reportesPendientes}}
+
+    <br>
+    <a class="btn-custom" href="/TP-Final-PW2/user/logout">Cerrar sesión</a>
+</div>
+</body>
+</html>

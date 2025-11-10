@@ -16,7 +16,8 @@ include_once("controller/RankingController.php");
 include_once("model/RankingModel.php");
 include_once("controller/PerfilController.php");
 include_once("model/PerfilModel.php");
-
+include_once("controller/EditorController.php"); //
+include_once("model/EditorModel.php"); //
 class ConfigFactory
 {
     private $config;
@@ -53,6 +54,8 @@ class ConfigFactory
         $this->objetos["PerfilController"] = new PerfilController(new PerfilModel($this->conexion), new RankingModel($this->conexion), $this->renderer);
 
         $this->emailHelper = new EmailHelper();
+        $this->objetos["EditorController"] = new EditorController(new EditorModel($this->conexion), $this->renderer);
+
     }
 
     public function get($objectName)

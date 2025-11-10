@@ -29,6 +29,7 @@ class InicioController{
         $userData = is_array($data) && count($data) > 0 ? $data[0] : [];
         $userData["isInicio"] = true;
         $userData["posicion"] = $posicion;
+        $userData["showNavbar"] = true;
         $this->renderer->render("inicio", $userData);
     }
 }

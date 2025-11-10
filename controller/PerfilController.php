@@ -50,7 +50,8 @@ class PerfilController {
             "estadisticas" => $estadisticas,
             "posicion" => $posicion,
             "urlPerfil" => $urlPerfil,
-            "esPerfilPropio" => $esPerfilPropio
+            "esPerfilPropio" => $esPerfilPropio,
+            "showNavbar" => true
         ];
 
         $this->renderer->render("perfil", $data);
