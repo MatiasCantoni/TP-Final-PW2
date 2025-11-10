@@ -40,7 +40,7 @@
                 </div>
                 <div class="detail-item">
                     <span class="detail-label">🔒 Contraseña:</span>
-                    <span class="detail-value password-hidden">{{usuario.contrasena_oculta}}</span>
+                    <span class="detail-value">{{usuario.contrasena_oculta}}</span>
                 </div>
             </div>
             {{/esPerfilPropio}}
@@ -150,34 +150,6 @@
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-    // Generar código QR
-    document.addEventListener('DOMContentLoaded', function() {
-        new QRCode(document.getElementById("qrcode"), {
-            text: "{{urlPerfil}}",
-            width: 150,
-            height: 150,
-            colorDark: "#000000",
-            colorLight: "#ffffff",
-            correctLevel: QRCode.CorrectLevel.H
-        });
-
-        // Formatear fechas si no vienen formateadas
-        document.querySelectorAll('.partida-fecha').forEach(function(elem) {
-            const fechaTexto = elem.textContent.trim();
-            if (fechaTexto && !fechaTexto.includes('/')) {
-                const fecha = new Date(fechaTexto);
-                if (!isNaN(fecha)) {
-                    elem.textContent = fecha.toLocaleDateString('es-AR', {
-                        day: '2-digit',
-                        month: '2-digit',
-                        year: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                    });
-                }
-            }
-        });
-    });
+    const urlPerfil = "{{urlPerfil}}";
 </script>
