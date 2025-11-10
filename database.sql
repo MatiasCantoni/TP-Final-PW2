@@ -165,39 +165,13 @@ INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_
 ('¿Cuál de estos es un personaje de Star Wars?', 'Harry Potter', 'Frodo Bolsón', 'Luke Skywalker', 'Gandalf', 'C', 'Entretenimiento', 'facil', 'aprobada');
 
 
-CREATE OR REPLACE VIEW vista_ranking AS
-SELECT 
-    u.id_usuario,
-    u.nombre_usuario,
-    u.nombre_completo,
-    u.foto_perfil,
-    u.puntaje_total,
-    u.pais,
-    u.ciudad,
-    u.nivel,
-    COUNT(DISTINCT p.id_partida) as partidas_jugadas,
-    COUNT(DISTINCT CASE WHEN p.ganador = u.id_usuario THEN p.id_partida END) as partidas_ganadas
-FROM usuarios u
-LEFT JOIN partidas p ON (p.id_jugador1 = u.id_usuario OR p.id_jugador2 = u.id_usuario) 
-    AND p.fecha_fin IS NOT NULL
-WHERE u.cuenta_activa = 1
-GROUP BY u.id_usuario
-ORDER BY u.puntaje_total DESC;
-
-
-UPDATE usuarios SET tipo_usuario = 'editor' WHERE nombre_usuario = 'orilom2';
-
-
-SELECT * FROM preguntas WHERE estado = 'pendiente'
 INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, categoria, dificultad, id_creador, estado)
 VALUES
     ('¿Cuál es la capital de Canadá?', 'Toronto', 'Ottawa', 'Vancouver', 'Montreal', 'B', 'Geografia', 'facil', 1, 'pendiente'),
     ('¿Cuál es el metal más ligero?', 'Aluminio', 'Litio', 'Plomo', 'Oro', 'B', 'Ciencia', 'media', 1, 'pendiente');
 
-
-SELECT r.*, p.texto
-FROM reportes_pregunta r
-         INNER JOIN preguntas p ON r.id_pregunta = p.id_pregunta
-WHERE r.estado = 'pendiente';
 INSERT INTO reportes_pregunta (id_pregunta, id_usuario, motivo, comentario)
 VALUES (1, 1, 'La pregunta está mal redactada', 'Faltan tildes en la palabra "años"');
+
+INSERT INTO usuarios (nombre_completo, anio_nacimiento, sexo, pais, ciudad, email, contrasena, nombre_usuario, tipo_usuario, cuenta_activa) 
+VALUES ('editor User', 1990, 'Masculino', 'Argentina', 'Buenos Aires', 'editor@example.com', 'editor', 'editor', 'editor', 1);

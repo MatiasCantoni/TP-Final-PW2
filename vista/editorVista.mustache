@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Panel del Editor</title>
-    <link rel="stylesheet" href="/TP-Final-PW2/assets/css/inicio.css">
+    <link rel="stylesheet" href="/assets/css/inicio.css">
 </head>
 <body>
 <div class="background">
@@ -22,22 +22,22 @@
         <div class="card-text" style="margin-bottom: 1.5rem;">
             <p><strong>Pregunta:</strong> {{texto}}</p>
 
-            <form method="GET" action="/TP-Final-PW2/editor/editarPregunta" style="display:inline;">
+            <form method="GET" action="/editor/editarPregunta" style="display:inline;">
                 <input type="hidden" name="id" value="{{id_pregunta}}">
                 <button class="btn-custom" type="submit">Editar</button>
             </form>
 
-            <form method="POST" action="/TP-Final-PW2/editor/borrarPregunta" style="display:inline;">
+            <form method="POST" action="/editor/borrarPregunta" style="display:inline;">
                 <input type="hidden" name="id_pregunta" value="{{id_pregunta}}">
                 <button class="btn-custom" type="submit">Eliminar</button>
             </form>
 
-            <form method="POST" action="/TP-Final-PW2/editor/aprobarPregunta" style="display:inline;">
+            <form method="POST" action="/editor/aprobarPregunta" style="display:inline;">
                 <input type="hidden" name="id_pregunta" value="{{id_pregunta}}">
                 <button class="btn-custom" type="submit">Aprobar</button>
             </form>
 
-            <form method="POST" action="/TP-Final-PW2/editor/rechazarPregunta" style="display:inline;">
+            <form method="POST" action="/editor/rechazarPregunta" style="display:inline;">
                 <input type="hidden" name="id_pregunta" value="{{id_pregunta}}">
                 <button class="btn-custom" type="submit">Rechazar</button>
             </form>
@@ -54,12 +54,12 @@
             <p><strong>Motivo:</strong> {{motivo}}</p>
             <p><strong>Comentario:</strong> {{comentario}}</p>
 
-            <form method="POST" action="/TP-Final-PW2/editor/desestimarReporte" style="display:inline;">
+            <form method="POST" action="/editor/desestimarReporte" style="display:inline;">
                 <input type="hidden" name="id_reporte" value="{{id_reporte}}">
                 <button class="btn-custom" type="submit">Desestimar Reporte</button>
             </form>
 
-            <form method="POST" action="/TP-Final-PW2/editor/eliminarPreguntaReportada" style="display:inline;">
+            <form method="POST" action="/editor/eliminarPreguntaReportada" style="display:inline;">
                 <input type="hidden" name="id_reporte" value="{{id_reporte}}">
                 <input type="hidden" name="id_pregunta" value="{{id_pregunta}}">
                 <button class="btn-custom" type="submit">Eliminar Pregunta</button>
@@ -70,8 +70,10 @@
         <p class="card-text">No hay reportes pendientes.</p>
     {{/reportesPendientes}}
 
-    <br>
-    <a class="btn-custom" href="/TP-Final-PW2/user/logout">Cerrar sesión</a>
+    <div class="container mt-5">
+        <a class="btn-custom mx-2" href="/user/logout">Cerrar sesión</a>
+        <a class="btn-custom" href="/inicio/">Volver al Inicio</a>
+    </div>
 </div>
 </body>
 </html>

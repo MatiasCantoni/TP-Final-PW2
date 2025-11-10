@@ -15,6 +15,12 @@
     <h1>¡Bienvenido {{nombre_usuario}} !</h1>
     <p class="card-text">Tu posición en el ranking es: {{posicion}}°</p>
     <a href="/game/singleplayer" class="btn-custom mb-3">Jugar</a>
+    {{#esEditor}}
+        <a href="/editor/" class="btn-custom mb-3">Panel del Editor</a>
+    {{/esEditor}}
+    {{#esAdmin}}
+        <a href="/admin/" class="btn-custom mb-3">Panel de Administración</a>
+    {{/esAdmin}}
 </div>
 
 </body>

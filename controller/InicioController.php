@@ -19,14 +19,23 @@ class InicioController{
     {
         $usuario = $_SESSION["usuario"]["nombre_usuario"];
         $idUsuario = $_SESSION["usuario"]["id_usuario"];
+        $tipoUsuario = $_SESSION["usuario"]["tipo_usuario"];
         if (!isset($usuario)) {
             header("Location: /user/");
             exit();
         }
-        $posicion = $this->model->getPosicionUsuario($idUsuario);
+
         $data = $this->model->getUserInfo($usuario);
         // Asegurar que tenemos un array asociativo y no un array de filas
         $userData = is_array($data) && count($data) > 0 ? $data[0] : [];
+
+        if (strtolower($tipoUsuario) === 'editor') {
+            $userData["esEditor"] = true;
+        } else if (strtolower($tipoUsuario) === 'admin') {
+            $userData["esAdmin"] = true;
+        }
+
+        $posicion = $this->model->getPosicionUsuario($idUsuario);
         $userData["isInicio"] = true;
         $userData["posicion"] = $posicion;
         $userData["showNavbar"] = true;

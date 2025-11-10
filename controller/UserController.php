@@ -35,12 +35,7 @@ class UserController
             if ($resultado["cuenta_activa"] == 1) {
                 $_SESSION["usuario"] = $resultado;
 
-                if ($resultado["tipo_usuario"] == "editor") {
-                    header("Location: /TP-Final-PW2/editor/index");
-                    exit;
-                }
-
-                header("Location: /TP-Final-PW2/inicio/index");
+                header("Location: /inicio/index");
                 exit;
             } else {
                 $this->renderer->render("login", [
