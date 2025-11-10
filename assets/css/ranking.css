@@ -84,7 +84,6 @@
 .medal {
     font-size: 2em;
     display: inline-block;
-    animation: bounce 2s infinite;
 }
 
 .position-number {
