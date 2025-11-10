@@ -24,9 +24,22 @@ class RankingController {
         $idUsuarioActual = $_SESSION["usuario"]["id_usuario"];
         $posicionUsuario = $this->model->getPosicionUsuario($idUsuarioActual);
         
+        $jugadoresProcesados = [];
+        foreach ($topJugadores as $index => $jugador) {
+            $posicion = $index + 1;
+            $jugador['posicion'] = $posicion;
+            $esTopTres = $posicion <= 3;
+            $jugador['esPrimero'] = $posicion === 1;
+            $jugador['esSegundo'] = $posicion === 2;
+            $jugador['esTercero'] = $posicion === 3;
+            $jugador['esTopTres'] = $esTopTres;
+            
+            $jugadoresProcesados[] = $jugador;
+        }
+        
         $data = [
             "isRanking" => true,
-            "jugadores" => $topJugadores,
+            "jugadores" => $jugadoresProcesados,
             "posicionUsuario" => $posicionUsuario,
             "idUsuarioActual" => $idUsuarioActual
         ];
@@ -34,3 +47,4 @@ class RankingController {
         $this->renderer->render("ranking", $data);
     }
 }
+
