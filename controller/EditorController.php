@@ -23,7 +23,7 @@ class EditorController {
             !isset($_SESSION["usuario"]["tipo_usuario"]) ||
             $_SESSION["usuario"]["tipo_usuario"] != "editor"
         ) {
-            header("Location: /TP-Final-PW2/user/loginForm");
+            header("Location: /user/loginForm");
             exit;
         }
 
@@ -37,7 +37,8 @@ class EditorController {
             "usuario" => $_SESSION["usuario"]["usuario"] ?? "(sin nombre)",
             "preguntasPendientes" => $preguntasPendientes,
             "reportesPendientes" => $reportesPendientes,
-            "showNavbar" => false
+            "showNavbar" => false,
+            "isEditor" => true
         ]);
     }
 
