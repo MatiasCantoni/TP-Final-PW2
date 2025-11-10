@@ -56,4 +56,6 @@ class NewRouter
     {
         return method_exists($controller, $methodName) ? $methodName : $this->defaultMethod;
     }
+
+
 }

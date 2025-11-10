@@ -32,4 +32,9 @@ class MyConexion
 
         return null; // no hay filas
     }
+
+    public function prepare($sql)
+    {
+        return $this->conexion->prepare($sql);
+    }
 }

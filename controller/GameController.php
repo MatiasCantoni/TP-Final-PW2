@@ -23,7 +23,8 @@ class GameController{
             return;
         }
         $categorias = $this->model->getCategorias();
-        $this->renderer->render("singleplayer", ["isSingleplayer" => true, "categorias" => $categorias]);
+        $this->renderer->render("singleplayer", ["isSingleplayer" => true, "categorias" => $categorias ,"showNavbar" => true]);
+        
     }
 
     public function pregunta(){
@@ -42,7 +43,7 @@ class GameController{
         ];
         $pregunta['color_categoria'] = $colorCategorias[$categoria] ?? 'bg-default';
 
-        $this->renderer->render("pregunta", ["pregunta" => $pregunta]);
+        $this->renderer->render("pregunta", ["pregunta" => $pregunta , "showNavBar" => true]);
     }
 
     public function responder(){
@@ -75,7 +76,8 @@ class GameController{
             "respuestaCorrectaTexto" => $textoRespuestaCorrecta,
             "gano" => $gano,
             "puntaje" => $puntajePartida,
-            "id_pregunta"=> $idPregunta
+            "id_pregunta"=> $idPregunta,
+            "showNavbar" => true
         ]);
     }
 
