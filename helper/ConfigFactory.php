@@ -16,8 +16,8 @@ include_once("controller/RankingController.php");
 include_once("model/RankingModel.php");
 include_once("controller/PerfilController.php");
 include_once("model/PerfilModel.php");
-include_once("controller/EditorController.php"); //
-include_once("model/EditorModel.php"); //
+include_once("controller/EditorController.php"); 
+include_once("model/EditorModel.php"); 
 class ConfigFactory
 {
     private $config;
@@ -45,7 +45,7 @@ class ConfigFactory
 
         $this->objetos["UserController"] = new UserController(new UserModel($this->conexion), $this->renderer);
 
-        $this->objetos["InicioController"] = new InicioController(new InicioModel($this->conexion), $this->renderer);
+        $this->objetos["InicioController"] = new InicioController(new InicioModel($this->conexion), new RankingModel($this->conexion), $this->renderer);
 
         $this->objetos["GameController"] = new GameController(new GameModel($this->conexion), $this->renderer);        
 

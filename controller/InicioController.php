@@ -4,10 +4,12 @@ class InicioController{
 
     private $model;
     private $renderer;
-    
-    public function __construct($model, $renderer)
+    private $rankingModel;
+
+    public function __construct($model, $rankingModel, $renderer)
     {
         $this->model = $model;
+        $this->rankingModel = $rankingModel;
         $this->renderer = $renderer;
     }
 
@@ -37,7 +39,7 @@ class InicioController{
             $userData["esJugador"] = true;
         }
 
-        $posicion = $this->model->getPosicionUsuario($idUsuario);
+        $posicion = $this->rankingModel->getPosicionUsuario($idUsuario);
         $userData["isInicio"] = true;
         $userData["posicion"] = $posicion;
         $userData["showNavbar"] = true;
