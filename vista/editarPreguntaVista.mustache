@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar Pregunta</title>
-    <link rel="stylesheet" href="/TP-Final-PW2/assets/css/inicio.css">
-</head>
-<body>
+    <link rel="stylesheet" href="/assets/css/inicio.css">
+
 <div class="background">
     <div class="circle c1"></div>
     <div class="circle c2"></div>
@@ -16,7 +10,7 @@
 <div class="home-card">
     <h1>Editar Pregunta ✏️</h1>
 
-    <form method="POST" action="/TP-Final-PW2/editor/guardarEdicion" style="text-align:left; width:100%; max-width:600px;">
+    <form method="POST" action="/editor/guardarEdicion" style="text-align:left; width:100%; max-width:600px;">
         <input type="hidden" name="id_pregunta" value="{{pregunta.id_pregunta}}">
 
         <label>Texto:</label>
@@ -47,7 +41,6 @@
     </form>
 
     <br>
-    <a class="btn-custom" href="/TP-Final-PW2/editor">Volver al panel</a>
+    <a class="btn-custom" href="/editor">Volver al panel</a>
 </div>
-</body>
-</html>
+

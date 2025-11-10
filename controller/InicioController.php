@@ -33,6 +33,8 @@ class InicioController{
             $userData["esEditor"] = true;
         } else if (strtolower($tipoUsuario) === 'admin') {
             $userData["esAdmin"] = true;
+        } else if (strtolower($tipoUsuario) === "jugador") {
+            $userData["esJugador"] = true;
         }
 
         $posicion = $this->model->getPosicionUsuario($idUsuario);
@@ -40,5 +42,29 @@ class InicioController{
         $userData["posicion"] = $posicion;
         $userData["showNavbar"] = true;
         $this->renderer->render("inicio", $userData);
+    }
+
+    public function sugerirPregunta(){
+        $idUsuario = $_SESSION["usuario"]["id_usuario"];
+
+        $datos["idUsuario"] = $idUsuario;
+        $datos["showNavbar"] = true;
+
+        $this->renderer->render("sugerirPregunta", $datos);
+    }
+    public function enviarPreguntaSugerida(){
+        $idUsuario = $_POST["id_usuario"];
+        $texto = $_POST["texto"];
+        $opcion_a = $_POST["opcion_a"];
+        $opcion_b = $_POST["opcion_b"];
+        $opcion_c = $_POST["opcion_c"];
+        $opcion_d = $_POST["opcion_d"];
+        $correcta = $_POST["correcta"];
+        $categoria = $_POST["categoria"];
+
+        $this->model->validacionPreguntaSugerida(
+            $idUsuario, $texto, $opcion_a, $opcion_b, $opcion_c, $opcion_d, $correcta, $categoria);
+
+        $this->renderer->render("sugerirPregunta", ["exito" => "Pregunta enviada con exito!"]);
     }
 }

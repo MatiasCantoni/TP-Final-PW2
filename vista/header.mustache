@@ -79,6 +79,9 @@
                             <li class="nav-item"><a class="nav-link btn active" href="/inicio/">Inicio</a></li>
                             <li class="nav-item"><a class="nav-link btn" href="/perfil/show">Mi Perfil</a></li>
                             <li class="nav-item"><a class="nav-link btn" href="/ranking/">Ranking</a></li>
+                            {{#esJugador}}
+                              <li class="nav-item"><a class="nav-link btn" href="/inicio/sugerirPregunta">Sugerir pregunta</a></li>
+                            {{/esJugador}}
                             <li class="nav-item"><a class="nav-link btn w3-light-grey" href="/user/logout">Cerrar sesión</a></li>
                         </ul>
                     </div>

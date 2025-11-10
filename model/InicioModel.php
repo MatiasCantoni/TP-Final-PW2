@@ -29,4 +29,10 @@ class InicioModel{
         }
         return null;
     }
+
+    public function validacionPreguntaSugerida($idUsuario, $texto, $opcion_a, $opcion_b, $opcion_c, $opcion_d, $correcta, $categoria) {
+        $sql = "INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, categoria, id_creador)
+            VALUES ('$texto', '$opcion_a', '$opcion_b', '$opcion_c', '$opcion_d', '$correcta', '$categoria', '$idUsuario' )";
+        $this->conexion->query($sql);
+    }
 }
