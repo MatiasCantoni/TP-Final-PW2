@@ -28,7 +28,7 @@ class GameController{
         $colorCategorias = [
             'Historia' => 'bg-historia',
             'Ciencia' => 'bg-ciencia',
-            'deportes' => 'bg-deportes',
+            'Deportes' => 'bg-deportes',
             'Arte' => 'bg-arte',
             'Geografia' => 'bg-geografia',
             'Entretenimiento' => 'bg-entretenimiento'

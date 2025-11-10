@@ -8,7 +8,7 @@ class RankingModel {
     }
 
     // Obtener top N jugadores por puntaje total
-    public function getTopJugadores($limite = 50) {
+    public function getTopJugadores($limite = 10) {
         $sql = "SELECT 
                     id_usuario,
                     nombre_usuario,
@@ -74,7 +74,7 @@ class RankingModel {
                 WHERE (p.id_jugador1 = $idUsuario OR p.id_jugador2 = $idUsuario)
                     AND p.fecha_fin IS NOT NULL
                 ORDER BY p.fecha_fin DESC
-                LIMIT 20";
+                LIMIT 5";
         
         $result = $this->conexion->query($sql);
         return is_array($result) ? $result : [];
