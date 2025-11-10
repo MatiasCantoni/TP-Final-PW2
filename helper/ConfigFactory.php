@@ -14,6 +14,8 @@ include_once ("helper/MustacheRenderer.php");
 include_once ("vendor/autoload.php");
 include_once("controller/RankingController.php");
 include_once("model/RankingModel.php");
+include_once("controller/PerfilController.php");
+include_once("model/PerfilModel.php");
 
 class ConfigFactory
 {
@@ -48,11 +50,17 @@ class ConfigFactory
 
         $this->objetos["RankingController"] = new RankingController(new RankingModel($this->conexion), $this->renderer);
         
+        $this->objetos["PerfilController"] = new PerfilController(new PerfilModel($this->conexion), new RankingModel($this->conexion), $this->renderer);
+
         $this->emailHelper = new EmailHelper();
     }
 
     public function get($objectName)
     {
+        if (!isset($this->objetos[$objectName])) {
+             header("location: /");
+             exit;
+        }
         return $this->objetos[$objectName];
     }
 }
