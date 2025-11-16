@@ -1,0 +1,99 @@
+<section class="container mt-5 border border-3 p-4 text-center rounded">
+    <p>Jugadores totales: {{jugadoresTotales}}</p>
+    <p>Total de partidas jugadas: {{partidasTotales}}</p>
+    <p>Cantidad de preguntas en el juego: {{preguntasTotales}}</p>
+    <p>Cantidad de preguntas creadas: {{preguntasCreadasTotales}}</p>
+</section>
+
+<section class="container mt-5 border border-3 p-4 rounded">
+    <select name="filtro" id="filtro">
+        <h3>Filtrar usuarios por: </h3>
+        <option value="pais">País</option>
+        <option value="sexo">Sexo</option>
+        <option value="edad">Edad</option>
+    </select>
+
+    <select name="tiempo" id="tiempo">
+        <option value="dia">Día</option>
+        <option value="semana">Semana</option>
+        <option value="mes">Mes</option>
+        <option value="anio">Año</option>
+    </select>
+</section>
+
+<div id="grafico" style="width: 900px; height: 500px;"></div>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script>
+    // Cargar librería de Google Charts
+    google.charts.load('current', {'packages':['corechart']});
+
+    function dibujarGrafico(datos) {
+        // Validar que datos no sea nulo o vacío
+        if (!datos || !Array.isArray(datos) || datos.length === 0) {
+            console.warn('No hay datos para mostrar en el gráfico');
+            document.getElementById('grafico').innerHTML = '<p style="text-align:center; color:red;">No hay datos disponibles</p>';
+            return;
+        }
+
+        const filtro = document.getElementById("filtro").value;
+
+        let tituloColumna = "";
+        switch (filtro) {
+            case "pais": tituloColumna = "País"; break;
+            case "sexo": tituloColumna = "Sexo"; break;
+            case "edad": tituloColumna = "Edad"; break;
+            default: tituloColumna = "Categoría";
+        }
+
+        // Crear DataTable
+        const data = new google.visualization.DataTable();
+        data.addColumn('string', tituloColumna);
+        data.addColumn('number', 'Usuarios');
+
+        datos.forEach(row => {
+            data.addRow([ row.etiqueta, parseInt(row.cantidad) ]);
+        });
+
+        const options = {
+            title: `Usuarios por ${tituloColumna}`,
+            pieHole: 0.4,
+        };
+
+        const chart = new google.visualization.PieChart(
+            document.getElementById('grafico')
+        );
+        
+        chart.draw(data, options);
+    }
+
+    function actualizarGrafico(){
+        const filtro = document.getElementById('filtro').value;
+        const tiempo = document.getElementById('tiempo').value;
+
+        console.log(`Obteniendo estadísticas: filtro=${filtro}, tiempo=${tiempo}`);
+
+        fetch(`/admin/getEstadisticas?filtro=${filtro}&tiempo=${tiempo}`)
+            .then(res => {
+                console.log('Response status:', res.status);
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                return res.json();
+            })
+            .then(data => {
+                console.log('Datos recibidos:', data);
+                dibujarGrafico(data);
+            })
+            .catch(error => console.error('Error al obtener estadísticas:', error));
+    }
+
+    // Llamar a actualizarGrafico cuando Google Charts esté listo
+    google.charts.setOnLoadCallback(actualizarGrafico);
+
+    // Actualizar gráfico cuando cambien los filtros
+    document.getElementById('filtro').addEventListener('change', actualizarGrafico);
+    document.getElementById('tiempo').addEventListener('change', actualizarGrafico);
+
+</script>
