@@ -30,15 +30,22 @@
                 style="">
         </div>
     </div>
+    <button id="btnExportPDF" class="btn btn-primary mt-3">Exportar a PDF</button>
 </section>
 <div class="container my-5 text-center">
     <a class="btn-custom mx-2 my-2" href="/user/logout">Cerrar sesión</a>
     <a class="btn-custom" href="/inicio/">Volver al Inicio</a>
 </div>
+{{! cargo el jspdf para poder exportar }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+{{! cargo el google chart }}
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script>
     google.charts.load('current', {'packages':['corechart']});
+
+    let chart;
+    let total = 0;
 
     function dibujarGrafico(datos) {
         // Validamos que datos no sea nulo o vacio
@@ -59,7 +66,7 @@
             default: tituloColumna = "Categoría";
         }
         // calculamos el total para despues ponerlo en el medio del grafico
-        let total = datos.reduce((acc, row) => acc + parseInt(row.cantidad), 0);
+        total = datos.reduce((acc, row) => acc + parseInt(row.cantidad), 0);
 
         document.getElementById("totalCentro").innerText = `Total: ${total}`;
 
@@ -84,13 +91,43 @@
             }
         };
 
-        const chart = new google.visualization.PieChart(
+        chart = new google.visualization.PieChart(
             document.getElementById('grafico')
         );
         
         chart.draw(data, options);
         posicionarTotalEnCentro();
     }
+    // logica para exportar a pdf
+    document.getElementById("btnExportPDF").addEventListener("click", function () {
+        if (!chart) {
+            console.log('error');
+        return;
+        }
+        const jugadoresTotales = {{jugadoresTotales}}
+        const partidasJugadas = {{partidasTotales}}
+        const preguntasTotales = {{preguntasTotales}}
+        const preguntasTotalesCreadas = {{preguntasCreadasTotales}}
+
+        const imgUri = chart.getImageURI();
+
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({ orientation: 'landscape'});
+
+        pdf.setFontSize(16);
+        const texto =  `Total: ${total}. \n
+ESTADISTICAS:
+        Jugadores totales: ${jugadoresTotales}.
+        Partidas jugadas: ${partidasJugadas}.
+        Preguntas en el juego: ${preguntasTotales}.
+        Preguntas creadas: ${preguntasTotalesCreadas}. `
+                        
+        pdf.addImage(imgUri, 'PNG', 50, 10, 270, 150);
+        pdf.text(texto, 10, 140);
+        // pdf.output('dataurlnewwindow'); en brave no funciona
+        pdf.save("estadisticas.pdf");
+    });
+
 
     function posicionarTotalEnCentro() {
         const svg = document.querySelector("#grafico svg");
