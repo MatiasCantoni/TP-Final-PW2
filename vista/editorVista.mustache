@@ -2,6 +2,17 @@
     <h1>Bienvenido, Editor 👋</h1>
     <p class="card-text">Panel de revisión de preguntas y reportes pendientes</p>
 
+        <h2>📇 Agregar Categoría</h2>
+        <div class="card-text" style="margin-bottom: 2rem;">
+            <!-- Formulario para agregar una nueva categoría -->
+            <form method="POST" action="/editor/agregarCategoria">
+                <label for="nueva_categoria">Nombre de la Nueva Categoría:</label>
+                <input type="text" name="nueva_categoria" id="nueva_categoria" placeholder="Ejemplo: Historia" required>
+
+                <button type="submit" class="btn-custom mt-3">Agregar Categoría</button>
+            </form>
+        </div>
+
     <h2>📝 Preguntas Pendientes de Aprobación</h2>
     {{#preguntasPendientes}}
         <div class="card-text" style="margin-bottom: 1.5rem;">

@@ -59,7 +59,9 @@ class ConfigFactory
         $this->emailHelper = new EmailHelper();
         $this->objetos["EditorController"] = new EditorController(new EditorModel($this->conexion), $this->renderer);
 
-        $this->objetos["AdminController"] = new AdminController(new AdminModel($this->conexion), $this->renderer);        
+        $this->objetos["AdminController"] = new AdminController(new AdminModel($this->conexion), $this->renderer);
+
+
 
     }
 

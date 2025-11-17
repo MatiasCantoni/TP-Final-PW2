@@ -175,3 +175,11 @@ VALUES (1, 1, 'La pregunta está mal redactada', 'Faltan tildes en la palabra "a
 
 INSERT INTO usuarios (nombre_completo, anio_nacimiento, sexo, pais, ciudad, email, contrasena, nombre_usuario, tipo_usuario, cuenta_activa) 
 VALUES ('editor User', 1990, 'Masculino', 'Argentina', 'Buenos Aires', 'editor@example.com', 'editor', 'editor', 'editor', 1);
+
+
+
+CREATE TABLE categorias (
+                            id_categoria INT AUTO_INCREMENT PRIMARY KEY,
+                            nombre VARCHAR(100) NOT NULL
+);
+

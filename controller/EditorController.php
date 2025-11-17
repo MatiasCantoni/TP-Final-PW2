@@ -146,5 +146,40 @@ class EditorController {
         exit;
     }
 
+    public function agregarCategoria() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // Verificar login
+        if (!isset($_SESSION["usuario"])) {
+            header("Location: /user/loginForm");
+            exit;
+        }
+
+        // Si el formulario envió datos
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+            // Verificar que venga el campo
+            if (!empty($_POST["nueva_categoria"])) {
+                $nombreCategoria = $_POST["nueva_categoria"];
+
+                // Llamar al modelo
+                $this->editorModel->agregarCategoria($nombreCategoria);
+            }
+
+            // Volver a la vista principal del editor
+            header("Location: /editor");
+            exit;
+        }
+
+        // Si nunca vino por POST, mostrar un error básico (opcional)
+        echo "Acceso no válido.";
+    }
+
+
+
+
+
 
 }

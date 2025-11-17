@@ -107,4 +107,14 @@ public function desestimarReporte($idReporte) {
         $sql = "UPDATE reportes_pregunta SET estado = 'resuelto' WHERE id_reporte = $idReporte";
         $this->db->query($sql);
     }
+
+    public function agregarCategoria($nombreCategoria) {
+
+        // Muy básico y directo para principiantes
+        $sql = "INSERT INTO categorias (nombre) VALUES ('$nombreCategoria')";
+
+        $this->db->query($sql);
+    }
+
+
 }

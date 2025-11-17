@@ -1,0 +1,106 @@
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.container {
+    background: white;
+    border-radius: 16px;
+    padding: 3rem;
+    max-width: 80%;
+    margin: 10vh auto;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container h2 {
+    color: #4b0082;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+.container form {
+    width: 100%;
+}
+
+.container label {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.container input[type="text"],
+.container select {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    background: #f0f0f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.input-hidden {
+    display: none;
+}
+
+.container input[type="submit"] {
+    background: linear-gradient(90deg, #8338ec, #ff006e);
+    border: none;
+    color: white;
+    font-weight: 700;
+    border-radius: 12px;
+    padding: 0.75rem 2rem;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 0, 110, 0.4);
+    cursor: pointer;
+}
+
+.container input[type="submit"]:hover {
+    transform: translateY(-4px) scale(1.05);
+    background: linear-gradient(90deg, #ff006e, #fb5607);
+    box-shadow: 0 6px 20px rgba(255, 0, 110, 0.5);
+}
+
+.container .btn.bg-primary {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+    padding: 0.75rem 2rem;
+    border-radius: 12px;
+    transition: 0.3s ease;
+    background: linear-gradient(90deg, #ff512f, #dd2476);
+}
+
+.container .btn.bg-primary:hover {
+    background-color: #5a00a4;
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(75, 0, 130, 0.3);
+}
+
+.mt-4 {
+    margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+    .container {
+        max-width: 90%;
+        padding: 2rem;
+    }
+
+    .container input[type="text"],
+    .container select,
+    .container input[type="submit"],
+    .container .btn.bg-primary {
+        font-size: 14px;
+        padding: 0.5rem 1.5rem;
+    }
+}
