@@ -4,7 +4,7 @@
 ✓ -- validar que se ponga un año REAL y no cualquier cosa.
 
    <!-- MEJORA PARA VERIFICAR MAIL -->
-   podriamos poner un spinner para mostrarle al usuario que esta cargando ya que tarda unos segundos en reaccionar.
+✓ --   podriamos poner un spinner para mostrarle al usuario que esta cargando ya que tarda unos segundos en reaccionar.
    <!--  -->
 
 <!-------------->
@@ -20,6 +20,8 @@ Cuando recargan la pagina que no se pueda volver a girar la ruleta/contar la res
 que no puedan volver para atras cuando erran la respuesta.
 
 podriamos mejorar las partidas haciendo que las preguntas den diferentes puntos segun la dificultad que tengan.
+
+validacion en back-end para revisar que el tiempo que tardaron en responder sea menor a 10 segundos (anti-cheat)
 
 <!-------------->
 

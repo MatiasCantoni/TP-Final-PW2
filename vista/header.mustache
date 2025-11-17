@@ -57,7 +57,9 @@
     {{#isEditor}}
         <link rel="stylesheet" href="/assets/css/inicio.css">
     {{/isEditor}}
-
+    {{#isAdmin}}
+        <link rel="stylesheet" href="/assets/css/admin.css">
+    {{/isAdmin}}
 
 </head>
 <body class="w3-light-grey">
@@ -90,7 +92,12 @@
         </nav>
     </header>
 {{/showNavbar}}
-
+<div class="background">
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+    <div class="circle c3"></div>
+    <div class="circle c4"></div>
+</div>
 {{{body}}}
 
 

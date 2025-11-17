@@ -46,10 +46,16 @@ class AdminModel{
     public function getEstadisticas($filtro, $tiempo) {
 
         switch ($filtro) {
-            case "sexo": $campo = "sexo"; break;
-            case "edad": $campo = "edad"; break;
+            case "sexo": 
+                $campo = "sexo"; 
+                break;
+            case "edad": 
+                $campo = "edad"; 
+                break;
             case "pais":
-            default: $campo = "pais"; break;
+            default: 
+                $campo = "pais"; 
+                break;
         }
 
         switch ($tiempo) {
@@ -70,11 +76,27 @@ class AdminModel{
                 $condicionTiempo = "fecha_registro >= DATE_SUB(NOW(), INTERVAL 1 MONTH)";
                 break;
         }
+        if ($campo == "edad"){
+            $sql = "SELECT
+                CASE
+                    WHEN YEAR(CURDATE()) - anio_nacimiento < 18 THEN 'Menores'
+                    WHEN YEAR(CURDATE()) - anio_nacimiento BETWEEN 18 AND 59 THEN 'Adultos'
+                    WHEN YEAR(CURDATE()) - anio_nacimiento >= 60 THEN 'Jubilados'
+                END AS etiqueta,
+                COUNT(*) AS cantidad
+                FROM usuarios
+                WHERE $condicionTiempo AND tipo_usuario = 'jugador'
+                GROUP BY etiqueta
+                ORDER BY cantidad DESC";
 
-        $sql = "
-            SELECT $campo AS etiqueta, COUNT(*) AS cantidad
+        $resultado = $this->conexion->query($sql);
+        return $resultado;
+
+        }
+
+        $sql = "SELECT $campo AS etiqueta, COUNT(*) AS cantidad
             FROM usuarios
-            WHERE $condicionTiempo
+            WHERE $condicionTiempo AND tipo_usuario = 'jugador'
             GROUP BY $campo
             ORDER BY cantidad DESC
         ";

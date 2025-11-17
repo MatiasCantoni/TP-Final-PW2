@@ -1,0 +1,84 @@
+#chartContainer{
+    position: relative; width: 100%; max-width: 900px; height: 500px;
+    margin: auto;
+}
+#grafico{
+    width: 100%;
+    height: 500px;
+    margin: auto;
+    border: solid black 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#grafico p{
+    color:red;
+}
+#totalCentro {
+    /* position: absolute;
+    top: 109.5%;
+    left: 37.4%;
+    transform: translate(-50%, -50%);
+    font-size: 26px;
+    font-weight: bold;
+    pointer-events: none; */
+    position:absolute; 
+    font-size:30px; 
+    font-weight:bold; 
+    pointer-events:none;
+}
+.contenedor-estadisticas{
+    background-color: white;
+}
+.estadisticas{
+    text-decoration: underline;
+}
+.contenedor-filtro{
+    background-color: white;
+
+}
+.contenedor-filtro h3{
+    text-decoration: underline;
+}
+.contenedor-selectores select{
+    padding-inline: 15px;
+    margin: 10px 5px;
+}
+.btn-custom {
+    background: linear-gradient(90deg, #8338ec, #ff006e);
+    border: none;
+    color: white;
+    font-weight: 700;
+    border-radius: 12px;
+    padding: 0.75rem 2rem;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 0, 110, 0.4);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-custom:hover {
+    transform: translateY(-4px) scale(1.05);
+    background: linear-gradient(90deg, #ff006e, #fb5607);
+    box-shadow: 0 6px 20px rgba(255, 0, 110, 0.5);
+}
+
+@media screen and (max-width: 990px) and (min-width: 768px) {
+    #totalCentro {
+        font-size: 24px;
+}
+}
+@media screen and (max-width: 767px) {
+    #totalCentro {
+        font-size: 18px;
+        padding-top: 5px;
+
+}
+}
+
+@media screen and (max-width: 516px) {
+    #totalCentro {
+        font-size: 10px;
+        padding-top: 10px;
+}
+}

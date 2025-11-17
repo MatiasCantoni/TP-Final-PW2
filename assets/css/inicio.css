@@ -1,26 +1,3 @@
-.background {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    z-index: -1;
-    background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
-}
-
-.circle {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.3;
-    animation: float 8s ease-in-out infinite;
-}
-
-.c1 { width: 150px; height: 150px; background: #ff006e; top: 10%; left: 15%; }
-.c2 { width: 200px; height: 200px; background: #8338ec; bottom: 20%; right: 10%; }
-.c3 { width: 100px; height: 100px; background: #3a86ff; bottom: 10%; left: 10%; }
-.c4 { width: 250px; height: 250px; background: #fb5607; top: 25%; right: 20%; }
-
 @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-20px); }

@@ -24,7 +24,8 @@ class AdminController{
         "partidasTotales" => $partidasJugadasTotales,
         "preguntasTotales" => $preguntasTotales,
         "preguntasCreadasTotales" => $preguntasTotalesCreadas,
-        "showNavbar" => true]);
+        "showNavbar" => true,
+        "isAdmin" => true]);
     }
 
     public function getEstadisticas(){

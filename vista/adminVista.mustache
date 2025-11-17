@@ -1,39 +1,51 @@
-<section class="container mt-5 border border-3 p-4 text-center rounded">
-    <p>Jugadores totales: {{jugadoresTotales}}</p>
-    <p>Total de partidas jugadas: {{partidasTotales}}</p>
-    <p>Cantidad de preguntas en el juego: {{preguntasTotales}}</p>
-    <p>Cantidad de preguntas creadas: {{preguntasCreadasTotales}}</p>
+<section class="contenedor-estadisticas container mt-5 border border-3 p-4 rounded">
+    <h3 class=" text-center estadisticas">Estadísticas</h3>
+    <div class="border p-2">
+        <p><strong>Jugadores totales:</strong> {{jugadoresTotales}}</p>
+        <p><strong>Total de partidas jugadas:</strong> {{partidasTotales}}</p>
+        <p><strong>Cantidad de preguntas en el juego:</strong> {{preguntasTotales}}</p>
+        <p><strong>Cantidad de preguntas creadas: </strong>{{preguntasCreadasTotales}}</p>
+    </div>
 </section>
 
-<section class="container mt-5 border border-3 p-4 rounded">
-    <select name="filtro" id="filtro">
-        <h3>Filtrar usuarios por: </h3>
-        <option value="pais">País</option>
-        <option value="sexo">Sexo</option>
-        <option value="edad">Edad</option>
-    </select>
+<section class="contenedor-filtro container mt-5 border border-3 p-4 rounded">
+    <h3 class="text-center">Filtrar Jugadores </h3>
+    <div class="contenedor-selectores">
+        <select name="filtro" id="filtro">
+            <option value="pais">País</option>
+            <option value="sexo">Sexo</option>
+            <option value="edad">Edad</option>
+        </select>
 
-    <select name="tiempo" id="tiempo">
-        <option value="dia">Día</option>
-        <option value="semana">Semana</option>
-        <option value="mes">Mes</option>
-        <option value="anio">Año</option>
-    </select>
+        <select name="tiempo" id="tiempo">
+            <option value="dia">Día</option>
+            <option value="semana">Semana</option>
+            <option value="mes">Mes</option>
+            <option value="anio">Año</option>
+        </select>
+    </div>
+        <div id="chartContainer">
+            <div id="grafico" style="width:100%; height:100%;"></div>
+            <div id="totalCentro"
+                style="">
+        </div>
+    </div>
 </section>
-
-<div id="grafico" style="width: 900px; height: 500px;"></div>
-
+<div class="container my-5 text-center">
+    <a class="btn-custom mx-2 my-2" href="/user/logout">Cerrar sesión</a>
+    <a class="btn-custom" href="/inicio/">Volver al Inicio</a>
+</div>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script>
-    // Cargar librería de Google Charts
     google.charts.load('current', {'packages':['corechart']});
 
     function dibujarGrafico(datos) {
-        // Validar que datos no sea nulo o vacío
+        // Validamos que datos no sea nulo o vacio
         if (!datos || !Array.isArray(datos) || datos.length === 0) {
-            console.warn('No hay datos para mostrar en el gráfico');
-            document.getElementById('grafico').innerHTML = '<p style="text-align:center; color:red;">No hay datos disponibles</p>';
+            document.getElementById('grafico').innerHTML = '<p>No hay datos disponibles</p>';
+            document.getElementById("totalCentro").innerText = '';
+
             return;
         }
 
@@ -46,8 +58,11 @@
             case "edad": tituloColumna = "Edad"; break;
             default: tituloColumna = "Categoría";
         }
+        // calculamos el total para despues ponerlo en el medio del grafico
+        let total = datos.reduce((acc, row) => acc + parseInt(row.cantidad), 0);
 
-        // Crear DataTable
+        document.getElementById("totalCentro").innerText = `Total: ${total}`;
+
         const data = new google.visualization.DataTable();
         data.addColumn('string', tituloColumna);
         data.addColumn('number', 'Usuarios');
@@ -57,8 +72,16 @@
         });
 
         const options = {
-            title: `Usuarios por ${tituloColumna}`,
+            title: `Jugadores por ${tituloColumna}`,
             pieHole: 0.4,
+            chartArea: { 
+                width: '80%', 
+                height: '80%' 
+            },
+            legend: {
+                position: 'right',
+                textStyle: { fontSize: 14 }
+            }
         };
 
         const chart = new google.visualization.PieChart(
@@ -66,7 +89,29 @@
         );
         
         chart.draw(data, options);
+        posicionarTotalEnCentro();
     }
+
+    function posicionarTotalEnCentro() {
+        const svg = document.querySelector("#grafico svg");
+        const totalDiv = document.getElementById("totalCentro");
+
+        if (!svg) return;
+
+        // Obtiene el "bounding box" del SVG (posición real del gráfico)
+        const bbox = svg.getBoundingClientRect();
+        const container = document.getElementById("chartContainer").getBoundingClientRect();
+
+        // Calcula el centro real dentro del contenedor
+        const centerX = bbox.left + bbox.width / 3.4 - container.left;
+        const centerY = bbox.top + bbox.height / 2.2 - container.top;
+
+        // Posiciona el total
+        totalDiv.style.left = centerX + "px";
+        totalDiv.style.top = centerY + "px";
+        
+    }    
+
 
     function actualizarGrafico(){
         const filtro = document.getElementById('filtro').value;
@@ -75,25 +120,22 @@
         console.log(`Obteniendo estadísticas: filtro=${filtro}, tiempo=${tiempo}`);
 
         fetch(`/admin/getEstadisticas?filtro=${filtro}&tiempo=${tiempo}`)
-            .then(res => {
-                console.log('Response status:', res.status);
-                if (!res.ok) {
-                    throw new Error(`HTTP error! status: ${res.status}`);
-                }
-                return res.json();
-            })
+            .then(res => res.json())
             .then(data => {
-                console.log('Datos recibidos:', data);
-                dibujarGrafico(data);
-            })
-            .catch(error => console.error('Error al obtener estadísticas:', error));
+                google.charts.setOnLoadCallback(function () {
+                    dibujarGrafico(data);
+                });
+            });
     }
 
-    // Llamar a actualizarGrafico cuando Google Charts esté listo
     google.charts.setOnLoadCallback(actualizarGrafico);
 
-    // Actualizar gráfico cuando cambien los filtros
     document.getElementById('filtro').addEventListener('change', actualizarGrafico);
     document.getElementById('tiempo').addEventListener('change', actualizarGrafico);
+    window.addEventListener('resize', actualizarGrafico);
 
+    window.addEventListener('resize', () => {
+    chart.draw(data, options);
+    posicionarTotalEnCentro();
+});
 </script>
