@@ -18,14 +18,7 @@ class EditorController {
             session_start();
         }
 
-        if (
-            !isset($_SESSION["usuario"]) ||
-            !isset($_SESSION["usuario"]["tipo_usuario"]) ||
-            $_SESSION["usuario"]["tipo_usuario"] == "jugador"
-        ) {
-            header("Location: /user/loginForm");
-            exit;
-        }
+        AuthHelper::checkAny(["admin", "editor"]);
 
 
         $preguntasPendientes = $this->editorModel->getPreguntasPendientes();
@@ -44,6 +37,7 @@ class EditorController {
 
 
     public function aprobarPregunta() {
+        AuthHelper::checkAny(["admin", "editor"]);
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -60,6 +54,7 @@ class EditorController {
     }
 
     public function rechazarPregunta() {
+        AuthHelper::checkAny(["admin", "editor"]);
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -147,6 +142,7 @@ class EditorController {
     }
 
     public function agregarCategoria() {
+        AuthHelper::checkAny(["admin", "editor"]);
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }

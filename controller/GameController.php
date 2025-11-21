@@ -12,10 +12,8 @@ class GameController{
 
     
     public function singleplayer(){
-        if (!isset($_SESSION["usuario"])) {
-            header("Location: /user/loginForm");
-            exit();
-        }
+        AuthHelper::checkAny(["admin", "editor", "jugador"]);
+
         $idUsuario = $_SESSION["usuario"]["id_usuario"];
         $resultado = $this->model->esUsuarioAptoParaJugar($idUsuario);
         if ($resultado == false){

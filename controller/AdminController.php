@@ -12,6 +12,8 @@ class AdminController{
     }
 
     public function base(){
+        AuthHelper::checkRole("admin");
+
         $usuariosTotales = $this->model->getUsuariosTotales();
         $partidasJugadasTotales = $this->model->getPartidasTotales();
         $preguntasTotales = $this->model->getPreguntasTotales(); 
@@ -40,6 +42,8 @@ class AdminController{
     }
 
     public function darPermisos(){
+        AuthHelper::checkRole("admin");
+
         $nombreUsuario = $_GET["usuario"];
 
         header('Content-Type: application/json');
@@ -49,6 +53,7 @@ class AdminController{
         exit();
     }
     public function quitarPermisos(){
+        AuthHelper::checkRole("admin");
         $nombreUsuario = $_GET["usuario"];
 
         header('Content-Type: application/json');

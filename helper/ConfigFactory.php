@@ -20,6 +20,8 @@ include_once("controller/EditorController.php");
 include_once("model/EditorModel.php"); 
 include_once("controller/AdminController.php"); 
 include_once("model/AdminModel.php"); 
+include_once("helper/AuthHelper.php");
+
 
 class ConfigFactory
 {
