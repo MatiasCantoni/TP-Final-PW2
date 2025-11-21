@@ -90,6 +90,8 @@ class GameController{
         $comentario = htmlspecialchars($comentario, ENT_QUOTES, 'UTF-8');
         
         $this->model->reportarPregunta($idPregunta, $idUsuario, $motivo, $comentario);
-
+        
+        $categorias = $this->model->getCategorias();
+        $this->renderer->render("singleplayer", ["isSingleplayer" => true, "categorias" => $categorias ,"showNavbar" => true]);
     }
 }
