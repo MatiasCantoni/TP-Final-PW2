@@ -134,3 +134,55 @@ window.addEventListener('resize', () => {
         actualizarGrafico();
     }
 });
+
+// const btnQuitarPermisos = document.getElementById("btnQuitarPermisos");
+
+
+const btnDarPermisos = document.getElementById("btnDarPermisos");
+const btnQuitarPermisos = document.getElementById("btnQuitarPermisos");
+btnDarPermisos.disabled = true;
+btnQuitarPermisos.disabled = true;
+
+function darPermisos(){
+    let nombreUsuario = document.getElementById("usuario").value;
+    let mensajeUsuario = document.getElementById("mensajeUsuario");
+
+    
+    fetch(`/admin/darPermisos?usuario=${nombreUsuario}`)
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === 'success') {
+            mensajeUsuario.textContent = 'Éxito: ' + data.message;
+            mensajeUsuario.style.color = 'green';
+        } else {
+            mensajeUsuario.textContent = 'Error: ' + data.message;
+            mensajeUsuario.style.color = 'red';
+        }
+    });
+}
+
+function quitarPermisos(){
+    let nombreUsuario = document.getElementById("usuario").value;
+    let mensajeUsuario = document.getElementById("mensajeUsuario");
+
+    
+    fetch(`/admin/quitarPermisos?usuario=${nombreUsuario}`)
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === 'success') {
+            mensajeUsuario.textContent = 'Éxito: ' + data.message;
+            mensajeUsuario.style.color = 'green';
+        } else {
+            mensajeUsuario.textContent = 'Error: ' + data.message;
+            mensajeUsuario.style.color = 'red';
+        }
+    });
+}
+btnQuitarPermisos.addEventListener("click", quitarPermisos);
+btnDarPermisos.addEventListener("click", darPermisos);
+document.getElementById("usuario").addEventListener("keyup", function(){
+    let nombreUsuario = document.getElementById("usuario").value;
+    btnDarPermisos.disabled = (nombreUsuario == '') ? true : false;
+    btnQuitarPermisos.disabled = (nombreUsuario == '') ? true : false;
+
+});

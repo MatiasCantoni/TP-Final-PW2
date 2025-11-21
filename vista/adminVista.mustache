@@ -32,6 +32,18 @@
     </div>
     <button id="btnExportPDF" class="btn btn-primary mt-3">Exportar a PDF</button>
 </section>
+
+<section class="contenedor-filtro container mt-5 border border-3 p-4 rounded">
+    <h3 class="text-center">Dar/Quitar Permisos de Editor </h3>
+    <div>
+        <label for="usuario"> Escriba el nombre del usuario: </label>
+        <input type="text" name="usuario" id="usuario">
+        <p id="mensajeUsuario"> </p>
+    </div>
+    <button id="btnDarPermisos" class="btn btn-primary mt-3" onclick="return confirm('¿Estas seguro?')">Dar Permisos</button>
+    <button id="btnQuitarPermisos" class="btn btn-danger mt-3" onclick="return confirm('¿Estas seguro?')">Quitar Permisos</button>
+</section>
+
 <div class="container my-5 text-center">
     <a class="btn-custom mx-2 my-2" href="/user/logout">Cerrar sesión</a>
     <a class="btn-custom" href="/inicio/">Volver al Inicio</a>

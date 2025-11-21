@@ -35,8 +35,26 @@ class AdminController{
         header('Content-Type: application/json');
 
         echo json_encode(
-            $this->model->getEstadisticas($filtro, $tiempo)
-        );
+            $this->model->getEstadisticas($filtro, $tiempo));
+        exit();
+    }
+
+    public function darPermisos(){
+        $nombreUsuario = $_GET["usuario"];
+
+        header('Content-Type: application/json');
+
+        echo json_encode(
+            $this->model->darPermisos($nombreUsuario));
+        exit();
+    }
+    public function quitarPermisos(){
+        $nombreUsuario = $_GET["usuario"];
+
+        header('Content-Type: application/json');
+
+        echo json_encode(
+            $this->model->quitarPermisos($nombreUsuario));
         exit();
     }
 }   

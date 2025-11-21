@@ -104,4 +104,37 @@ class AdminModel{
         $resultado = $this->conexion->query($sql);
         return $resultado;
     }
+
+    public function darPermisos($nombreUsuario){
+        $datos = [];
+        $sql = "SELECT * FROM usuarios WHERE nombre_usuario = '$nombreUsuario'";
+        $resultado = $this->conexion->query($sql);
+        if (!is_array($resultado) || count($resultado) == 0) {
+            $datos = ['status' => 'error',
+            'message' => 'No se pudo hacer editor al usuario ' . htmlspecialchars($nombreUsuario) . '.'];
+            return $datos;
+        }
+        $sql = "UPDATE usuarios SET tipo_usuario = 'editor'
+        WHERE nombre_usuario = '$nombreUsuario'";
+        $this->conexion->query($sql);
+        $datos = ['status' => 'success',
+            'message' => 'El usuario ' . htmlspecialchars($nombreUsuario) . ' ahora es editor.'];
+        return $datos;
+    }
+    public function quitarPermisos($nombreUsuario){
+        $datos = [];
+        $sql = "SELECT * FROM usuarios WHERE nombre_usuario = '$nombreUsuario'";
+        $resultado = $this->conexion->query($sql);
+        if (!is_array($resultado) || count($resultado) == 0) {
+            $datos = ['status' => 'error',
+            'message' => 'No se pudo hacer jugador al usuario ' . htmlspecialchars($nombreUsuario) . '.'];
+            return $datos;
+        }
+        $sql = "UPDATE usuarios SET tipo_usuario = 'jugador'
+        WHERE nombre_usuario = '$nombreUsuario'";
+        $this->conexion->query($sql);
+        $datos = ['status' => 'success',
+            'message' => 'El usuario ' . htmlspecialchars($nombreUsuario) . ' ahora es jugador.'];
+        return $datos;
+    }
 }
