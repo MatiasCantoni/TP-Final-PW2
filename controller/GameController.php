@@ -13,6 +13,7 @@ class GameController{
     
     public function singleplayer(){
         AuthHelper::checkAny(["admin", "editor", "jugador"]);
+        $_SESSION["pregunta_respondida"] = false;
 
         $idUsuario = $_SESSION["usuario"]["id_usuario"];
         $resultado = $this->model->esUsuarioAptoParaJugar($idUsuario);
@@ -26,6 +27,10 @@ class GameController{
     }
 
     public function pregunta(){
+        if (isset($_SESSION["pregunta_respondida"]) && $_SESSION["pregunta_respondida"] === true) {
+            header("Location: /game/singleplayer");
+            exit();
+        }
         $categoria = $_GET["categoria"];
         $usuario = $_SESSION["usuario"]["id_usuario"];
         $nivelUsuario = $_SESSION["usuario"]["nivel"];
@@ -45,13 +50,19 @@ class GameController{
     }
 
     public function responder(){
+        if (!isset($_SESSION["pregunta_respondida"]) || $_SESSION["pregunta_respondida"] === true) {
+            header("Location: /game/singleplayer");
+            exit();
+        }
         $opcionSeleccionada = $_POST["opcion"];
         $tiempo_terminado = $_POST["tiempo_terminado"] ?? '';
         $idPregunta = $_POST["id_pregunta"];
         $idUsuario = $_SESSION["usuario"]["id_usuario"];
+        $_SESSION["pregunta_respondida"] = true;
         $horaRespuesta = new DateTime();
 
         $datos = $this->model->verificarRespuesta($idPregunta, $idUsuario, $opcionSeleccionada, $tiempo_terminado, $horaRespuesta);
+        
         $gano = $datos['correcta'];
         $puntajePartida = $datos['puntajePartida'];
         $respuestaCorrecta = $this->model->getRespuestaCorrecta($idPregunta);
