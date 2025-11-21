@@ -51,8 +51,9 @@ class GameController{
         $tiempo_terminado = $_POST["tiempo_terminado"] ?? '';
         $idPregunta = $_POST["id_pregunta"];
         $idUsuario = $_SESSION["usuario"]["id_usuario"];
-        
-        $datos = $this->model->verificarRespuesta($idPregunta, $idUsuario, $opcionSeleccionada, $tiempo_terminado);
+        $horaRespuesta = new DateTime();
+
+        $datos = $this->model->verificarRespuesta($idPregunta, $idUsuario, $opcionSeleccionada, $tiempo_terminado, $horaRespuesta);
         $gano = $datos['correcta'];
         $puntajePartida = $datos['puntajePartida'];
         $respuestaCorrecta = $this->model->getRespuestaCorrecta($idPregunta);
@@ -90,7 +91,7 @@ class GameController{
         $comentario = htmlspecialchars($comentario, ENT_QUOTES, 'UTF-8');
         
         $this->model->reportarPregunta($idPregunta, $idUsuario, $motivo, $comentario);
-        
+
         $categorias = $this->model->getCategorias();
         $this->renderer->render("singleplayer", ["isSingleplayer" => true, "categorias" => $categorias ,"showNavbar" => true]);
     }

@@ -71,7 +71,7 @@ class GameModel{
         return null;
     }
 
-    public function verificarRespuesta($idPregunta, $idUsuario, $opcionSeleccionada, $tiempo_terminado = ''){
+    public function verificarRespuesta($idPregunta, $idUsuario, $opcionSeleccionada, $tiempo_terminado = '', $horaRespuesta){
         $datos = [];
         
         // Validar que tengamos un id_pregunta válido
@@ -79,12 +79,13 @@ class GameModel{
             error_log("Error: id_pregunta inválido o vacío: " . var_export($idPregunta, true));
             return null;
         }
-        
+        $validacionHora = $this->validarTiempoDeRespuesta($idPregunta, $idUsuario, $horaRespuesta);
         $correcta = $this->getRespuestaCorrecta($idPregunta);
         
+
         if ($correcta !== null) {
             // Si el tiempo se acabó, la respuesta es incorrecta automáticamente
-            if ($tiempo_terminado === '1') {
+            if ($tiempo_terminado === '1' || $validacionHora === false) {
                 $esCorrecta = false;
             } else {
                 $esCorrecta = $correcta === $opcionSeleccionada;
@@ -299,5 +300,46 @@ class GameModel{
                 $this->conexion->query($sql_update);
             }
         }
+    }
+
+    public function validarTiempoDeRespuesta($idPregunta, $idUsuario, $horaRespuesta){
+        $sql = "SELECT hora FROM preguntas_respondidas
+                WHERE id_pregunta = $idPregunta AND id_usuario = $idUsuario
+                ORDER BY hora DESC LIMIT 1";
+
+        $resultado = $this->conexion->query($sql);
+
+        if (!is_array($resultado) || count($resultado) == 0) {
+            error_log("Error: No se encontró pregunta_respondida para validar tiempo");
+            return true;
+        }
+
+        // Obtener las horas como strings y convertirlas a timestamps
+        $horaGuardada = $resultado[0]['hora'];
+        
+        // Si horaRespuesta es un objeto DateTime, convertir a string
+        if ($horaRespuesta instanceof DateTime) {
+            $horaRespuestaStr = $horaRespuesta->format('Y-m-d H:i:s');
+        } else {
+            $horaRespuestaStr = $horaRespuesta;
+        }
+
+        // Convertir ambas a timestamps usando strtotime (que respeta la zona horaria de PHP)
+        $timestampGuardado = strtotime($horaGuardada);
+        $timestampRespuesta = strtotime($horaRespuestaStr);
+        
+        $diferenciaSegundos = $timestampRespuesta - $timestampGuardado;
+        
+        $tiempoMaximoPermitido = 10;
+        
+        error_log("Validación de tiempo: Hora guardada=$horaGuardada, Hora respuesta=$horaRespuestaStr, Diferencia=$diferenciaSegundos segundos");
+        
+        // Permitir si está dentro del rango (0 a 10 segundos)
+        if ($diferenciaSegundos < 0 || $diferenciaSegundos > $tiempoMaximoPermitido) {
+            error_log("Respuesta rechazada: Usuario tardó $diferenciaSegundos segundos (máximo: $tiempoMaximoPermitido)");
+            return false;
+        }
+        
+        return true;
     }
 }

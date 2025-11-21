@@ -91,6 +91,7 @@ CREATE TABLE preguntas_respondidas (
     id_pregunta_respondida INT AUTO_INCREMENT PRIMARY KEY,
     id_pregunta INT NOT NULL,
     id_usuario INT NOT NULL,
+    hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_pregunta) REFERENCES preguntas(id_pregunta) ON DELETE CASCADE,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE,
     INDEX idx_preguntas_respondidas_usuario (id_usuario, id_pregunta)
@@ -183,3 +184,4 @@ CREATE TABLE categorias (
                             nombre VARCHAR(100) NOT NULL
 );
 
+ALTER TABLE preguntas_respondidas ADD hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
