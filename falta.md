@@ -15,25 +15,25 @@
 
 ✓ -- modificar los niveles de los jugadores segun las respuestas que aciertan.
 
-Cuando recargan la pagina que no se pueda volver a girar la ruleta/contar la respuesta como valida.
+✓ -- Cuando recargan la pagina que no se pueda volver a girar la ruleta/contar la respuesta como valida.
 
-que no puedan volver para atras cuando erran la respuesta.
+✓ -- que no puedan volver para atras cuando erran la respuesta.
 
 podriamos mejorar las partidas haciendo que las preguntas den diferentes puntos segun la dificultad que tengan.
 
-validacion en back-end para revisar que el tiempo que tardaron en responder sea menor a 10 segundos (anti-cheat)
+✓ -- validacion en back-end para revisar que el tiempo que tardaron en responder sea menor a 10 segundos (anti-cheat)
 
 <!-------------->
 
 <!-- GENERAL -->
 
-hay que pasar el control de sesiones al index.
+✓ -- hay que pasar el control de sesiones al index.
 
 refactorizar codigo repetido.
 
 ✓ -- dejar de pasar los $_POST() directamente al model, primero tenemos que guardarlos.
 
-crear helper para la redireccion.
+✓ -- crear helper para la redireccion.
 
 <!------------>
 
