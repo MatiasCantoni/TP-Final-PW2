@@ -69,4 +69,15 @@ class PerfilModel {
             'porcentaje_acierto' => 0
         ];
     }
+
+    public function actualizarUsuario($id, $nombre, $anio, $sexo, $pais, $ciudad) {
+        $sql = "UPDATE usuarios 
+                SET nombre_completo = '$nombre', 
+                    anio_nacimiento = '$anio', 
+                    sexo = '$sexo', 
+                    pais = '$pais', 
+                    ciudad = '$ciudad' 
+                WHERE id_usuario = $id";
+        $this->conexion->query($sql);
+    }
 }
