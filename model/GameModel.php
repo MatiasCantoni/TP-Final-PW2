@@ -71,7 +71,7 @@ class GameModel{
         return null;
     }
 
-    public function verificarRespuesta($idPregunta, $idUsuario, $opcionSeleccionada, $tiempo_terminado = '', $horaRespuesta){
+    public function verificarRespuesta($idPregunta, $idUsuario, $opcionSeleccionada, $tiempo_terminado = ''){
         $datos = [];
         
         // Validar que tengamos un id_pregunta válido
@@ -79,7 +79,7 @@ class GameModel{
             error_log("Error: id_pregunta inválido o vacío: " . var_export($idPregunta, true));
             return null;
         }
-        $validacionHora = $this->validarTiempoDeRespuesta($idPregunta, $idUsuario, $horaRespuesta);
+        $validacionHora = $this->validarTiempoDeRespuesta($idPregunta, $idUsuario);
         $correcta = $this->getRespuestaCorrecta($idPregunta);
         
 
@@ -302,8 +302,12 @@ class GameModel{
         }
     }
 
-    public function validarTiempoDeRespuesta($idPregunta, $idUsuario, $horaRespuesta){
-        $sql = "SELECT hora FROM preguntas_respondidas
+    public function validarTiempoDeRespuesta($idPregunta, $idUsuario){
+        // Usar NOW() de MySQL para la hora actual, evitando problemas de zona horaria en PHP
+        // TIMESTAMPDIFF calcula la diferencia en segundos usando el reloj del servidor MySQL
+        
+        $sql = "SELECT TIMESTAMPDIFF(SECOND, hora, NOW()) as diferencia_segundos
+                FROM preguntas_respondidas
                 WHERE id_pregunta = $idPregunta AND id_usuario = $idUsuario
                 ORDER BY hora DESC LIMIT 1";
 
@@ -314,27 +318,12 @@ class GameModel{
             return true;
         }
 
-        // Obtener las horas como strings y convertirlas a timestamps
-        $horaGuardada = $resultado[0]['hora'];
-        
-        // Si horaRespuesta es un objeto DateTime, convertir a string
-        if ($horaRespuesta instanceof DateTime) {
-            $horaRespuestaStr = $horaRespuesta->format('Y-m-d H:i:s');
-        } else {
-            $horaRespuestaStr = $horaRespuesta;
-        }
-
-        // Convertir ambas a timestamps usando strtotime (que respeta la zona horaria de PHP)
-        $timestampGuardado = strtotime($horaGuardada);
-        $timestampRespuesta = strtotime($horaRespuestaStr);
-        
-        $diferenciaSegundos = $timestampRespuesta - $timestampGuardado;
+        $diferenciaSegundos = (int)$resultado[0]['diferencia_segundos'];
         
         $tiempoMaximoPermitido = 10;
         
-        error_log("Validación de tiempo: Hora guardada=$horaGuardada, Hora respuesta=$horaRespuestaStr, Diferencia=$diferenciaSegundos segundos");
+        error_log("Validación de tiempo: Diferencia=$diferenciaSegundos segundos, máximo permitido=$tiempoMaximoPermitido");
         
-        // Permitir si está dentro del rango (0 a 10 segundos)
         if ($diferenciaSegundos < 0 || $diferenciaSegundos > $tiempoMaximoPermitido) {
             error_log("Respuesta rechazada: Usuario tardó $diferenciaSegundos segundos (máximo: $tiempoMaximoPermitido)");
             return false;

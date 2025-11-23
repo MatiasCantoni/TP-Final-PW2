@@ -59,9 +59,8 @@ class GameController{
         $idPregunta = $_POST["id_pregunta"];
         $idUsuario = $_SESSION["usuario"]["id_usuario"];
         $_SESSION["pregunta_respondida"] = true;
-        $horaRespuesta = new DateTime();
 
-        $datos = $this->model->verificarRespuesta($idPregunta, $idUsuario, $opcionSeleccionada, $tiempo_terminado, $horaRespuesta);
+        $datos = $this->model->verificarRespuesta($idPregunta, $idUsuario, $opcionSeleccionada, $tiempo_terminado);
         
         $gano = $datos['correcta'];
         $puntajePartida = $datos['puntajePartida'];
