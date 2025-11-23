@@ -16,11 +16,33 @@ class GameModel{
         }
         return $resultado;
     }
-    public function getCategorias(){
-        return ['Historia', 'Ciencia', 'Deportes', 'Arte', 'Geografia', 'Entretenimiento'];
+    public function getCategorias() {
+        $sql = "SELECT nombre FROM categorias";
+        $result = $this->conexion->query($sql);
+
+        // Convertimos el resultado en un array simple de nombres
+        $categorias = [];
+        if ($result && is_array($result)) {
+            foreach ($result as $fila) {
+                $categorias[] = $fila["nombre"];
+            }
+        }
+
+        return $categorias;
     }
 
-    public function getPreguntaRandom($categoria, $usuario, $nivelUsuario){
+
+    public function getPreguntaRandom($categoriaNombre, $usuario, $nivelUsuario) {
+        // Primero obtenemos el id de la categoría
+        $sql = "SELECT id_categoria FROM categorias WHERE nombre = '$categoriaNombre'";
+        $resultadoCat = $this->conexion->query($sql);
+
+        if (!$resultadoCat || count($resultadoCat) == 0) {
+            return [];
+        }
+
+        $idCategoria = $resultadoCat[0]["id_categoria"];
+
         $nivel = match ($nivelUsuario) {
             'bajo' => 'facil',
             'medio' => 'media',
@@ -28,37 +50,45 @@ class GameModel{
             default => 'media',
         };
 
-        // primero busco preguntas del nivel exacto del usuario
-        $sql = "SELECT * FROM preguntas WHERE categoria = '$categoria' AND estado = 'aprobada' AND dificultad = '$nivel'
-            AND id_pregunta NOT IN (SELECT id_pregunta FROM preguntas_respondidas WHERE id_usuario = $usuario) ORDER BY RAND() LIMIT 1";
+        // Pregunta según nivel
+        $sql = "SELECT * FROM preguntas 
+            WHERE id_categoria = '$idCategoria' 
+            AND estado = 'aprobada' 
+            AND dificultad = '$nivel'
+            AND id_pregunta NOT IN (
+                SELECT id_pregunta FROM preguntas_respondidas WHERE id_usuario = $usuario
+            )
+            ORDER BY RAND() LIMIT 1";
+
         $result = $this->conexion->query($sql);
 
-        // si no hay preguntas del nivel exacto, busco en dificultades cercanas
-        if (empty($result) || !is_array($result) || count($result) == 0) {
-            $dificultades_cercanas = match ($nivel) {
-                'facil' => ['media', 'dificil'],
-                'media' => ['facil', 'dificil'],
-                'dificil' => ['media', 'facil'],
-                default => ['media', 'facil', 'dificil']
-            };
+        if (empty($result) || count($result) == 0) {
+            // Si no hay preguntas exactas, buscar otras dificultades
+            $dificultades_cercanas = ['facil', 'media', 'dificil'];
 
+            foreach ($dificultades_cercanas as $dif) {
+                if ($dif === $nivel) continue;
 
-            foreach ($dificultades_cercanas as $dif_cercana) {
-                $sql = "SELECT * FROM preguntas WHERE categoria = '$categoria' AND estado = 'aprobada' AND dificultad = '$dif_cercana'
-                    AND id_pregunta NOT IN (SELECT id_pregunta FROM preguntas_respondidas WHERE id_usuario = $usuario) ORDER BY RAND() LIMIT 1";
+                $sql = "SELECT * FROM preguntas 
+                    WHERE id_categoria = '$idCategoria' 
+                    AND estado = 'aprobada' 
+                    AND dificultad = '$dif'
+                    AND id_pregunta NOT IN (
+                        SELECT id_pregunta FROM preguntas_respondidas WHERE id_usuario = $usuario
+                    )
+                    ORDER BY RAND() LIMIT 1";
                 $result = $this->conexion->query($sql);
-                
-                if (is_array($result) && count($result) > 0) {
-                    break; 
+                if ($result && count($result) > 0) {
+                    break;
                 }
             }
         }
 
-        if (is_array($result) && count($result) > 0) {
+        if ($result && count($result) > 0) {
             $this->agregarPreguntaRespondida($result[0]["id_pregunta"], $usuario);
-                        
             return $result[0];
         }
+
         return [];
     }
 

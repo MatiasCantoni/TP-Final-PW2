@@ -10,21 +10,29 @@ class GameController{
         $this->renderer = $renderer;
     }
 
-    
+
     public function singleplayer(){
         AuthHelper::checkAny(["admin", "editor", "jugador"]);
         $_SESSION["pregunta_respondida"] = false;
 
         $idUsuario = $_SESSION["usuario"]["id_usuario"];
         $resultado = $this->model->esUsuarioAptoParaJugar($idUsuario);
+
         if ($resultado == false){
             $this->renderer->render("inicio", ["isInicio" => true, "mensajeError" => "Este usuario no es apto para jugar."]);
             return;
         }
+
+        // ahora viene directo de la base
         $categorias = $this->model->getCategorias();
-        $this->renderer->render("singleplayer", ["isSingleplayer" => true, "categorias" => $categorias ,"showNavbar" => true]);
-        
+
+        $this->renderer->render("singleplayer", [
+            "isSingleplayer" => true,
+            "categorias" => $categorias,
+            "showNavbar" => true
+        ]);
     }
+
 
     public function pregunta(){
         if (isset($_SESSION["pregunta_respondida"]) && $_SESSION["pregunta_respondida"] === true) {

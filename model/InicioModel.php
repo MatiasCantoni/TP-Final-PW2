@@ -30,9 +30,25 @@ class InicioModel{
         return null;
     }
 
-    public function validacionPreguntaSugerida($idUsuario, $texto, $opcion_a, $opcion_b, $opcion_c, $opcion_d, $correcta, $categoria) {
-        $sql = "INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, categoria, id_creador)
-            VALUES ('$texto', '$opcion_a', '$opcion_b', '$opcion_c', '$opcion_d', '$correcta', '$categoria', '$idUsuario' )";
+    public function validacionPreguntaSugerida($idUsuario, $texto, $a, $b, $c, $d, $respuesta, $categoriaNombre) {
+        // Buscar el id_categoria según el nombre
+        $sqlCategoria = "SELECT id_categoria FROM categorias WHERE nombre = '$categoriaNombre'";
+        $resultadoCategoria = $this->conexion->query($sqlCategoria);
+
+        if (!$resultadoCategoria || count($resultadoCategoria) == 0) {
+            echo "Error: la categoría '$categoriaNombre' no existe en la base de datos.";
+            return;
+        }
+
+        $idCategoria = $resultadoCategoria[0]['id_categoria'];
+
+        // Insertar la pregunta usando id_categoria
+        $sql = "INSERT INTO preguntas 
+                (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, id_categoria, dificultad, id_creador, estado)
+                VALUES 
+                ('$texto', '$a', '$b', '$c', '$d', '$respuesta', '$idCategoria', 'facil', '$idUsuario', 'pendiente')";
+
         $this->conexion->query($sql);
     }
+
 }

@@ -27,8 +27,13 @@
         </div>
     </div>
 </div>
-
-<script>
-  const categorias = {{#categorias}}["{{nombre}}", {{/categorias}}];
-</script>
 <script src="/assets/js/ruleta.js"></script>
+<script>
+    // Este array se completa automáticamente con las categorías que vienen del modelo
+    const categorias = [
+        {{#categorias}}
+            "{{.}}",
+        {{/categorias}}
+    ];
+</script>
+

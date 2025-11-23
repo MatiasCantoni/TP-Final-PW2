@@ -36,25 +36,42 @@ INSERT INTO usuarios (nombre_completo, anio_nacimiento, sexo, pais, ciudad, emai
 VALUES ('Admin User', 1990, 'Masculino', 'Argentina', 'Buenos Aires', 'admin@example.com', 'admin', 'admin', 'admin', 1);
 
 
+CREATE TABLE categorias (
+                            id_categoria INT AUTO_INCREMENT PRIMARY KEY,
+                            nombre VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- Poblamos la tabla con las categorías existentes
+INSERT INTO categorias (nombre)
+VALUES
+    ('Historia'),
+    ('Ciencia'),
+    ('Deportes'),
+    ('Arte'),
+    ('Geografia'),
+    ('Entretenimiento');
+
+-- Tabla de preguntas
 CREATE TABLE preguntas (
-    id_pregunta INT AUTO_INCREMENT PRIMARY KEY,
-    texto TEXT NOT NULL,
-    opcion_a VARCHAR(255),
-    opcion_b VARCHAR(255),
-    opcion_c VARCHAR(255),
-    opcion_d VARCHAR(255),
-    respuesta_correcta CHAR(1) CHECK (respuesta_correcta IN ('A','B','C','D')),
-    dificultad ENUM('facil', 'media', 'dificil') DEFAULT 'facil',
-    categoria ENUM('Historia', 'Ciencia', 'Deportes', 'Arte', 'Geografia', 'Entretenimiento') NOT NULL,
-    correcta_count INT DEFAULT 0,
-    incorrecta_count INT DEFAULT 0,
-    estado ENUM('pendiente', 'aprobada', 'rechazada') DEFAULT 'pendiente',
-    id_creador INT,
-    id_aprobador INT NULL,
-    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_creador) REFERENCES usuarios(id_usuario) ON DELETE SET NULL,
-    FOREIGN KEY (id_aprobador) REFERENCES usuarios(id_usuario) ON DELETE SET NULL,
-    INDEX idx_categoria_estado (categoria, estado)
+                           id_pregunta INT AUTO_INCREMENT PRIMARY KEY,
+                           texto TEXT NOT NULL,
+                           opcion_a VARCHAR(255),
+                           opcion_b VARCHAR(255),
+                           opcion_c VARCHAR(255),
+                           opcion_d VARCHAR(255),
+                           respuesta_correcta CHAR(1) CHECK (respuesta_correcta IN ('A','B','C','D')),
+                           dificultad ENUM('facil', 'media', 'dificil') DEFAULT 'facil',
+                           id_categoria INT NOT NULL,
+                           correcta_count INT DEFAULT 0,
+                           incorrecta_count INT DEFAULT 0,
+                           estado ENUM('pendiente', 'aprobada', 'rechazada') DEFAULT 'pendiente',
+                           id_creador INT,
+                           id_aprobador INT NULL,
+                           fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+                           FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria) ON DELETE CASCADE,
+                           FOREIGN KEY (id_creador) REFERENCES usuarios(id_usuario) ON DELETE SET NULL,
+                           FOREIGN KEY (id_aprobador) REFERENCES usuarios(id_usuario) ON DELETE SET NULL,
+                           INDEX idx_categoria_estado (id_categoria, estado)
 );
 
 CREATE TABLE partidas (
@@ -111,65 +128,65 @@ CREATE TABLE reportes_pregunta (
 );
 
 
-INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, categoria, dificultad, estado) VALUES
-    ('¿En qué año llegó el hombre a la luna?', '1965', '1969', '1971', '1975', 'B', 'Historia', 'facil', 'aprobada'),
-    ('¿Cuál es el país con más Copas del Mundo de fútbol?', 'Argentina', 'Alemania', 'Brasil', 'Italia', 'C', 'Deportes', 'facil', 'aprobada'),
-    ('¿Cuál es el océano más grande?', 'Atlántico', 'Índico', 'Ártico', 'Pacífico', 'D', 'Geografia', 'media', 'aprobada'),
-    ('¿Quién pintó la Mona Lisa?', 'Van Gogh', 'Leonardo Da Vinci', 'Picasso', 'Rembrandt', 'B', 'Arte', 'facil', 'aprobada');
+INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, id_categoria, dificultad, estado) VALUES
+    ('¿En qué año llegó el hombre a la luna?', '1965', '1969', '1971', '1975', 'B', '1', 'facil', 'aprobada'),
+    ('¿Cuál es el país con más Copas del Mundo de fútbol?', 'Argentina', 'Alemania', 'Brasil', 'Italia', 'C', '3', 'facil', 'aprobada'),
+    ('¿Cuál es el océano más grande?', 'Atlántico', 'Índico', 'Ártico', 'Pacífico', 'D', '5', 'media', 'aprobada'),
+    ('¿Quién pintó la Mona Lisa?', 'Van Gogh', 'Leonardo Da Vinci', 'Picasso', 'Rembrandt', 'B', '4', 'facil', 'aprobada');
 
 -- HISTORIA
-INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, categoria, dificultad, estado) VALUES
-('¿En qué año comenzó la Primera Guerra Mundial?', '1914', '1918', '1939', '1945', 'A', 'Historia', 'media', 'aprobada'),
-('¿Quién fue el primer presidente de los Estados Unidos?', 'George Washington', 'Thomas Jefferson', 'Abraham Lincoln', 'John Adams', 'A', 'Historia', 'facil', 'aprobada'),
-('¿En qué país se construyó el Muro de Berlín?', 'Francia', 'Alemania', 'Polonia', 'Rusia', 'B', 'Historia', 'facil', 'aprobada'),
-('¿Qué civilización construyó Machu Picchu?', 'Azteca', 'Inca', 'Maya', 'Olmeca', 'B', 'Historia', 'facil', 'aprobada'),
-('¿En qué año terminó la Segunda Guerra Mundial?', '1945', '1942', '1939', '1950', 'A', 'Historia', 'facil', 'aprobada');
+INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, id_categoria, dificultad, estado) VALUES
+('¿En qué año comenzó la Primera Guerra Mundial?', '1914', '1918', '1939', '1945', 'A', '1', 'media', 'aprobada'),
+('¿Quién fue el primer presidente de los Estados Unidos?', 'George Washington', 'Thomas Jefferson', 'Abraham Lincoln', 'John Adams', 'A', '1', 'facil', 'aprobada'),
+('¿En qué país se construyó el Muro de Berlín?', 'Francia', 'Alemania', 'Polonia', 'Rusia', 'B', '1', 'facil', 'aprobada'),
+('¿Qué civilización construyó Machu Picchu?', 'Azteca', 'Inca', 'Maya', 'Olmeca', 'B', '1', 'facil', 'aprobada'),
+('¿En qué año terminó la Segunda Guerra Mundial?', '1945', '1942', '1939', '1950', 'A', '1', 'facil', 'aprobada');
 
 -- CIENCIA
-INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, categoria, dificultad, estado) VALUES
-('¿Cuál es el planeta más grande del sistema solar?', 'Saturno', 'Júpiter', 'Urano', 'Neptuno', 'B', 'Ciencia', 'facil', 'aprobada'),
-('¿Cuál es la fórmula química del agua?', 'CO2', 'H2O', 'O2', 'NaCl', 'B', 'Ciencia', 'facil', 'aprobada'),
-('¿Qué científico propuso la teoría de la relatividad?', 'Isaac Newton', 'Albert Einstein', 'Galileo Galilei', 'Niels Bohr', 'B', 'Ciencia', 'media', 'aprobada'),
-('¿Cuál es el órgano más grande del cuerpo humano?', 'Corazón', 'Hígado', 'Piel', 'Cerebro', 'C', 'Ciencia', 'media', 'aprobada'),
-('¿Qué gas necesitan las plantas para hacer la fotosíntesis?', 'Oxígeno', 'Dióxido de carbono', 'Hidrógeno', 'Nitrógeno', 'B', 'Ciencia', 'facil', 'aprobada');
+INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, id_categoria, dificultad, estado) VALUES
+('¿Cuál es el planeta más grande del sistema solar?', 'Saturno', 'Júpiter', 'Urano', 'Neptuno', 'B', '2', 'facil', 'aprobada'),
+('¿Cuál es la fórmula química del agua?', 'CO2', 'H2O', 'O2', 'NaCl', 'B', '2', 'facil', 'aprobada'),
+('¿Qué científico propuso la teoría de la relatividad?', 'Isaac Newton', 'Albert Einstein', 'Galileo Galilei', 'Niels Bohr', 'B', '2', 'media', 'aprobada'),
+('¿Cuál es el órgano más grande del cuerpo humano?', 'Corazón', 'Hígado', 'Piel', 'Cerebro', 'C', '2', 'media', 'aprobada'),
+('¿Qué gas necesitan las plantas para hacer la fotosíntesis?', 'Oxígeno', 'Dióxido de carbono', 'Hidrógeno', 'Nitrógeno', 'B', '2', 'facil', 'aprobada');
 
 -- DEPORTES
-INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, categoria, dificultad, estado) VALUES
-('¿Cuántos jugadores hay en un equipo de fútbol en el campo?', '9', '10', '11', '12', 'C', 'Deportes', 'facil', 'aprobada'),
-('¿En qué deporte se utiliza un disco?', 'Béisbol', 'Hockey sobre hielo', 'Balonmano', 'Tenis', 'B', 'Deportes', 'facil', 'aprobada'),
-('¿Quién tiene más títulos de Grand Slam en tenis masculino?', 'Roger Federer', 'Novak Djokovic', 'Rafael Nadal', 'Andy Murray', 'B', 'Deportes', 'media', 'aprobada'),
-('¿En qué país se originó el sumo?', 'China', 'Corea del Sur', 'Japón', 'Tailandia', 'C', 'Deportes', 'facil', 'aprobada'),
-('¿Cuántos puntos vale un triple en baloncesto?', '2', '3', '4', '1', 'B', 'Deportes', 'facil', 'aprobada');
+INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, id_categoria, dificultad, estado) VALUES
+('¿Cuántos jugadores hay en un equipo de fútbol en el campo?', '9', '10', '11', '12', 'C', '3', 'facil', 'aprobada'),
+('¿En qué deporte se utiliza un disco?', 'Béisbol', 'Hockey sobre hielo', 'Balonmano', 'Tenis', 'B', '3', 'facil', 'aprobada'),
+('¿Quién tiene más títulos de Grand Slam en tenis masculino?', 'Roger Federer', 'Novak Djokovic', 'Rafael Nadal', 'Andy Murray', 'B', '3', 'media', 'aprobada'),
+('¿En qué país se originó el sumo?', 'China', 'Corea del Sur', 'Japón', 'Tailandia', 'C', '3', 'facil', 'aprobada'),
+('¿Cuántos puntos vale un triple en baloncesto?', '2', '3', '4', '1', 'B', '3', 'facil', 'aprobada');
 
 -- ARTE
-INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, categoria, dificultad, estado) VALUES
-('¿Quién pintó "La noche estrellada"?', 'Vincent Van Gogh', 'Claude Monet', 'Salvador Dalí', 'Leonardo Da Vinci', 'A', 'Arte', 'facil', 'aprobada'),
-('¿A qué movimiento pertenece Picasso?', 'Cubismo', 'Surrealismo', 'Impresionismo', 'Realismo', 'A', 'Arte', 'media', 'aprobada'),
-('¿Cuál de las siguientes es una obra de Miguel Ángel?', 'La última cena', 'La creación de Adán', 'El grito', 'Guernica', 'B', 'Arte', 'media', 'aprobada'),
-('¿En qué país nació el artista Salvador Dalí?', 'Francia', 'Italia', 'España', 'Portugal', 'C', 'Arte', 'facil', 'aprobada'),
-('¿Qué instrumento musical tiene teclas negras y blancas?', 'Violín', 'Piano', 'Guitarra', 'Arpa', 'B', 'Arte', 'facil', 'aprobada');
+INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, id_categoria, dificultad, estado) VALUES
+('¿Quién pintó "La noche estrellada"?', 'Vincent Van Gogh', 'Claude Monet', 'Salvador Dalí', 'Leonardo Da Vinci', 'A', '4', 'facil', 'aprobada'),
+('¿A qué movimiento pertenece Picasso?', 'Cubismo', 'Surrealismo', 'Impresionismo', 'Realismo', 'A', '4', 'media', 'aprobada'),
+('¿Cuál de las siguientes es una obra de Miguel Ángel?', 'La última cena', 'La creación de Adán', 'El grito', 'Guernica', 'B', '4', 'media', 'aprobada'),
+('¿En qué país nació el artista Salvador Dalí?', 'Francia', 'Italia', 'España', 'Portugal', 'C', '4', 'facil', 'aprobada'),
+('¿Qué instrumento musical tiene teclas negras y blancas?', 'Violín', 'Piano', 'Guitarra', 'Arpa', 'B', '4', 'facil', 'aprobada');
 
 -- GEOGRAFIA
-INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, categoria, dificultad, estado) VALUES
-('¿Cuál es el río más largo del mundo?', 'Amazonas', 'Nilo', 'Yangtsé', 'Misisipi', 'A', 'Geografia', 'media', 'aprobada'),
-('¿En qué continente se encuentra Egipto?', 'África', 'Asia', 'Europa', 'Oceanía', 'A', 'Geografia', 'facil', 'aprobada'),
-('¿Cuál es el país más grande del mundo?', 'Canadá', 'China', 'Rusia', 'Estados Unidos', 'C', 'Geografia', 'facil', 'aprobada'),
-('¿Cuál es la capital de Australia?', 'Sídney', 'Melbourne', 'Canberra', 'Perth', 'C', 'Geografia', 'media', 'aprobada'),
-('¿En qué país se encuentra la Torre Eiffel?', 'Italia', 'Francia', 'Inglaterra', 'España', 'B', 'Geografia', 'facil', 'aprobada');
+INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, id_categoria, dificultad, estado) VALUES
+('¿Cuál es el río más largo del mundo?', 'Amazonas', 'Nilo', 'Yangtsé', 'Misisipi', 'A', '5', 'media', 'aprobada'),
+('¿En qué continente se encuentra Egipto?', 'África', 'Asia', 'Europa', 'Oceanía', 'A', '5', 'facil', 'aprobada'),
+('¿Cuál es el país más grande del mundo?', 'Canadá', 'China', 'Rusia', 'Estados Unidos', 'C', '5', 'facil', 'aprobada'),
+('¿Cuál es la capital de Australia?', 'Sídney', 'Melbourne', 'Canberra', 'Perth', 'C', '5', 'media', 'aprobada'),
+('¿En qué país se encuentra la Torre Eiffel?', 'Italia', 'Francia', 'Inglaterra', 'España', 'B', '5', 'facil', 'aprobada');
 
 -- ENTRETENIMIENTO
-INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, categoria, dificultad, estado) VALUES
-('¿Cuál es el nombre del mago protagonista en "Harry Potter"?', 'Ron Weasley', 'Harry Potter', 'Hermione Granger', 'Draco Malfoy', 'B', 'Entretenimiento', 'facil', 'aprobada'),
-('¿Qué empresa creó el videojuego "Super Mario"?', 'Sega', 'Sony', 'Nintendo', 'Microsoft', 'C', 'Entretenimiento', 'facil', 'aprobada'),
-('¿Quién interpretó a Iron Man en el Universo Marvel?', 'Chris Evans', 'Chris Hemsworth', 'Robert Downey Jr.', 'Mark Ruffalo', 'C', 'Entretenimiento', 'facil', 'aprobada'),
-('¿Qué serie tiene como protagonistas a Ross, Rachel, Monica, Chandler, Joey y Phoebe?', 'Friends', 'How I Met Your Mother', 'The Office', 'Seinfeld', 'A', 'Entretenimiento', 'facil', 'aprobada'),
-('¿Cuál de estos es un personaje de Star Wars?', 'Harry Potter', 'Frodo Bolsón', 'Luke Skywalker', 'Gandalf', 'C', 'Entretenimiento', 'facil', 'aprobada');
+INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, id_categoria, dificultad, estado) VALUES
+('¿Cuál es el nombre del mago protagonista en "Harry Potter"?', 'Ron Weasley', 'Harry Potter', 'Hermione Granger', 'Draco Malfoy', 'B', '6', 'facil', 'aprobada'),
+('¿Qué empresa creó el videojuego "Super Mario"?', 'Sega', 'Sony', 'Nintendo', 'Microsoft', 'C', '6', 'facil', 'aprobada'),
+('¿Quién interpretó a Iron Man en el Universo Marvel?', 'Chris Evans', 'Chris Hemsworth', 'Robert Downey Jr.', 'Mark Ruffalo', 'C', '6', 'facil', 'aprobada'),
+('¿Qué serie tiene como protagonistas a Ross, Rachel, Monica, Chandler, Joey y Phoebe?', 'Friends', 'How I Met Your Mother', 'The Office', 'Seinfeld', 'A', '6', 'facil', 'aprobada'),
+('¿Cuál de estos es un personaje de Star Wars?', 'Harry Potter', 'Frodo Bolsón', 'Luke Skywalker', 'Gandalf', 'C', '6', 'facil', 'aprobada');
 
 
-INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, categoria, dificultad, id_creador, estado)
+INSERT INTO preguntas (texto, opcion_a, opcion_b, opcion_c, opcion_d, respuesta_correcta, id_categoria, dificultad, id_creador, estado)
 VALUES
-    ('¿Cuál es la capital de Canadá?', 'Toronto', 'Ottawa', 'Vancouver', 'Montreal', 'B', 'Geografia', 'facil', 1, 'pendiente'),
-    ('¿Cuál es el metal más ligero?', 'Aluminio', 'Litio', 'Plomo', 'Oro', 'B', 'Ciencia', 'media', 1, 'pendiente');
+    ('¿Cuál es la capital de Canadá?', 'Toronto', 'Ottawa', 'Vancouver', 'Montreal', 'B', '5', 'facil', 1, 'pendiente'),
+    ('¿Cuál es el metal más ligero?', 'Aluminio', 'Litio', 'Plomo', 'Oro', 'B', '2', 'media', 1, 'pendiente');
 
 INSERT INTO reportes_pregunta (id_pregunta, id_usuario, motivo, comentario)
 VALUES (1, 1, 'La pregunta está mal redactada', 'Faltan tildes en la palabra "años"');
@@ -179,9 +196,12 @@ VALUES ('editor User', 1990, 'Masculino', 'Argentina', 'Buenos Aires', 'editor@e
 
 
 
-CREATE TABLE categorias (
-                            id_categoria INT AUTO_INCREMENT PRIMARY KEY,
-                            nombre VARCHAR(100) NOT NULL
-);
+
 
 ALTER TABLE preguntas_respondidas ADD hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
+
+SELECT * FROM categorias;
+
+
+
