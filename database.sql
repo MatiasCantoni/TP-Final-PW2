@@ -196,12 +196,14 @@ VALUES ('editor User', 1990, 'Masculino', 'Argentina', 'Buenos Aires', 'editor@e
 
 
 
-
-
 ALTER TABLE preguntas_respondidas ADD hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
 
 
-SELECT * FROM categorias;
+alter table preguntas drop column categoria;
 
+alter table preguntas add COLUMN id_categoria INT NOT NULL;
 
-
+ALTER TABLE preguntas
+ADD CONSTRAINT id_categoria_fk
+FOREIGN KEY (id_categoria)
+REFERENCES categorias(id_categoria) ON DELETE CASCADE;
