@@ -63,4 +63,35 @@ document.addEventListener('DOMContentLoaded', function () {
             actualizarUbicacion(latlng.lat, latlng.lng);
         });
     }
+    const pass1 = document.getElementById('contrasena');
+    const pass2 = document.getElementById('contrasena_repetida');
+    const mensaje = document.getElementById('mensaje-password');
+    const btnSubmit = document.querySelector('button[type="submit"]');
+
+    function validarPasswords() {
+        const valor1 = pass1.value;
+        const valor2 = pass2.value;
+        if (valor2 === '') {
+            mensaje.style.display = 'none';
+            btnSubmit.disabled = false;
+            return;
+        }
+
+        mensaje.style.display = 'block';
+        if (valor1 === valor2) {
+            mensaje.innerText = 'Las contraseñas coinciden';
+            mensaje.style.color = 'green';
+            pass2.style.borderColor = 'green';
+            btnSubmit.disabled = false;
+        } else {
+            mensaje.innerText = 'Las contraseñas no coinciden';
+            mensaje.style.color = 'red';
+            pass2.style.borderColor = 'red';
+            btnSubmit.disabled = true; 
+        }
+    }
+    if (pass1 && pass2) {
+        pass1.addEventListener('input', validarPasswords);
+        pass2.addEventListener('input', validarPasswords);
+    }
 });
