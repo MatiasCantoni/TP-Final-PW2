@@ -71,8 +71,17 @@ class UserController
         $ciudad = $_POST["ciudad"];
         $correo = $_POST["correo"];
         $contrasena = $_POST["contrasena"];
+        $contrasenaRepetida = $_POST["contrasena_repetida"];
         $usuario = $_POST["usuario"];
 
+        if ($contrasena !== $contrasenaRepetida) {
+            $this->renderer->render("register", [
+                "isRegister" => true, 
+                "error" => "Las contraseñas no coinciden."
+            ]);
+            return;
+        }
+        
         $result = $this->model->registerUser(
             $nombreCompleto,
             $anio,
