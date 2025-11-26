@@ -54,7 +54,7 @@ class GameController{
         ];
         $pregunta['color_categoria'] = $colorCategorias[$categoria] ?? 'bg-default';
 
-        $this->renderer->render("pregunta", ["pregunta" => $pregunta , "showNavBar" => true]);
+        $this->renderer->render("pregunta", ["pregunta" => $pregunta , "showNavBar" => true, "isPregunta" => true]);
     }
 
     public function responder(){
