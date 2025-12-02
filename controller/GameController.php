@@ -39,6 +39,12 @@ class GameController{
             header("Location: /game/singleplayer");
             exit();
         }
+        if (isset($_SESSION['pregunta_dada']) && $_SESSION['pregunta_dada'] === true) {
+            $_SESSION['pregunta_dada'] = false;
+            header("Location: /game/singleplayer");
+            exit();
+        }
+
         $categoria = $_GET["categoria"];
         $usuario = $_SESSION["usuario"]["id_usuario"];
         $nivelUsuario = $_SESSION["usuario"]["nivel"];
@@ -48,6 +54,7 @@ class GameController{
         if (is_array($pregunta) && isset($pregunta['id_pregunta'])) {
             $_SESSION['pregunta_hora'] = time();
             $_SESSION['pregunta_actual'] = $pregunta['id_pregunta'];
+            $_SESSION['pregunta_dada'] = true;
         }
 
         $colorCategorias = [
@@ -68,6 +75,7 @@ class GameController{
             header("Location: /game/singleplayer");
             exit();
         }
+        $_SESSION['pregunta_dada'] = false;
         $opcionSeleccionada = $_POST["opcion"];
         $tiempo_terminado = $_POST["tiempo_terminado"] ?? '';
         $idPregunta = $_POST["id_pregunta"];
