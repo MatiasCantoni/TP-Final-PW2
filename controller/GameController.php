@@ -44,6 +44,12 @@ class GameController{
         $nivelUsuario = $_SESSION["usuario"]["nivel"];
         $pregunta = $this->model->getPreguntaRandom($categoria, $usuario, $nivelUsuario);
 
+        // Guardar en sesión la hora en que se entregó la pregunta y el id de la misma
+        if (is_array($pregunta) && isset($pregunta['id_pregunta'])) {
+            $_SESSION['pregunta_hora'] = time();
+            $_SESSION['pregunta_actual'] = $pregunta['id_pregunta'];
+        }
+
         $colorCategorias = [
             'Historia' => 'bg-historia',
             'Ciencia' => 'bg-ciencia',
@@ -68,7 +74,19 @@ class GameController{
         $idUsuario = $_SESSION["usuario"]["id_usuario"];
         $_SESSION["pregunta_respondida"] = true;
 
-        $datos = $this->model->verificarRespuesta($idPregunta, $idUsuario, $opcionSeleccionada, $tiempo_terminado);
+        // Calcular tiempo transcurrido usando valores guardados en sesión
+        $segundosTranscurridos = null;
+        if (isset($_SESSION['pregunta_hora']) && isset($_SESSION['pregunta_actual']) && $_SESSION['pregunta_actual'] == $idPregunta) {
+            $segundosTranscurridos = time() - (int)$_SESSION['pregunta_hora'];
+
+            unset($_SESSION['pregunta_hora']);
+            unset($_SESSION['pregunta_actual']);
+        } else {
+            // Cuando no hay datos de sesión, tratar como invalidación estricta
+            error_log("Validación de tiempo: datos de sesión faltantes para pregunta $idPregunta usuario $idUsuario");
+        }
+
+        $datos = $this->model->verificarRespuesta($idPregunta, $idUsuario, $opcionSeleccionada, $tiempo_terminado, $segundosTranscurridos);
         
         $gano = $datos['correcta'];
         $puntajePartida = $datos['puntajePartida'];

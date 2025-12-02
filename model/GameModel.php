@@ -101,7 +101,7 @@ class GameModel{
         return null;
     }
 
-    public function verificarRespuesta($idPregunta, $idUsuario, $opcionSeleccionada, $tiempo_terminado = ''){
+    public function verificarRespuesta($idPregunta, $idUsuario, $opcionSeleccionada, $tiempo_terminado = '', $segundosTranscurridos = null){
         $datos = [];
         
         // Validar que tengamos un id_pregunta válido
@@ -109,7 +109,7 @@ class GameModel{
             error_log("Error: id_pregunta inválido o vacío: " . var_export($idPregunta, true));
             return null;
         }
-        $validacionHora = $this->validarTiempoDeRespuesta($idPregunta, $idUsuario);
+        $validacionHora = $this->validarTiempoDeRespuesta($idPregunta, $idUsuario, $segundosTranscurridos);
         $correcta = $this->getRespuestaCorrecta($idPregunta);
         
 
@@ -332,33 +332,22 @@ class GameModel{
         }
     }
 
-    public function validarTiempoDeRespuesta($idPregunta, $idUsuario){
-        // Usar NOW() de MySQL para la hora actual, evitando problemas de zona horaria en PHP
-        // TIMESTAMPDIFF calcula la diferencia en segundos usando el reloj del servidor MySQL
-        
-        $sql = "SELECT TIMESTAMPDIFF(SECOND, hora, NOW()) as diferencia_segundos
-                FROM preguntas_respondidas
-                WHERE id_pregunta = $idPregunta AND id_usuario = $idUsuario
-                ORDER BY hora DESC LIMIT 1";
+    public function validarTiempoDeRespuesta($idPregunta, $idUsuario, $segundosTranscurridos){
 
-        $resultado = $this->conexion->query($sql);
-
-        if (!is_array($resultado) || count($resultado) == 0) {
-            error_log("Error: No se encontró pregunta_respondida para validar tiempo");
-            return true;
-        }
-
-        $diferenciaSegundos = (int)$resultado[0]['diferencia_segundos'];
-        
-        $tiempoMaximoPermitido = 10;
-        
-        error_log("Validación de tiempo: Diferencia=$diferenciaSegundos segundos, máximo permitido=$tiempoMaximoPermitido");
-        
-        if ($diferenciaSegundos < 0 || $diferenciaSegundos > $tiempoMaximoPermitido) {
-            error_log("Respuesta rechazada: Usuario tardó $diferenciaSegundos segundos (máximo: $tiempoMaximoPermitido)");
+        if (!is_int($segundosTranscurridos)) {
+            error_log("Validación de tiempo: segundosTranscurridos no proporcionado para idPregunta=$idPregunta idUsuario=$idUsuario");
             return false;
         }
-        
+
+        $diferenciaSegundos = $segundosTranscurridos;
+        $tiempoMaximoPermitido = 10;
+        error_log("Validación de tiempo (por parámetro): Diferencia={$diferenciaSegundos} segundos, máximo={$tiempoMaximoPermitido}");
+
+        if ($diferenciaSegundos < 0 || $diferenciaSegundos > $tiempoMaximoPermitido) {
+            error_log("Respuesta rechazada: Usuario tardó {$diferenciaSegundos} segundos (máximo: {$tiempoMaximoPermitido})");
+            return false;
+        }
+
         return true;
     }
 }
